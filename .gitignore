@@ -1,0 +1,21 @@
+
+# Archivos compilados y de construcción de NetBeans / Ant
+/build/
+/dist/
+/nbbuild/
+/nbdist/
+*.class
+
+# Configuración privada y local de NetBeans
+/nbproject/private/
+private.properties
+/nbproject/private/
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Archivos de registro y temporales
+*.log
+*.tmp
