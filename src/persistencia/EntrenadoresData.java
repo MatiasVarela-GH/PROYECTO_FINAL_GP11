@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package persistencia;
 import entidades.Entrenadores;
 import java.sql.Connection;
@@ -60,44 +56,75 @@ public class EntrenadoresData {
             Logger.getLogger(EntrenadoresData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //BUSCAR ENTRENADOR POR IDENTRNADORES
     //SELECT
+    public Entrenadores buscarEntrenadorPorDni(String dni) {
+
+        String sql = "SELECT * FROM entrenadores WHERE DNI = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, dni);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    Entrenadores e = new Entrenadores();
+
+                    e.setIdEntrenador(rs.getInt("ID_Entrenador"));
+                    e.setDni(rs.getString("DNI"));
+                    e.setNombre(rs.getString("Nombre"));
+                    e.setApellido(rs.getString("Apellido"));
+                    e.setEspecialidad(rs.getString("Especialidad"));
+                    e.setEstado(rs.getBoolean("Estado"));
+
+                    return e;
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EntrenadoresData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    //BUSCAR ENTRENADORES POR ID
     public Entrenadores buscarEntrenador(int id) {
 
-        Entrenadores e = null;
+        String sql = "SELECT * FROM entrenadores WHERE ID_Entrenador = ?";
 
-        String sql = "SELECT * FROM alumno WHERE idEntrenador = ?";
-
-        try {
-
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, id);
 
-            ResultSet rs = ps.executeQuery();
+            try (ResultSet rs = ps.executeQuery()) {
 
-            if (rs.next()) {
+                if (rs.next()) {
+                    Entrenadores e = new Entrenadores();
 
-                e = new Entrenadores();
+                    e.setIdEntrenador(rs.getInt("ID_Entrenador"));
+                    e.setDni(rs.getString("DNI"));
+                    e.setNombre(rs.getString("Nombre"));
+                    e.setApellido(rs.getString("Apellido"));
+                    e.setEspecialidad(rs.getString("Especialidad"));
+                    e.setEstado(rs.getBoolean("Estado"));
 
-                e.setIdEntrenador(rs.getInt("idEntrenador"));
-                e.setDni(rs.getString("dni"));
-                e.setNombre(rs.getString("nombre"));
-                e.setApellido(rs.getString("apellido"));
-                e.setEspecialidad(rs.getString("especialidad"));
-                e.setEstado(rs.getBoolean("estado"));
+                    return e;
+                }
             }
 
-            ps.close();
-
         } catch (SQLException ex) {
-
-            Logger.getLogger(EntrenadoresData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EntrenadoresData.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
 
-        return e;
+        return null;
     }
+
+        
     //LISTAR LOS ENTRENADORES
     // SELECT*
     public List<Entrenadores> listarEntrenadores() {
@@ -135,13 +162,12 @@ public class EntrenadoresData {
 
         return Entrenadores;
     }
-    
-    //ACTUALIZAR ENTRENADORES
-    //UPDATE
-    public void actualizarAlumno(Entrenadores e) {
 
-        String query = "UPDATE Entrenador SET dni = ?, nombre = ?, apellido = ?, Especialidad = ?, estado = ? "
-                + "WHERE idEntrenador = ?";
+
+    public void actualizarEntrenador(Entrenadores e) {
+
+        String query = "UPDATE entrenadores SET DNI = ?, Nombre = ?, Apellido = ?, Especialidad = ?, Estado = ? "
+                + "WHERE ID_Entrenador = ?";
 
         try {
 
@@ -158,7 +184,7 @@ public class EntrenadoresData {
 
             ps.close();
 
-            System.out.println("Alumno actualizado correctamente");
+            System.out.println("Entrenador actualizado correctamente");
 
         } catch (SQLException ex) {
 
@@ -170,7 +196,7 @@ public class EntrenadoresData {
     //DELETE
      public void borrarEntrenador(int idEntrenador) {
 
-        String query = "DELETE FROM alumno WHERE idEntrenador = ?";
+        String query = "UPDATE entrenadores SET Estado = 0 WHERE ID_Entrenador = ?";
 
         try {
 
@@ -182,46 +208,13 @@ public class EntrenadoresData {
 
             ps.close();
 
-            System.out.println("Entrenador eliminado correctamente");
+            System.out.println("Entrenador dado de baja correctamente");
 
         } catch (SQLException ex) {
 
             Logger.getLogger(EntrenadoresData.class.getName()).log(Level.SEVERE, null, ex);
         }}
-     //BUSCAR ENTRENADOR POR DNI
-     //DELETE
-      public Entrenadores buscarEntrenadorPorDni(int dni) {
-    Entrenadores e = null;
-
-    String sql = "SELECT * FROM Entrenadores WHERE dni = ?";
-
-    try {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, dni);
-
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            e = new Entrenadores();
-            e.setIdEntrenador(rs.getInt("idEntrenador"));
-            e.setDni(rs.getString("dni"));
-            e.setApellido(rs.getString("apellido"));
-            e.setNombre(rs.getString("nombre"));
-            e.setEspecialidad(rs.getString("especialidad"));
-            e.setEstado(rs.getBoolean("estado"));
-        }
-
-        rs.close();
-        ps.close();
-
-    } catch (SQLException ex) {
-        Logger.getLogger(EntrenadoresData.class.getName())
-              .log(Level.SEVERE, null, ex);
-    }
-
-    return e;
-}
-     
+    
         
     }
      
