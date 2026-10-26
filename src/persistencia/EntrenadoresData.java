@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class EntrenadoresData {
     private Connection con = null;
     
@@ -143,12 +144,12 @@ public class EntrenadoresData {
 
                 Entrenadores e = new Entrenadores();
 
-                e.setIdEntrenador(rs.getInt("idEntrenador"));
-                e.setDni(rs.getString("dni"));
-                e.setNombre(rs.getString("nombre"));
-                e.setApellido(rs.getString("apellido"));
-                e.setEspecialidad(rs.getString("especialidad"));
-                e.setEstado(rs.getBoolean("estado"));
+                e.setIdEntrenador(rs.getInt("ID_Entrenador"));
+                e.setDni(rs.getString("DNI"));
+                e.setNombre(rs.getString("Nombre"));
+                e.setApellido(rs.getString("Apellido"));
+                e.setEspecialidad(rs.getString("Especialidad"));
+                e.setEstado(rs.getBoolean("Estado"));
 
                 Entrenadores.add(e);
             }

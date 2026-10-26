@@ -27,10 +27,10 @@ public class MiConexion{
                 password
             );
 
-            System.out.println("Conexión a la base de datos exitosa.");
+            System.out.println("Conexion a la base de datos exitosa.");
 
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Error de conexión: " + ex.getMessage());
+            System.out.println("Error de conexion: " + ex.getMessage());
             conexion = null;
         }
     }

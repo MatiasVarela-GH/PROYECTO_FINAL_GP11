@@ -1,20 +1,87 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package persistencia;
+import entidades.Entrenadores;
+import java.lang.reflect.Array;
+import java.util.HashSet;
+import java.util.List;
 
-/**
- *
- * @author Taigo Capo
- */
 public class AboriGym {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println("--- AboriGym ---");
+
+        MiConexion conexion = new MiConexion(
+                "jdbc:mariadb://localhost:3306/aborigym_gp11",
+                "root",
+                ""
+        );
+        
+        conexion.buscarConexion();
+
+        System.out.println("-- Integrantes --");
+        System.out.println("Juan Cruz Gagliano");
+        System.out.println("Matias Varela");
+        System.out.println("Pablo German Carnota");
+        System.out.println("Thiago Hernan Carnota");
+        
+        EntrenadoresData opcional = new EntrenadoresData(conexion);
+        
+        // Guardar
+        Entrenadores entrenador = new Entrenadores();
+       
+        entrenador.setApellido("Sanchez");
+        entrenador.setNombre("Javier");
+        entrenador.setDni("40485556");
+        entrenador.setEspecialidad("Musculacion");
+        entrenador.setEstado(true);
+        
+        opcional.guardarEntrenador(entrenador);
+        System.out.println("ID generado: " + entrenador.getIdEntrenador());
+        
+        // Buscar x DNI
+        
+        Entrenadores buscarXDni = opcional.buscarEntrenadorPorDni("40485556");
+        
+        if (buscarXDni != null) {
+            System.out.println("Entrenador encontrado: " + buscarXDni.getApellido() + " " + buscarXDni.getNombre() 
+            );
+        } else  {
+            System.out.println("Entrenador NO encontrado...");
+        }
+        
+        // Buscar x ID
+        
+        Entrenadores buscarXId = opcional.buscarEntrenador(1);
+        
+        if (buscarXId != null) {
+            System.out.println("Entrenador encontrado: " + buscarXId.getApellido() + " " + buscarXId.getNombre() 
+            );
+        } else  {
+            System.out.println("Entrenador NO encontrado...");
+        }
+        
+        // Actualizar
+
+        entrenador.setNombre("Francisco");
+        entrenador.setDni("34567890");
+        
+        opcional.actualizarEntrenador(entrenador);
+
+        // Listar 
+        System.out.println(" TODOS LOS ENTRENADORES ");
+
+        List<Entrenadores> lista = opcional.listarEntrenadores();
+
+        for (Entrenadores e : lista) {
+            System.out.println(e.getIdEntrenador() + " " + e.getApellido() + " " + e.getNombre());
+        }
+
+        // Borrar
+        opcional.borrarEntrenador(2);
+
+        Entrenadores dadoDeBaja = opcional.buscarEntrenador(2);
+
+        if (dadoDeBaja != null) {
+            System.out.println("Estado del entrenador: " + dadoDeBaja.isEstado());
+        }
     }
-    
 }
