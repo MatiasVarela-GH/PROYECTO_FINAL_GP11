@@ -136,7 +136,7 @@ public class SocioData {
         return socios;
     }
 
-    // 5. ACTUALIZAR SOCIO (UPDATE)
+    //  ACTUALIZAR SOCIO (UPDATE)
     public void actualizarSocio(Socios socio) {
         String sql = "UPDATE socios SET DNI = ?, Nombre = ?, Apellido = ?, Edad = ?, Correo = ?, Telefono = ?, Estado = ? WHERE ID_Socio = ?";
 
@@ -159,7 +159,7 @@ public class SocioData {
         }
     }
 
-    // 6. BAJA LÓGICA DE SOCIO (UPDATE Estado = 0)
+    // BAJA LÓGICA DE SOCIO (UPDATE Estado = 0)
     public void borrarSocio(int idSocio) {
         String sql = "UPDATE socios SET Estado = 0 WHERE ID_Socio = ?";
 
