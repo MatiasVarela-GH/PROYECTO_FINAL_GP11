@@ -15,9 +15,11 @@ import java.util.logging.Logger;
 public class ClasesData {
 
     private Connection con = null;
+    private EntrenadoresData ed;
 
     public ClasesData(MiConexion conexion) {
         this.con = conexion.buscarConexion();
+        this.ed = new EntrenadoresData(conexion);
     }
 
     //---------------------------------------------------------------
@@ -34,6 +36,7 @@ public class ClasesData {
                     sql,
                     Statement.RETURN_GENERATED_KEYS);
 
+            
             ps.setString(1, c.getDisciplina());
             ps.setInt(2, c.getEntrenador().getIdEntrenador());
             ps.setTime(3, java.sql.Time.valueOf(c.getHorario()));
@@ -43,7 +46,6 @@ public class ClasesData {
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
-
             if (rs.next()) {
                 c.setIdClase(rs.getInt(1));
             } else {
@@ -60,46 +62,13 @@ public class ClasesData {
                     .log(Level.SEVERE, null, ex);
         }
     }
-    /*
+    
     //---------------------------------------------------------------
     //           BUSCAR CLASE POR ID (SELECT)
     //---------------------------------------------------------------
-    public Clases buscarClasePorID(String dni) {
+    public Clases buscarClasePorID(int id) {
 
         String sql = "SELECT * FROM clases WHERE ID_Clase= ?";
-
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, dni);
-
-            try (ResultSet rs = ps.executeQuery()) {
-
-                if (rs.next()) {
-                    Entrenadores e = new Entrenadores();
-
-                    e.setIdEntrenador(rs.getInt("ID_Entrenador"));
-                    e.setDni(rs.getString("DNI"));
-                    e.setNombre(rs.getString("Nombre"));
-                    e.setApellido(rs.getString("Apellido"));
-                    e.setEspecialidad(rs.getString("Especialidad"));
-                    e.setEstado(rs.getBoolean("Estado"));
-
-                    return e;
-                }
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(EntrenadoresData.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
-
-    //BUSCAR ENTRENADORES POR ID
-    public Entrenadores buscarEntrenador(int id) {
-
-        String sql = "SELECT * FROM entrenadores WHERE ID_Entrenador = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -108,35 +77,41 @@ public class ClasesData {
             try (ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
-                    Entrenadores e = new Entrenadores();
+                    
+                    Clases c = new Clases();
 
-                    e.setIdEntrenador(rs.getInt("ID_Entrenador"));
-                    e.setDni(rs.getString("DNI"));
-                    e.setNombre(rs.getString("Nombre"));
-                    e.setApellido(rs.getString("Apellido"));
-                    e.setEspecialidad(rs.getString("Especialidad"));
-                    e.setEstado(rs.getBoolean("Estado"));
+                    c.setIdClase(rs.getInt("ID_Clase"));
+                    c.setDisciplina(rs.getString("Disciplina"));
+                    
+                    int idEntrenador = rs.getInt("ID_Entrenador");
+                    Entrenadores entrenador = ed.buscarEntrenador(idEntrenador);
+                    c.setEntrenador(entrenador);
 
-                    return e;
+                    c.setHorario(rs.getTime("Horario").toLocalTime());
+                    c.setCapacidad(rs.getInt("Capacidad"));
+                    c.setEstado(rs.getBoolean("Estado"));
+
+                    return c;
                 }
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(EntrenadoresData.class.getName())
+            Logger.getLogger(ClasesData.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
 
         return null;
     }
 
-        
-    //LISTAR LOS ENTRENADORES
-    // SELECT*
-    public List<Entrenadores> listarEntrenadores() {
+    
+    //---------------------------------------------------------------
+    //           LISTAR LAS CLASES (SELECT *)
+    //---------------------------------------------------------------
+    public List<Clases> listarClases() {
 
-        List<Entrenadores> Entrenadores = new ArrayList<>();
+        List<Clases> clases = new ArrayList<>();
 
-        String query = "SELECT * FROM Entrenadores";
+        String query = "SELECT * FROM clases";
 
         try {
 
@@ -146,81 +121,97 @@ public class ClasesData {
 
             while (rs.next()) {
 
-                Entrenadores e = new Entrenadores();
+                Clases c = new Clases();
 
-                e.setIdEntrenador(rs.getInt("ID_Entrenador"));
-                e.setDni(rs.getString("DNI"));
-                e.setNombre(rs.getString("Nombre"));
-                e.setApellido(rs.getString("Apellido"));
-                e.setEspecialidad(rs.getString("Especialidad"));
-                e.setEstado(rs.getBoolean("Estado"));
+                    c.setIdClase(rs.getInt("ID_Clase"));
+                    c.setDisciplina(rs.getString("Disciplina"));
+                    
+                    int idEntrenador = rs.getInt("ID_Entrenador");
+                    Entrenadores entrenador = ed.buscarEntrenador(idEntrenador);
+                    c.setEntrenador(entrenador);
 
-                Entrenadores.add(e);
+                    c.setHorario(rs.getTime("Horario").toLocalTime());
+                    c.setCapacidad(rs.getInt("Capacidad"));
+                    c.setEstado(rs.getBoolean("Estado"));
+
+                clases.add(c);
             }
 
             ps.close();
 
         } catch (SQLException ex) {
 
-            Logger.getLogger(EntrenadoresData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return Entrenadores;
+        return clases;
     }
+    
+    
+    //---------------------------------------------------------------
+    //           ACTUALIZAR CLASE (UPDATE)
+    //---------------------------------------------------------------
 
+    public void actualizarClase(Clases c) {
 
-    public void actualizarEntrenador(Entrenadores e) {
-
-        String query = "UPDATE entrenadores SET DNI = ?, Nombre = ?, Apellido = ?, Especialidad = ?, Estado = ? "
-                + "WHERE ID_Entrenador = ?";
+        String sql = "UPDATE clases SET Disciplina = ?, ID_Entrenador = ?, Horario = ?, Capacidad = ?, Estado = ?"
+        + " WHERE ID_Clase = ?";
 
         try {
 
-            PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setString(1, e.getDni());
-            ps.setString(2, e.getNombre());
-            ps.setString(3, e.getApellido());
-            ps.setString(4, e.getEspecialidad());
-            ps.setBoolean(5, e.isEstado());
-            ps.setInt(6, e.getIdEntrenador());
 
-            ps.executeUpdate();
+            ps.setString(1, c.getDisciplina());
+            ps.setInt(2, c.getEntrenador().getIdEntrenador());
+            ps.setTime(3, java.sql.Time.valueOf(c.getHorario()));
+            ps.setInt(4, c.getCapacidad());
+            ps.setBoolean(5, c.isEstado());
+            ps.setInt(6, c.getIdClase());
 
-            ps.close();
+  
 
-            System.out.println("Entrenador actualizado correctamente");
+           int filas = ps.executeUpdate();
+
+if (filas > 0) {
+    System.out.println("Clase actualizada correctamente");
+} else {
+    System.out.println("No se encontró la clase");
+}
+ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("No se pudo actualizar el entrenador. Verifica que el DNI no esté registrado.");
-            Logger.getLogger(EntrenadoresData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("No se pudo actualizar la Clase. Verifica que el ID_Clase no esté registrado ya.");
+            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    //BORRAR UN ENTRENADOR
-    //DELETE
-     public void borrarEntrenador(int idEntrenador) {
+     //--------------------------------------------------------------
+    //           BORRAR CLASE (BAJA LÓGICA)
+   //---------------------------------------------------------------
 
-        String query = "UPDATE entrenadores SET Estado = 0 WHERE ID_Entrenador = ?";
+     public void borrarClase(int idClase) {
+
+        String query = "UPDATE clases SET Estado = 0 WHERE ID_Clase = ?";
 
         try {
 
             PreparedStatement ps = con.prepareStatement(query);
 
-            ps.setInt(1, idEntrenador);
+            ps.setInt(1, idClase);
 
             ps.executeUpdate();
 
             ps.close();
 
-            System.out.println("Entrenador dado de baja correctamente");
+            System.out.println("Clase dada de baja correctamente");
 
         } catch (SQLException ex) {
 
-            Logger.getLogger(EntrenadoresData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
         }}
     
-    */
+    
     
     
     
