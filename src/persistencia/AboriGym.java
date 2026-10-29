@@ -3,7 +3,8 @@ import entidades.Entrenadores;
 import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.List;
-
+import entidades.Clases;
+import java.time.LocalTime;
 public class AboriGym {
 
     public static void main(String[] args) {
@@ -83,5 +84,23 @@ public class AboriGym {
         if (dadoDeBaja != null) {
             System.out.println("Estado del entrenador: " + dadoDeBaja.isEstado());
         }
+        
+        ClasesData clasesData = new ClasesData(conexion);
+        Entrenadores entrenadorExistente =
+                
+        opcional.buscarEntrenadorPorDni("34567890");
+        
+        Clases clase = new Clases();
+        
+        clase.setDisciplina("Musculacion");
+        clase.setEntrenador(entrenadorExistente);
+        clase.setHorario(LocalTime.of(18, 0));
+        clase.setCapacidad(15);
+        clase.setEstado(true);
+        
+        clasesData.guardarClase(clase);
+        System.out.println("ID generado de la clase: " + clase.getIdClase());
+        System.out.println(clase);
+        
     }
 }

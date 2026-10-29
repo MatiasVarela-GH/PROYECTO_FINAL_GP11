@@ -38,7 +38,6 @@ public class EntrenadoresData {
 
             ps.executeUpdate();
 
-            // Recuperamos el ID generado por MySQL
             ResultSet rs = ps.getGeneratedKeys();
 
             if (rs.next()) {
@@ -188,7 +187,7 @@ public class EntrenadoresData {
             System.out.println("Entrenador actualizado correctamente");
 
         } catch (SQLException ex) {
-
+            System.out.println("No se pudo actualizar el entrenador. Verifica que el DNI no esté registrado.");
             Logger.getLogger(EntrenadoresData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
