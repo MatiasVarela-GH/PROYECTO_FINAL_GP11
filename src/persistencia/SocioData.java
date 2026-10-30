@@ -169,4 +169,22 @@ public class SocioData {
             Logger.getLogger(SocioData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    // ELIMINAR SOCIO DEFINITIVAMENTE
+    public void eliminarSocio(int idSocio) {
+        String sql = "DELETE FROM socios WHERE ID_Socio = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idSocio);
+            ps.executeUpdate();
+            ps.close();
+
+            System.out.println("Socio eliminado definitivamente.");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SocioData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -1,4 +1,6 @@
 package persistencia;
+
+import Vistas.MenuPrincipal;
 import entidades.Entrenadores;
 import java.lang.reflect.Array;
 import java.util.HashSet;
@@ -15,10 +17,18 @@ public class AboriGym {
                 "root",
                 ""
         );
-        
-        conexion.buscarConexion();
 
-        System.out.println("-- Integrantes --");
+        if (conexion.buscarConexion() != null) {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                MenuPrincipal menu = new MenuPrincipal(conexion);
+                menu.setLocationRelativeTo(null);
+                menu.setVisible(true);
+            });
+        } else {
+            System.out.println("No se pudo conectar con la base de datos.");
+        }
+
+        /*System.out.println("-- Integrantes --");
         System.out.println("Juan Cruz Gagliano");
         System.out.println("Matias Varela");
         System.out.println("Pablo German Carnota");
@@ -101,6 +111,8 @@ public class AboriGym {
         clasesData.guardarClase(clase);
         System.out.println("ID generado de la clase: " + clase.getIdClase());
         System.out.println(clase);
+        */
         
-    }
+    } 
 }
+
