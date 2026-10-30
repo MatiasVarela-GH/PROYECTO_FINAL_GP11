@@ -188,9 +188,8 @@ ps.close();
     
      //--------------------------------------------------------------
     //           BORRAR CLASE (BAJA LÓGICA)
-   //---------------------------------------------------------------
-
-     public void borrarClase(int idClase) {
+    //---------------------------------------------------------------
+    public void borrarClase(int idClase) {
 
         String query = "UPDATE clases SET Estado = 0 WHERE ID_Clase = ?";
 
@@ -209,12 +208,30 @@ ps.close();
         } catch (SQLException ex) {
 
             Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
-        }}
-    
-    
-    
-    
-    
-    
-    
+        }
+    }
+
+    public boolean tieneClases(int idEntrenador) {
+
+        String sql = "SELECT COUNT(*) FROM clases WHERE ID_Entrenador = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEntrenador);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
 }

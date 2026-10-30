@@ -213,8 +213,26 @@ public class EntrenadoresData {
         } catch (SQLException ex) {
 
             Logger.getLogger(EntrenadoresData.class.getName()).log(Level.SEVERE, null, ex);
-        }}
-    
-        
+        }
     }
-     
+
+    public boolean eliminarEntrenador(int idEntrenador) {
+
+        String sql = "DELETE FROM entrenadores WHERE ID_Entrenador = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEntrenador);
+
+            int filas = ps.executeUpdate();
+            ps.close();
+
+            return filas > 0;
+
+        } catch (SQLException ex) {
+            System.out.println("No se pudo eliminar el entrenador");
+            return false;
+        }
+    }
+
+}

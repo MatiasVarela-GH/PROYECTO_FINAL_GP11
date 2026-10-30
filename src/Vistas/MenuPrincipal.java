@@ -4,10 +4,13 @@ import entidades.Socios;
 import javax.swing.table.DefaultTableModel;
 import persistencia.MiConexion;
 import persistencia.SocioData;
+import persistencia.EntrenadoresData;
+import persistencia.ClasesData;
 import entidades.Entrenadores;
 import java.util.List;
 import entidades.Clases;
 import java.time.LocalTime;
+import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
     
@@ -15,6 +18,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private MiConexion conexion;
     private SocioData socioData;
     private int socioSeleccionadoId = -1;
+    private EntrenadoresData entrenadorData;
+    private int idEntrenadorSeleccionado = -1;
+    private ClasesData clasesData;
 
     public MenuPrincipal(MiConexion conexion) {
         initComponents();
@@ -22,6 +28,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.conexion = conexion;
         this.socioData = new SocioData(this.conexion);
         cargarTablaSocios();
+        entrenadorData = new EntrenadoresData(conexion);
+        cargarTablaEntrenadores();
+        clasesData = new ClasesData(conexion);
 
         // Reorganizar las vistas del panel principal
         panelContenido.removeAll();
@@ -56,6 +65,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 socio.isEstado() ? "Activo" : "Inactivo"
             });
         }
+    }
+
+    private void cargarTablaEntrenadores() {
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        modelo.addColumn("ID");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Especialidad");
+        modelo.addColumn("Estado");
+
+        for (Entrenadores e : entrenadorData.listarEntrenadores()) {
+            modelo.addRow(new Object[]{
+                e.getIdEntrenador(),
+                e.getDni(),
+                e.getNombre(),
+                e.getApellido(),
+                e.getEspecialidad(),
+                e.isEstado() ? "Activo" : "Inactivo"
+            });
+        }
+
+        jTable2.setModel(modelo);
     }
 
     private void limpiarCamposSocios() {
@@ -149,7 +182,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         lblEspecialidad = new javax.swing.JLabel();
         txtDni1 = new javax.swing.JTextField();
         txtNombre1 = new javax.swing.JTextField();
-        txtEspecialidad = new javax.swing.JTextField();
         txtApellido1 = new javax.swing.JTextField();
         btnGuardarEntrenador = new javax.swing.JButton();
         btnLimpiar1 = new javax.swing.JButton();
@@ -159,6 +191,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnAlta1 = new javax.swing.JButton();
         btnBaja1 = new javax.swing.JButton();
         btnEliminarEntrenador = new javax.swing.JButton();
+        cmbEspecialidad = new javax.swing.JComboBox<>();
         vistaClases = new javax.swing.JPanel();
         tituloClases = new javax.swing.JLabel();
         lblDisciplina = new javax.swing.JLabel();
@@ -191,7 +224,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         tituloMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/aborigym.png"))); // NOI18N
         tituloMenu.setMaximumSize(new java.awt.Dimension(100, 100));
         tituloMenu.setMinimumSize(new java.awt.Dimension(100, 100));
-        tituloMenu.setPreferredSize(new java.awt.Dimension(180, 100));
 
         btnInicio.setBackground(new java.awt.Color(184, 243, 74));
         btnInicio.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
@@ -265,25 +297,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMenuLayout.createSequentialGroup()
-                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnSocios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(tituloMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
             .addGroup(panelMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(btnClases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(tituloMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSocios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelMenuLayout.createSequentialGroup()
+                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(btnClases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -699,9 +725,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(tituloSocios)
                 .addGap(18, 18, 18)
-                .addGroup(vistaSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDni)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(vistaSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDni))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(vistaSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -787,15 +813,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         txtNombre1.setPreferredSize(new java.awt.Dimension(220, 30));
         txtNombre1.addActionListener(this::txtNombre1ActionPerformed);
 
-        txtEspecialidad.setBackground(new java.awt.Color(255, 255, 255));
-        txtEspecialidad.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtEspecialidad.setForeground(new java.awt.Color(51, 51, 51));
-        txtEspecialidad.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtEspecialidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 220, 227)));
-        txtEspecialidad.setCaretColor(new java.awt.Color(132, 184, 42));
-        txtEspecialidad.setPreferredSize(new java.awt.Dimension(220, 30));
-        txtEspecialidad.addActionListener(this::txtEspecialidadActionPerformed);
-
         txtApellido1.setBackground(new java.awt.Color(255, 255, 255));
         txtApellido1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtApellido1.setForeground(new java.awt.Color(51, 51, 51));
@@ -820,6 +837,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnLimpiar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLimpiar1.setFocusPainted(false);
         btnLimpiar1.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnLimpiar1.addActionListener(this::btnLimpiar1ActionPerformed);
 
         btnActualizar1.setBackground(new java.awt.Color(51, 51, 51));
         btnActualizar1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -828,6 +846,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnActualizar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizar1.setFocusPainted(false);
         btnActualizar1.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnActualizar1.addActionListener(this::btnActualizar1ActionPerformed);
 
         jTable2.setBackground(new java.awt.Color(204, 204, 204));
         jTable2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -851,7 +870,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jTable2.setGridColor(new java.awt.Color(51, 51, 51));
         jTable2.setRowHeight(28);
         jTable2.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         btnAlta1.setBackground(new java.awt.Color(204, 255, 102));
         btnAlta1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -869,6 +896,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnBaja1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBaja1.setFocusPainted(false);
         btnBaja1.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnBaja1.addActionListener(this::btnBaja1ActionPerformed);
 
         btnEliminarEntrenador.setBackground(new java.awt.Color(168, 61, 61));
         btnEliminarEntrenador.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -877,6 +905,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnEliminarEntrenador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarEntrenador.setFocusPainted(false);
         btnEliminarEntrenador.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnEliminarEntrenador.addActionListener(this::btnEliminarEntrenadorActionPerformed);
+
+        cmbEspecialidad.setBackground(new java.awt.Color(255, 255, 255));
+        cmbEspecialidad.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cmbEspecialidad.setForeground(new java.awt.Color(48, 48, 48));
+        cmbEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar especialidad...", "Musculación", "Funcional", "Spinning", "Pilates", "Yoga", "CrossFit", "Preparación física", "Otra" }));
+        cmbEspecialidad.setName("Seleccionar entrenador"); // NOI18N
+        cmbEspecialidad.addActionListener(this::cmbEspecialidadActionPerformed);
 
         javax.swing.GroupLayout vistaEntrenadoresLayout = new javax.swing.GroupLayout(vistaEntrenadores);
         vistaEntrenadores.setLayout(vistaEntrenadoresLayout);
@@ -884,34 +920,36 @@ public class MenuPrincipal extends javax.swing.JFrame {
             vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(vistaEntrenadoresLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(vistaEntrenadoresLayout.createSequentialGroup()
                         .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblDni1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblApellido1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDni1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addComponent(txtApellido1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNombre1)
                             .addComponent(lblEspecialidad)
                             .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNombre1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtEspecialidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(vistaEntrenadoresLayout.createSequentialGroup()
-                        .addComponent(btnGuardarEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addComponent(btnActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(vistaEntrenadoresLayout.createSequentialGroup()
-                        .addComponent(btnAlta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBaja1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addComponent(btnEliminarEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                                .addComponent(cmbEspecialidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombre1)
+                                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(vistaEntrenadoresLayout.createSequentialGroup()
+                            .addComponent(btnGuardarEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(81, 81, 81)
+                            .addComponent(btnActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(vistaEntrenadoresLayout.createSequentialGroup()
+                            .addComponent(btnAlta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBaja1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(81, 81, 81)
+                            .addComponent(btnEliminarEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vistaEntrenadoresLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tituloEntrenadores)
@@ -934,11 +972,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblApellido1)
                     .addComponent(lblEspecialidad))
-                .addGap(6, 6, 6)
+                .addGap(3, 3, 3)
                 .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtApellido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(vistaEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1136,9 +1174,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(tituloClases)
                 .addGap(18, 18, 18)
-                .addGroup(vistaClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDisciplina)
-                    .addComponent(lblEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(vistaClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEntrenador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDisciplina))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(vistaClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1229,7 +1267,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
         if (socioSeleccionadoId == -1) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Seleccioná un socio de la tabla.");
+                    "Selecciona un socio de la tabla");
             return;
         }
 
@@ -1237,13 +1275,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         if (socio == null) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "No se encontró el socio.");
+                    "No se encontro el socio");
             return;
         }
 
         if (socio.isEstado()) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "El socio ya está activo.");
+                    "El socio ya esta activo");
             return;
         }
 
@@ -1255,7 +1293,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         socioSeleccionadoId = -1;
 
         javax.swing.JOptionPane.showMessageDialog(this,
-                "Socio dado de alta correctamente.");
+                "Socio dado de alta correctamente");
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void txtDni1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDni1ActionPerformed
@@ -1266,16 +1304,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombre1ActionPerformed
 
-    private void txtEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEspecialidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEspecialidadActionPerformed
-
     private void txtApellido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellido1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellido1ActionPerformed
 
     private void btnAlta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlta1ActionPerformed
-        // TODO add your handling code here:
+        String dni = txtDni1.getText().trim();
+        String nombre = txtNombre1.getText().trim();
+        String apellido = txtApellido1.getText().trim();
+        String especialidad = cmbEspecialidad.getSelectedItem().toString();
+
+        if (dni.isEmpty() || nombre.isEmpty()
+                || apellido.isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Completa todos los campos.");
+            return;
+        }
+
+        if (!dni.matches("\\d{7,8}")) {
+            JOptionPane.showMessageDialog(this,
+                    "Ingresa un DNI valido");
+            return;
+        }
+
+        if (entrenadorData.buscarEntrenadorPorDni(dni) != null) {
+            JOptionPane.showMessageDialog(this,
+                    "Ya existe un entrenador con ese DNI");
+            return;
+        }
+
+        Entrenadores entrenador = new Entrenadores();
+
+        entrenador.setDni(dni);
+        entrenador.setNombre(nombre);
+        entrenador.setApellido(apellido);
+        entrenador.setEspecialidad(especialidad);
+        entrenador.setEstado(true);
+
+        entrenadorData.guardarEntrenador(entrenador);
+
+        cargarTablaEntrenadores();
+
+        JOptionPane.showMessageDialog(this,
+                "Entrenador registrado correctamente");
     }//GEN-LAST:event_btnAlta1ActionPerformed
 
     private void txtDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDisciplinaActionPerformed
@@ -1322,7 +1394,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty()
                     || edadTexto.isEmpty() || correo.isEmpty() || telefono.isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(this,
-                        "Completá todos los campos.");
+                        "Completa todos los campos");
                 return;
             }
 
@@ -1330,13 +1402,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             if (edad <= 0) {
                 javax.swing.JOptionPane.showMessageDialog(this,
-                        "Ingresá una edad válida.");
+                        "Ingresa una edad valida");
                 return;
             }
 
             if (socioData.buscarSocioPorDni(dni) != null) {
                 javax.swing.JOptionPane.showMessageDialog(this,
-                        "Ya existe un socio con ese DNI.");
+                        "Ya existe un socio con ese DNI");
                 return;
             }
 
@@ -1356,11 +1428,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             limpiarCamposSocios();
 
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Socio guardado correctamente.");
+                    "Socio guardado correctamente");
 
         } catch (NumberFormatException e) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "La edad debe ser un número.");
+                    "La edad debe ser un numero");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -1389,7 +1461,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (socioSeleccionadoId == -1) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Seleccioná un socio de la tabla.");
+                    "Selecciona un socio de la tabla");
             return;
         }
 
@@ -1404,7 +1476,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty()
                     || edadTexto.isEmpty() || correo.isEmpty() || telefono.isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(this,
-                        "Completá todos los campos.");
+                        "Completa todos los campos");
                 return;
             }
 
@@ -1412,7 +1484,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             if (edad <= 0) {
                 javax.swing.JOptionPane.showMessageDialog(this,
-                        "Ingresá una edad válida.");
+                        "Ingresa una edad valida");
                 return;
             }
 
@@ -1433,24 +1505,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
             socioSeleccionadoId = -1;
 
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Socio actualizado correctamente.");
+                    "Socio actualizado correctamente");
 
         } catch (NumberFormatException e) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "La edad debe ser un número.");
+                    "La edad debe ser un numero");
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
         if (socioSeleccionadoId == -1) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Seleccioná un socio de la tabla.");
+                    "Selecciona un socio de la tabla");
             return;
         }
 
         int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
                 this,
-                "¿Estás seguro de que querés dar de baja a este socio?",
+                "Estas seguro de que queres dar de baja a este socio?",
                 "Confirmar baja",
                 javax.swing.JOptionPane.YES_NO_OPTION
         );
@@ -1465,21 +1537,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
             socioSeleccionadoId = -1;
 
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Socio dado de baja correctamente.");
+                    "Socio dado de baja correctamente");
         }
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (socioSeleccionadoId == -1) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Seleccioná un socio de la tabla.");
+                    "Selecciona un socio de la tabla");
             return;
         }
 
         int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
                 this,
-                "¿Eliminar definitivamente este socio?\nEsta acción no se puede deshacer.",
-                "Confirmar eliminación",
+                "Eliminar definitivamente este socio?\nEsta accion no se puede deshacer",
+                "Confirmar eliminacion",
                 javax.swing.JOptionPane.YES_NO_OPTION,
                 javax.swing.JOptionPane.WARNING_MESSAGE
         );
@@ -1493,9 +1565,152 @@ public class MenuPrincipal extends javax.swing.JFrame {
             socioSeleccionadoId = -1;
 
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Socio eliminado correctamente.");
+                    "Socio eliminado correctamente");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
+        txtDni1.setText("");
+        txtNombre1.setText("");
+        txtApellido1.setText("");
+        cmbEspecialidad.setSelectedIndex(0);
+
+        idEntrenadorSeleccionado = -1;
+    }//GEN-LAST:event_btnLimpiar1ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        int fila = jTable2.getSelectedRow();
+
+        if (fila >= 0) {
+            idEntrenadorSeleccionado = Integer.parseInt(
+                    jTable2.getValueAt(fila, 0).toString()
+            );
+
+            txtDni1.setText(jTable2.getValueAt(fila, 1).toString());
+            txtNombre1.setText(jTable2.getValueAt(fila, 2).toString());
+            txtApellido1.setText(jTable2.getValueAt(fila, 3).toString());
+            cmbEspecialidad.setSelectedItem(
+            jTable2.getValueAt(fila, 4).toString()
+);
+        }
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+        if (idEntrenadorSeleccionado == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona un entrenador de la tabla");
+            return;
+        }
+
+        String dni = txtDni1.getText().trim();
+        String nombre = txtNombre1.getText().trim();
+        String apellido = txtApellido1.getText().trim();
+        String especialidad = cmbEspecialidad.getSelectedItem().toString();
+
+        if (dni.isEmpty() || nombre.isEmpty()
+                || apellido.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Completa todos los campos");
+            return;
+        }
+
+        if (!dni.matches("\\d{7,8}")) {
+            JOptionPane.showMessageDialog(this,
+                    "Ingresa un DNI valido");
+            return;
+        }
+
+        Entrenadores entrenador = new Entrenadores();
+
+        entrenador.setIdEntrenador(idEntrenadorSeleccionado);
+        entrenador.setDni(dni);
+        entrenador.setNombre(nombre);
+        entrenador.setApellido(apellido);
+        entrenador.setEspecialidad(especialidad);
+        entrenador.setEstado(true);
+
+        entrenadorData.actualizarEntrenador(entrenador);
+
+        cargarTablaEntrenadores();
+
+        JOptionPane.showMessageDialog(this,
+                "Entrenador actualizado");
+    }//GEN-LAST:event_btnActualizar1ActionPerformed
+
+    private void cmbEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEspecialidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEspecialidadActionPerformed
+
+    private void btnBaja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaja1ActionPerformed
+        if (idEntrenadorSeleccionado == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona un entrenador de la tabla");
+            return;
+        }
+
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "Estas seguro de dar de baja a este entrenador?",
+                "Confirmar baja",
+                JOptionPane.YES_NO_OPTION);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+
+            entrenadorData.borrarEntrenador(idEntrenadorSeleccionado);
+
+            cargarTablaEntrenadores();
+
+            txtDni1.setText("");
+            txtNombre1.setText("");
+            txtApellido1.setText("");
+            cmbEspecialidad.setSelectedIndex(0);
+
+            idEntrenadorSeleccionado = -1;
+
+            JOptionPane.showMessageDialog(this,
+                    "Entrenador dado de baja correctamente");
+        }
+    }//GEN-LAST:event_btnBaja1ActionPerformed
+
+    private void btnEliminarEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEntrenadorActionPerformed
+        if (idEntrenadorSeleccionado == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona un entrenador");
+            return;
+        }
+
+        if (clasesData.tieneClases(idEntrenadorSeleccionado)) {
+            JOptionPane.showMessageDialog(this,
+                    "No se puede eliminar porque tiene clases asociadas");
+            return;
+        }
+
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "Seguro que queres eliminar este entrenador?",
+                "Eliminar entrenador",
+                JOptionPane.YES_NO_OPTION);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+
+            boolean eliminado = entrenadorData.eliminarEntrenador(idEntrenadorSeleccionado);
+
+            if (eliminado) {
+                cargarTablaEntrenadores();
+
+                txtDni1.setText("");
+                txtNombre1.setText("");
+                txtApellido1.setText("");
+                cmbEspecialidad.setSelectedIndex(0);
+
+                idEntrenadorSeleccionado = -1;
+
+                JOptionPane.showMessageDialog(this,
+                        "Entrenador eliminado");
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo eliminar el entrenador");
+            }
+        }
+    }//GEN-LAST:event_btnEliminarEntrenadorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1522,6 +1737,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar2;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSocios;
+    private javax.swing.JComboBox<String> cmbEspecialidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1568,7 +1784,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtDni1;
     private javax.swing.JTextField txtEdad;
-    private javax.swing.JTextField txtEspecialidad;
     private javax.swing.JTextField txtHorario;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombre1;
