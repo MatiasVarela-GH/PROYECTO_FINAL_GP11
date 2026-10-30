@@ -23,6 +23,15 @@ public class Clases {
         this.estado = estado;
     }
 
+    public Clases(String disciplina, Entrenadores entrenador, LocalTime horario, int capacidad, boolean estado) {
+        this.disciplina = disciplina;
+        this.entrenador = entrenador;
+        this.horario = horario;
+        this.capacidad = capacidad;
+        this.estado = estado;
+    }
+
+    
     public int getIdClase() {
         return idClase;
     }
@@ -71,15 +80,15 @@ public class Clases {
         this.estado = estado;
     }
 
-    @Override
+   @Override
 public String toString() {
     String nombreEntrenador = (entrenador != null)
-            ? entrenador.getNombre()
+            ? entrenador.getNombre() + " " + entrenador.getApellido()
             : "Sin asignar";
 
     return "Clase: " + disciplina + ", " + horario + "hs"
             + ", capacidad para " + capacidad + " personas."
-            + " Profesor: " + nombreEntrenador + " " + entrenador.getApellido();
+            + " Profesor: " + nombreEntrenador;
 }
     
     
