@@ -1,4 +1,5 @@
 package persistencia;
+
 import entidades.Pase;
 import entidades.Socios;
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public class PaseData {
     // GUARDAR PASE (INSERT)
     public void guardarPase(Pase pase) {
 
-     // Validar cantidad de entradas
+        // Validar cantidad de entradas
         if (pase.getCantidadEntradas() != 8
                 && pase.getCantidadEntradas() != 12
                 && pase.getCantidadEntradas() != 20) {
@@ -32,7 +33,7 @@ public class PaseData {
             return;
         }
 
-     // Calcular fecha de vencimiento 30 dias
+        // Calcular fecha de vencimiento 30 dias
         pase.setFechaFin(pase.getFechaInicio().plusDays(30));
 
         String sql = "INSERT INTO pases "
@@ -59,7 +60,7 @@ public class PaseData {
                 System.out.println("Pase guardado correctamente. ID: "
                         + pase.getIdPase());
             }
-
+            rs.close();
             ps.close();
 
         } catch (SQLException ex) {
@@ -71,7 +72,10 @@ public class PaseData {
     // PASE POR ID )
     public Pase buscarPase(int id) {
 
-        String sql = "SELECT * FROM pases WHERE ID_Pase = ?";
+        String sql = "SELECT p.*, s.Nombre, s.Apellido, s.DNI "
+                + "FROM pases p "
+                + "INNER JOIN socios s ON p.ID_Socio = s.ID_Socio "
+                + "WHERE p.ID_Pase = ?";
         Pase pase = null;
 
         try {
@@ -88,6 +92,9 @@ public class PaseData {
 
                 Socios socio = new Socios();
                 socio.setIdSocio(rs.getInt("ID_Socio"));
+                socio.setNombre(rs.getString("Nombre"));
+                socio.setApellido(rs.getString("Apellido"));
+                socio.setDni(rs.getString("DNI"));
 
                 pase.setSocio(socio);
 
@@ -98,8 +105,8 @@ public class PaseData {
                 pase.setEstado(rs.getBoolean("Estado"));
             }
 
+            rs.close();
             ps.close();
-
         } catch (SQLException ex) {
             Logger.getLogger(PaseData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,7 +119,9 @@ public class PaseData {
 
         List<Pase> pases = new ArrayList<>();
 
-        String sql = "SELECT * FROM pases";
+        String sql = "SELECT p.*, s.Nombre, s.Apellido, s.DNI "
+                + "FROM pases p "
+                + "INNER JOIN socios s ON p.ID_Socio = s.ID_Socio ";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -126,7 +135,9 @@ public class PaseData {
 
                 Socios socio = new Socios();
                 socio.setIdSocio(rs.getInt("ID_Socio"));
-
+                socio.setNombre(rs.getString("Nombre"));
+                socio.setApellido(rs.getString("Apellido"));
+                socio.setDni(rs.getString("DNI"));
                 pase.setSocio(socio);
 
                 pase.setCantidadEntradas(rs.getInt("CantidadEntradas"));
@@ -138,6 +149,7 @@ public class PaseData {
                 pases.add(pase);
             }
 
+            rs.close();
             ps.close();
 
         } catch (SQLException ex) {
@@ -180,6 +192,7 @@ public class PaseData {
                 pases.add(pase);
             }
 
+            rs.close();
             ps.close();
 
         } catch (SQLException ex) {
@@ -224,7 +237,8 @@ public class PaseData {
                 pase.setCosto(rs.getDouble("Costo"));
                 pase.setEstado(rs.getBoolean("Estado"));
             }
-
+            
+            rs.close();
             ps.close();
 
         } catch (SQLException ex) {

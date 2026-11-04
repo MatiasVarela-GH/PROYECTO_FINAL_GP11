@@ -213,25 +213,30 @@ ps.close();
 
     public boolean tieneClases(int idEntrenador) {
 
-        String sql = "SELECT COUNT(*) FROM clases WHERE ID_Entrenador = ?";
+    String sql = "SELECT COUNT(*) FROM clases WHERE ID_Entrenador = ?";
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idEntrenador);
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idEntrenador);
 
-            ResultSet rs = ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
+        boolean tieneClases = false;
 
-            ps.close();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
+        if (rs.next()) {
+            tieneClases = rs.getInt(1) > 0;
         }
 
-        return false;
+        rs.close();
+        ps.close();
+
+        return tieneClases;
+
+    } catch (SQLException ex) {
+        Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    return false;
+}
 
 }
