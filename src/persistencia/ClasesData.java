@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Time;
+import java.time.LocalDate;
+
 
 public class ClasesData {
 
@@ -24,8 +27,33 @@ public class ClasesData {
 
     //---------------------------------------------------------------
     //           GUARDAR CLASE (INSERT)
+    //          VALIDAR LA ESPECIALIDAD DEL ENTRENADOR Y HORARIOS ANTES
+    //          DE GUARDAR.
     //---------------------------------------------------------------
-    public void guardarClase(Clases c) {
+    public void guardarClase(Clases clase) {
+        
+        // =========================
+        // CHEQUEO QUE EL ENTRENADOR NO TENGA OTRA CLASE EN EL MISMO HORARIO
+        // =========================
+        
+       if (existeHorarioEntrenador(clase.getEntrenador().getIdEntrenador(), clase.getHorario())) {
+            System.out.println("Error: El entrenador ya tiene una clase asignada en ese horario.");
+            return;
+        }
+
+        // =========================
+        // Validación: La especialidad del entrenador debe
+        //coincidir con la disciplina de la clase
+        // =========================
+       
+        Entrenadores entrenador = clase.getEntrenador();
+        
+        if (entrenador != null && !entrenador.getEspecialidad().equalsIgnoreCase(clase.getDisciplina())) {
+            System.out.println("Error: La especialidad del entrenador (" + entrenador.getEspecialidad() + 
+                               ") no coincide con la disciplina de la clase (" + clase.getDisciplina() + ").");
+            return;
+        }
+
 
         String sql = "INSERT INTO clases(Disciplina, ID_Entrenador, Horario, Capacidad, Estado)"
                 + " VALUES (?,?,?,?,?)";
@@ -37,17 +65,17 @@ public class ClasesData {
                     Statement.RETURN_GENERATED_KEYS);
 
             
-            ps.setString(1, c.getDisciplina());
-            ps.setInt(2, c.getEntrenador().getIdEntrenador());
-            ps.setTime(3, java.sql.Time.valueOf(c.getHorario()));
-            ps.setInt(4, c.getCapacidad());
-            ps.setBoolean(5, c.isEstado());
+            ps.setString(1, clase.getDisciplina());
+            ps.setInt(2, clase.getEntrenador().getIdEntrenador());
+            ps.setTime(3, java.sql.Time.valueOf(clase.getHorario()));
+            ps.setInt(4, clase.getCapacidad());
+            ps.setBoolean(5, clase.isEstado());
 
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                c.setIdClase(rs.getInt(1));
+                clase.setIdClase(rs.getInt(1));
             } else {
                 System.out.println("No se pudo obtener el ID de la clase");
             }
@@ -62,6 +90,150 @@ public class ClasesData {
                     .log(Level.SEVERE, null, ex);
         }
     }
+    // =========================
+    // listarClasesActivas()
+    // =========================
+    public List<Clases> listarClasesActivas() {
+        List<Clases> clases = new ArrayList<>();
+        String sql = "SELECT c.*, e.Nombre, e.Apellido, e.DNI, e.Especialidad, e.Estado as EstadoEntrenador " +
+                     "FROM clases c JOIN entrenadores e ON c.ID_Entrenador = e.ID_Entrenador " +
+                     "WHERE c.Estado = 1";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Clases clase = new Clases();
+                clase.setIdClase(rs.getInt("ID_Clase"));
+                clase.setDisciplina(rs.getString("Disciplina"));
+                clase.setHorario(rs.getTime("Horario").toLocalTime());
+                clase.setCapacidad(rs.getInt("Capacidad"));
+                clase.setEstado(rs.getBoolean("Estado"));
+
+                Entrenadores ent = new Entrenadores();
+                ent.setIdEntrenador(rs.getInt("ID_Entrenador"));
+                ent.setNombre(rs.getString("Nombre"));
+                ent.setApellido(rs.getString("Apellido"));
+                ent.setDni(rs.getString("DNI"));
+                ent.setEspecialidad(rs.getString("Especialidad"));
+                ent.setEstado(rs.getBoolean("EstadoEntrenador"));
+
+                clase.setEntrenador(ent);
+                clases.add(clase);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clases;
+    }
+
+    // =========================
+    // buscarClasesPorEntrenador()
+    // =========================
+    public List<Clases> buscarClasesPorEntrenador(int idEntrenador) {
+        List<Clases> clases = new ArrayList<>();
+        String sql = "SELECT c.*, e.Nombre, e.Apellido, e.DNI, e.Especialidad, e.Estado as EstadoEntrenador " +
+                     "FROM clases c JOIN entrenadores e ON c.ID_Entrenador = e.ID_Entrenador " +
+                     "WHERE c.ID_Entrenador = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEntrenador);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Clases clase = new Clases();
+                clase.setIdClase(rs.getInt("ID_Clase"));
+                clase.setDisciplina(rs.getString("Disciplina"));
+                clase.setHorario(rs.getTime("Horario").toLocalTime());
+                clase.setCapacidad(rs.getInt("Capacidad"));
+                clase.setEstado(rs.getBoolean("Estado"));
+
+                Entrenadores ent = new Entrenadores();
+                ent.setIdEntrenador(rs.getInt("ID_Entrenador"));
+                ent.setNombre(rs.getString("Nombre"));
+                ent.setApellido(rs.getString("Apellido"));
+                ent.setDni(rs.getString("DNI"));
+                ent.setEspecialidad(rs.getString("Especialidad"));
+                ent.setEstado(rs.getBoolean("EstadoEntrenador"));
+
+                clase.setEntrenador(ent);
+                clases.add(clase);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clases;
+    }
+
+    // =========================
+    // existeHorarioEntrenador()
+    // =========================
+    public boolean existeHorarioEntrenador(int idEntrenador, java.time.LocalTime horario) {
+        String sql = "SELECT COUNT(*) FROM clases WHERE ID_Entrenador = ? AND Horario = ? AND Estado = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idEntrenador);
+            ps.setTime(2, Time.valueOf(horario));
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    // =========================
+    //  contarAsistenciasPorClaseYFecha()
+    // =========================
+    public int contarAsistenciasPorClaseYFecha(int idClase, LocalDate fecha) {
+        int contador = 0;
+        String sql = "SELECT COUNT(*) FROM asistencia WHERE ID_Clase = ? AND Fecha_Asistencia = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idClase);
+            ps.setDate(2, java.sql.Date.valueOf(fecha));
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                contador = rs.getInt(1);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return contador;
+    }
+
+    // =========================
+    // listarClasesDisponibles() - Muestra clases, 
+    //entrenador y capacidad disponible para una fecha dada
+    // =========================
+    public void listarClasesDisponibles(LocalDate fecha) {
+        List<Clases> activas = listarClasesActivas();
+        
+        System.out.println("--- CLASES DISPONIBLES PARA LA FECHA: " + fecha + " ---");
+        for (Clases c : activas) {
+            int inscriptos = contarAsistenciasPorClaseYFecha(c.getIdClase(), fecha);
+            int disponibles = c.getCapacidad() - inscriptos;
+            
+            System.out.println("ID: " + c.getIdClase() + 
+                               " | Disciplina: " + c.getDisciplina() + 
+                               " | Horario: " + c.getHorario() + 
+                               " | Entrenador: " + c.getEntrenador().getNombre() + " " + c.getEntrenador().getApellido() + 
+                               " | Capacidad Total: " + c.getCapacidad() + 
+                               " | Lugares Disponibles: " + (disponibles > 0 ? disponibles : 0));
+        }
+    }
+
     
     //---------------------------------------------------------------
     //           BUSCAR CLASE POR ID (SELECT)
@@ -238,5 +410,4 @@ ps.close();
 
     return false;
 }
-
 }
