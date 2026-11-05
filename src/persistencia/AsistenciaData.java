@@ -44,12 +44,16 @@ public class AsistenciaData {
         String sqlDescontar = "UPDATE pases SET CantidadEntradas = ?, Estado = ? "
                 + "WHERE ID_Pase = ?";
 
+        String sqlExiste = "SELECT COUNT(*) FROM asistencias "
+                + "WHERE ID_Socio = ? AND ID_Clase = ? "
+                + "AND Fecha_Asistencia = ?";
+
         if (con == null) {
             System.out.println("No hay conexión con la base de datos.");
             return;
         }
 
-        if (asistencia.getSocio() == null || asistencia.getClase() == null) {
+        if (asistencia == null || asistencia.getSocio() == null || asistencia.getClase() == null) {
             System.out.println("Debe indicar un socio y una clase.");
             return;
         }
@@ -59,6 +63,7 @@ public class AsistenciaData {
         if (fecha == null) {
             fecha = LocalDate.now();
         }
+        asistencia.setFechaAsistencia(fecha);
 
         try {
             con.setAutoCommit(false);
@@ -66,7 +71,7 @@ public class AsistenciaData {
             int idClase = asistencia.getClase().getIdClase();
             int idSocio = asistencia.getSocio().getIdSocio();
 
-     // 1. Verificar que la clase exista y esté activa
+            // 1. Verificar que la clase exista y esté activa
             int capacidad;
 
             try (PreparedStatement ps = con.prepareStatement(sqlClase)) {
@@ -89,7 +94,22 @@ public class AsistenciaData {
                 }
             }
 
-     // 2. Verificar que haya lugar disponible
+            // 2. Verificar que no exista una asistencia duplicada
+            try (PreparedStatement ps = con.prepareStatement(sqlExiste)) {
+                ps.setInt(1, idSocio);
+                ps.setInt(2, idClase);
+                ps.setDate(3, Date.valueOf(fecha));
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        System.out.println("El socio ya tiene registrada una asistencia a esta clase en esa fecha.");
+                        con.rollback();
+                        return;
+                    }
+                }
+            }
+
+            // 3. Verificar que haya lugar disponible
             try (PreparedStatement ps = con.prepareStatement(sqlCantidad)) {
                 ps.setInt(1, idClase);
                 ps.setDate(2, Date.valueOf(fecha));
@@ -103,7 +123,7 @@ public class AsistenciaData {
                 }
             }
 
-    // 3. Buscar un pase activo con entradas disponibles
+            // 4. Buscar un pase activo con entradas disponibles
             int idPase;
             int entradas;
 
@@ -124,7 +144,7 @@ public class AsistenciaData {
                 }
             }
 
-    // 4. Registrar la asistencia
+            // 5. Registrar la asistencia
             try (PreparedStatement ps = con.prepareStatement(
                     sqlInsertar, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -141,7 +161,7 @@ public class AsistenciaData {
                 }
             }
 
-    // 5. Descontar una entrada del pase
+            // 6. Descontar una entrada del pase
             entradas--;
 
             try (PreparedStatement ps = con.prepareStatement(sqlDescontar)) {
@@ -225,8 +245,7 @@ public class AsistenciaData {
 
         ArrayList<Asistencia> lista = new ArrayList<>();
 
-        try (PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
 
@@ -298,4 +317,140 @@ public class AsistenciaData {
 
         return lista;
     }
+
+    //LISTAR ASISTENCIAS POR CLASE
+    public List<Asistencia> listarAsistenciasPorClase(int idClase) {
+        String sql = "SELECT * FROM asistencias "
+                + "WHERE ID_Clase = ? "
+                + "ORDER BY Fecha_Asistencia DESC";
+
+        List<Asistencia> lista = new ArrayList<>();
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idClase);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Asistencia asistencia = new Asistencia();
+
+                    asistencia.setIdAsistencia(rs.getInt("ID_Asistencia"));
+
+                    Socios socio = new Socios();
+                    socio.setIdSocio(rs.getInt("ID_Socio"));
+                    asistencia.setSocio(socio);
+
+                    Clases clase = new Clases();
+                    clase.setIdClase(rs.getInt("ID_Clase"));
+                    asistencia.setClase(clase);
+
+                    asistencia.setFechaAsistencia(
+                            rs.getDate("Fecha_Asistencia").toLocalDate()
+                    );
+
+                    lista.add(asistencia);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AsistenciaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lista;
+    }
+
+    //LISTAR ASISTENCIAS POR FECHA
+    public List<Asistencia> listarAsistenciasPorFecha(LocalDate fecha) {
+        String sql = "SELECT * FROM asistencias "
+                + "WHERE Fecha_Asistencia = ? ";
+
+        List<Asistencia> lista = new ArrayList<>();
+
+        if (fecha == null) {
+            System.out.println("Debe indicar una fecha adecuadamente.");
+            return lista;
+        }
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, Date.valueOf(fecha));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Asistencia asistencia = new Asistencia();
+
+                    asistencia.setIdAsistencia(rs.getInt("ID_Asistencia"));
+
+                    Socios socio = new Socios();
+                    socio.setIdSocio(rs.getInt("ID_Socio"));
+                    asistencia.setSocio(socio);
+
+                    Clases clase = new Clases();
+                    clase.setIdClase(rs.getInt("ID_Clase"));
+                    asistencia.setClase(clase);
+
+                    asistencia.setFechaAsistencia(
+                            rs.getDate("Fecha_Asistencia").toLocalDate()
+                    );
+
+                    lista.add(asistencia);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AsistenciaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lista;
+    }
+
+// LISTAR HISTORIAL DE ASISTENCIAS DEL PASE ACTUAL
+    public List<Asistencia> listarHistorialPorSocioYPase(int idSocio) {
+
+        String sql = "SELECT a.* FROM asistencias a "
+                + "INNER JOIN pases p ON a.ID_Socio = p.ID_Socio "
+                + "WHERE a.ID_Socio = ? "
+                + "AND p.Fecha_Inicio <= CURDATE() "
+                + "AND p.Fecha_Fin >= CURDATE() "
+                + "AND a.Fecha_Asistencia BETWEEN p.Fecha_Inicio AND p.Fecha_Fin "
+                + "ORDER BY a.Fecha_Asistencia DESC";
+
+        List<Asistencia> lista = new ArrayList<>();
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idSocio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    Asistencia asistencia = new Asistencia();
+
+                    asistencia.setIdAsistencia(rs.getInt("ID_Asistencia"));
+
+                    Socios socio = new Socios();
+                    socio.setIdSocio(rs.getInt("ID_Socio"));
+                    asistencia.setSocio(socio);
+
+                    Clases clase = new Clases();
+                    clase.setIdClase(rs.getInt("ID_Clase"));
+                    asistencia.setClase(clase);
+
+                    asistencia.setFechaAsistencia(
+                            rs.getDate("Fecha_Asistencia").toLocalDate()
+                    );
+
+                    lista.add(asistencia);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AsistenciaData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+
+        return lista;
+    }
+
 }

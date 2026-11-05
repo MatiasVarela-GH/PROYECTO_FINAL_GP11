@@ -237,7 +237,7 @@ public class PaseData {
                 pase.setCosto(rs.getDouble("Costo"));
                 pase.setEstado(rs.getBoolean("Estado"));
             }
-            
+
             rs.close();
             ps.close();
 
