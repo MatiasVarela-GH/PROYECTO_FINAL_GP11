@@ -21,6 +21,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private EntrenadoresData entrenadorData;
     private int idEntrenadorSeleccionado = -1;
     private ClasesData clasesData;
+    private int idClaseSeleccionada = -1;
 
     public MenuPrincipal(MiConexion conexion) {
         initComponents();
@@ -29,8 +30,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.socioData = new SocioData(this.conexion);
         cargarTablaSocios();
         entrenadorData = new EntrenadoresData(conexion);
+        cargarEntrenadoresCombo();
         cargarTablaEntrenadores();
         clasesData = new ClasesData(conexion);
+        cargarTablaClases();
 
         // Reorganizar las vistas del panel principal
         panelContenido.removeAll();
@@ -128,6 +131,48 @@ public class MenuPrincipal extends javax.swing.JFrame {
         seleccionado.setForeground(new java.awt.Color(34, 39, 43));
     }
 
+    private void cargarEntrenadoresCombo() {
+
+        cmbEntrenador.removeAllItems();
+        cmbEntrenador.addItem("Seleccionar entrenador...");
+
+        for (Entrenadores e : entrenadorData.listarEntrenadores()) {
+
+            if (e.isEstado()) {
+                cmbEntrenador.addItem(
+                        e.getApellido() + ", " + e.getNombre()
+                );
+            }
+        }
+    }
+
+    private void cargarTablaClases() {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        modelo.addColumn("ID");
+        modelo.addColumn("Disciplina");
+        modelo.addColumn("Entrenador");
+        modelo.addColumn("Horario");
+        modelo.addColumn("Capacidad");
+        modelo.addColumn("Estado");
+
+        for (Clases c : clasesData.listarClases()) {
+
+            modelo.addRow(new Object[]{
+                c.getIdClase(),
+                c.getDisciplina(),
+                c.getEntrenador().getApellido() + ", "
+                + c.getEntrenador().getNombre(),
+                c.getHorario(),
+                c.getCapacidad(),
+                c.isEstado() ? "Activo" : "Inactivo"
+            });
+        }
+
+        jTable3.setModel(modelo);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -209,7 +254,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnAlta2 = new javax.swing.JButton();
         btnBaja2 = new javax.swing.JButton();
         btnEliminarClase = new javax.swing.JButton();
-        jcbSelecEntrenador = new javax.swing.JComboBox<>();
+        cmbEntrenador = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("\tAboriGym - Gestión del gimnasio");
@@ -829,6 +874,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnGuardarEntrenador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarEntrenador.setFocusPainted(false);
         btnGuardarEntrenador.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnGuardarEntrenador.addActionListener(this::btnGuardarEntrenadorActionPerformed);
 
         btnLimpiar1.setBackground(new java.awt.Color(255, 255, 255));
         btnLimpiar1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -1057,6 +1103,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnGuardarClase.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarClase.setFocusPainted(false);
         btnGuardarClase.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnGuardarClase.addActionListener(this::btnGuardarClaseActionPerformed);
 
         btnLimpiar2.setBackground(new java.awt.Color(255, 255, 255));
         btnLimpiar2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -1065,6 +1112,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnLimpiar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLimpiar2.setFocusPainted(false);
         btnLimpiar2.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnLimpiar2.addActionListener(this::btnLimpiar2ActionPerformed);
 
         btnActualizar2.setBackground(new java.awt.Color(51, 51, 51));
         btnActualizar2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -1073,6 +1121,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnActualizar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizar2.setFocusPainted(false);
         btnActualizar2.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnActualizar2.addActionListener(this::btnActualizar2ActionPerformed);
 
         jTable3.setBackground(new java.awt.Color(204, 204, 204));
         jTable3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -1096,6 +1145,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jTable3.setGridColor(new java.awt.Color(51, 51, 51));
         jTable3.setRowHeight(28);
         jTable3.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable3);
 
         btnAlta2.setBackground(new java.awt.Color(204, 255, 102));
@@ -1114,6 +1168,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnBaja2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBaja2.setFocusPainted(false);
         btnBaja2.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnBaja2.addActionListener(this::btnBaja2ActionPerformed);
 
         btnEliminarClase.setBackground(new java.awt.Color(168, 61, 61));
         btnEliminarClase.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -1123,12 +1178,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnEliminarClase.setFocusPainted(false);
         btnEliminarClase.setPreferredSize(new java.awt.Dimension(140, 40));
 
-        jcbSelecEntrenador.setBackground(new java.awt.Color(255, 255, 255));
-        jcbSelecEntrenador.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jcbSelecEntrenador.setForeground(new java.awt.Color(48, 48, 48));
-        jcbSelecEntrenador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar entrenador..." }));
-        jcbSelecEntrenador.setName("Seleccionar entrenador"); // NOI18N
-        jcbSelecEntrenador.addActionListener(this::jcbSelecEntrenadorActionPerformed);
+        cmbEntrenador.setBackground(new java.awt.Color(255, 255, 255));
+        cmbEntrenador.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cmbEntrenador.setForeground(new java.awt.Color(48, 48, 48));
+        cmbEntrenador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar entrenador..." }));
+        cmbEntrenador.setName("Seleccionar entrenador"); // NOI18N
+        cmbEntrenador.addActionListener(this::cmbEntrenadorActionPerformed);
 
         javax.swing.GroupLayout vistaClasesLayout = new javax.swing.GroupLayout(vistaClases);
         vistaClases.setLayout(vistaClasesLayout);
@@ -1147,7 +1202,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(vistaClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblEntrenador)
-                            .addComponent(jcbSelecEntrenador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbEntrenador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCapacidad)
                             .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)))
                     .addGroup(vistaClasesLayout.createSequentialGroup()
@@ -1180,7 +1235,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(vistaClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbSelecEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(vistaClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHorario)
@@ -1309,45 +1364,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtApellido1ActionPerformed
 
     private void btnAlta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlta1ActionPerformed
-        String dni = txtDni1.getText().trim();
-        String nombre = txtNombre1.getText().trim();
-        String apellido = txtApellido1.getText().trim();
-        String especialidad = cmbEspecialidad.getSelectedItem().toString();
-
-        if (dni.isEmpty() || nombre.isEmpty()
-                || apellido.isEmpty()) {
-
+        if (idEntrenadorSeleccionado == -1) {
             JOptionPane.showMessageDialog(this,
-                    "Completa todos los campos.");
+                    "Selecciona un entrenador de la tabla");
             return;
         }
 
-        if (!dni.matches("\\d{7,8}")) {
+        Entrenadores entrenador
+                = entrenadorData.buscarEntrenador(idEntrenadorSeleccionado);
+
+        if (entrenador == null) {
             JOptionPane.showMessageDialog(this,
-                    "Ingresa un DNI valido");
+                    "No se encontro el entrenador");
             return;
         }
 
-        if (entrenadorData.buscarEntrenadorPorDni(dni) != null) {
+        if (entrenador.isEstado()) {
             JOptionPane.showMessageDialog(this,
-                    "Ya existe un entrenador con ese DNI");
+                    "El entrenador ya esta activo");
             return;
         }
 
-        Entrenadores entrenador = new Entrenadores();
-
-        entrenador.setDni(dni);
-        entrenador.setNombre(nombre);
-        entrenador.setApellido(apellido);
-        entrenador.setEspecialidad(especialidad);
         entrenador.setEstado(true);
 
-        entrenadorData.guardarEntrenador(entrenador);
+        entrenadorData.actualizarEntrenador(entrenador);
 
         cargarTablaEntrenadores();
 
         JOptionPane.showMessageDialog(this,
-                "Entrenador registrado correctamente");
+                "Entrenador dado de alta correctamente");
     }//GEN-LAST:event_btnAlta1ActionPerformed
 
     private void txtDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDisciplinaActionPerformed
@@ -1363,12 +1408,39 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHorarioActionPerformed
 
     private void btnAlta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlta2ActionPerformed
-        // TODO add your handling code here:
+        if (idClaseSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona una clase de la tabla");
+            return;
+        }
+
+        Clases clase = clasesData.buscarClasePorID(idClaseSeleccionada);
+
+        if (clase == null) {
+            JOptionPane.showMessageDialog(this,
+                    "No se encontro la clase");
+            return;
+        }
+
+        if (clase.isEstado()) {
+            JOptionPane.showMessageDialog(this,
+                    "La clase ya esta activa");
+            return;
+        }
+
+        clase.setEstado(true);
+
+        clasesData.actualizarClase(clase);
+
+        cargarTablaClases();
+
+        JOptionPane.showMessageDialog(this,
+                "Clase dada de alta correctamente");
     }//GEN-LAST:event_btnAlta2ActionPerformed
 
-    private void jcbSelecEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSelecEntrenadorActionPerformed
+    private void cmbEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEntrenadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbSelecEntrenadorActionPerformed
+    }//GEN-LAST:event_cmbEntrenadorActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         dispose();
@@ -1712,6 +1784,263 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarEntrenadorActionPerformed
 
+    private void btnGuardarEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEntrenadorActionPerformed
+        String dni = txtDni1.getText().trim();
+        String nombre = txtNombre1.getText().trim();
+        String apellido = txtApellido1.getText().trim();
+        String especialidad = cmbEspecialidad.getSelectedItem().toString();
+
+        if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty()
+                || cmbEspecialidad.getSelectedIndex() == 0) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Completa todos los campos");
+            return;
+        }
+
+        if (!dni.matches("\\d{7,8}")) {
+            JOptionPane.showMessageDialog(this,
+                    "Ingresa un DNI valido");
+            return;
+        }
+
+        if (entrenadorData.buscarEntrenadorPorDni(dni) != null) {
+            JOptionPane.showMessageDialog(this,
+                    "Ya existe un entrenador con ese DNI");
+            return;
+        }
+
+        Entrenadores entrenador = new Entrenadores();
+
+        entrenador.setDni(dni);
+        entrenador.setNombre(nombre);
+        entrenador.setApellido(apellido);
+        entrenador.setEspecialidad(especialidad);
+        entrenador.setEstado(true);
+
+        entrenadorData.guardarEntrenador(entrenador);
+
+        cargarTablaEntrenadores();
+        cargarEntrenadoresCombo();
+
+        JOptionPane.showMessageDialog(this,
+                "Entrenador guardado correctamente");
+    }//GEN-LAST:event_btnGuardarEntrenadorActionPerformed
+
+    private void btnGuardarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClaseActionPerformed
+        String disciplina = txtDisciplina.getText().trim();
+        String horarioTexto = txtHorario.getText().trim();
+        String capacidadTexto = txtCapacidad.getText().trim();
+
+        if (disciplina.isEmpty() || horarioTexto.isEmpty()
+                || capacidadTexto.isEmpty()
+                || cmbEntrenador.getSelectedIndex() == 0) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Completa todos los campos");
+            return;
+        }
+
+        try {
+            java.time.LocalTime horario
+                    = java.time.LocalTime.parse(horarioTexto);
+
+            int capacidad = Integer.parseInt(capacidadTexto);
+
+            if (capacidad <= 0) {
+                JOptionPane.showMessageDialog(this,
+                        "La capacidad debe ser mayor a cero");
+                return;
+            }
+
+            Entrenadores entrenadorSeleccionado = null;
+
+            for (Entrenadores e : entrenadorData.listarEntrenadores()) {
+
+                String nombre = e.getApellido() + ", " + e.getNombre();
+
+                if (e.isEstado()
+                        && nombre.equals(cmbEntrenador.getSelectedItem().toString())) {
+                    entrenadorSeleccionado = e;
+                    break;
+                }
+            }
+
+            if (entrenadorSeleccionado == null) {
+                JOptionPane.showMessageDialog(this,
+                        "Selecciona un entrenador valido");
+                return;
+            }
+
+            Clases clase = new Clases();
+
+            clase.setDisciplina(disciplina);
+            clase.setEntrenador(entrenadorSeleccionado);
+            clase.setHorario(horario);
+            clase.setCapacidad(capacidad);
+            clase.setEstado(true);
+
+            clasesData.guardarClase(clase);
+            cargarTablaClases();
+
+            JOptionPane.showMessageDialog(this,
+                    "Clase guardada correctamente");
+
+        } catch (java.time.format.DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this,
+                    "El horario debe tener formato HH:mm");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "La capacidad debe ser un numero");
+        }
+    }//GEN-LAST:event_btnGuardarClaseActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        int fila = jTable3.getSelectedRow();
+
+        if (fila != -1) {
+
+            idClaseSeleccionada = Integer.parseInt(
+                    jTable3.getValueAt(fila, 0).toString()
+            );
+
+            txtDisciplina.setText(
+                    jTable3.getValueAt(fila, 1).toString()
+            );
+
+            cmbEntrenador.setSelectedItem(
+                    jTable3.getValueAt(fila, 2).toString()
+            );
+
+            txtHorario.setText(
+                    jTable3.getValueAt(fila, 3).toString()
+            );
+
+            txtCapacidad.setText(
+                    jTable3.getValueAt(fila, 4).toString()
+            );
+        }
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void btnActualizar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar2ActionPerformed
+        if (idClaseSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona una clase de la tabla");
+            return;
+        }
+
+        String disciplina = txtDisciplina.getText().trim();
+        String horarioTexto = txtHorario.getText().trim();
+        String capacidadTexto = txtCapacidad.getText().trim();
+
+        if (disciplina.isEmpty() || horarioTexto.isEmpty()
+                || capacidadTexto.isEmpty()
+                || cmbEntrenador.getSelectedIndex() == 0) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Completa todos los campos");
+            return;
+        }
+
+        try {
+            java.time.LocalTime horario
+                    = java.time.LocalTime.parse(horarioTexto);
+
+            int capacidad = Integer.parseInt(capacidadTexto);
+
+            if (capacidad <= 0) {
+                JOptionPane.showMessageDialog(this,
+                        "La capacidad debe ser mayor a cero");
+                return;
+            }
+
+            Entrenadores entrenadorSeleccionado = null;
+
+            for (Entrenadores e : entrenadorData.listarEntrenadores()) {
+
+                String nombre = e.getApellido() + ", " + e.getNombre();
+
+                if (e.isEstado()
+                        && nombre.equals(cmbEntrenador.getSelectedItem().toString())) {
+                    entrenadorSeleccionado = e;
+                    break;
+                }
+            }
+
+            if (entrenadorSeleccionado == null) {
+                JOptionPane.showMessageDialog(this,
+                        "Selecciona un entrenador valido");
+                return;
+            }
+
+            Clases clase = new Clases();
+
+            clase.setIdClase(idClaseSeleccionada);
+            clase.setDisciplina(disciplina);
+            clase.setEntrenador(entrenadorSeleccionado);
+            clase.setHorario(horario);
+            clase.setCapacidad(capacidad);
+            clase.setEstado(true);
+
+            clasesData.actualizarClase(clase);
+
+            cargarTablaClases();
+
+            JOptionPane.showMessageDialog(this,
+                    "Clase actualizada correctamente");
+
+        } catch (java.time.format.DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this,
+                    "El horario debe tener formato HH:mm");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "La capacidad debe ser un numero");
+        }
+    }//GEN-LAST:event_btnActualizar2ActionPerformed
+
+    private void btnBaja2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaja2ActionPerformed
+        if (idClaseSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona una clase de la tabla");
+            return;
+        }
+
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "Seguro que queres dar de baja esta clase?",
+                "Confirmar baja",
+                JOptionPane.YES_NO_OPTION);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+
+            clasesData.borrarClase(idClaseSeleccionada);
+
+            cargarTablaClases();
+
+            txtDisciplina.setText("");
+            txtHorario.setText("");
+            txtCapacidad.setText("");
+            cmbEntrenador.setSelectedIndex(0);
+
+            idClaseSeleccionada = -1;
+
+            JOptionPane.showMessageDialog(this,
+                    "Clase dada de baja correctamente");
+        }
+    }//GEN-LAST:event_btnBaja2ActionPerformed
+
+    private void btnLimpiar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar2ActionPerformed
+        txtDisciplina.setText("");
+        txtHorario.setText("");
+        txtCapacidad.setText("");
+        cmbEntrenador.setSelectedIndex(0);
+
+        idClaseSeleccionada = -1;
+
+        jTable3.clearSelection();
+    }//GEN-LAST:event_btnLimpiar2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -1737,6 +2066,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar2;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSocios;
+    private javax.swing.JComboBox<String> cmbEntrenador;
     private javax.swing.JComboBox<String> cmbEspecialidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1750,7 +2080,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JComboBox<String> jcbSelecEntrenador;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblApellido1;
     private javax.swing.JLabel lblCapacidad;
