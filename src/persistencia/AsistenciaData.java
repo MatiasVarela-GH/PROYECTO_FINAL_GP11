@@ -404,12 +404,14 @@ public class AsistenciaData {
         return lista;
     }
 
-// LISTAR HISTORIAL DE ASISTENCIAS DEL PASE ACTUAL
+
+    // LISTAR HISTORIAL DE ASISTENCIAS DEL PASE ACTUAL
     public List<Asistencia> listarHistorialPorSocioYPase(int idSocio) {
 
         String sql = "SELECT a.* FROM asistencias a "
                 + "INNER JOIN pases p ON a.ID_Socio = p.ID_Socio "
                 + "WHERE a.ID_Socio = ? "
+                + "AND p.Estado = 1 "
                 + "AND p.Fecha_Inicio <= CURDATE() "
                 + "AND p.Fecha_Fin >= CURDATE() "
                 + "AND a.Fecha_Asistencia BETWEEN p.Fecha_Inicio AND p.Fecha_Fin "
@@ -452,5 +454,38 @@ public class AsistenciaData {
 
         return lista;
     }
+    
+    
+    
+    // CONTAR ENTRADAS CONSUMIDAS DEL PASE ACTUAL
+    public int contarAsistenciasDelPaseActual(int idSocio) {
+
+        String sql = "SELECT COUNT(*) FROM asistencias a "
+                + "INNER JOIN pases p ON a.ID_Socio = p.ID_Socio "
+                + "WHERE a.ID_Socio = ? "
+                + "AND p.Estado = 1 "
+                + "AND p.Fecha_Inicio <= CURDATE() "
+                + "AND p.Fecha_Fin >= CURDATE() "
+                + "AND a.Fecha_Asistencia BETWEEN p.Fecha_Inicio AND p.Fecha_Fin";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idSocio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AsistenciaData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+
+        return 0;
+    }
+
 
 }
