@@ -7,6 +7,8 @@ import persistencia.SocioData;
 import persistencia.EntrenadoresData;
 import persistencia.ClasesData;
 import entidades.Entrenadores;
+import entidades.Rutina;
+import persistencia.RutinaData;
 import java.util.List;
 import entidades.Clases;
 import java.time.LocalTime;
@@ -22,6 +24,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private int idEntrenadorSeleccionado = -1;
     private ClasesData clasesData;
     private int idClaseSeleccionada = -1;
+    private RutinaData rutinaData;
+    private int idRutinaSeleccionada = -1;
 
     public MenuPrincipal(MiConexion conexion) {
         initComponents();
@@ -37,6 +41,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         clasesData = new ClasesData(conexion);
         cargarTablaClases();
         cargarResumenClases();
+        rutinaData = new RutinaData(conexion);
+        cargarTablaRutinas(); 
+
+
 
         // Reorganizar las vistas del panel principal
         panelContenido.removeAll();
@@ -173,6 +181,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel8.setText("Total de entrenadores activos: " + totalActivos);
     }
+    private void cargarTablaRutinas() {
+    DefaultTableModel modelo = new DefaultTableModel();
+    modelo.addColumn("ID");
+    modelo.addColumn("Ejercicio");
+    modelo.addColumn("Grupo Muscular");
+    modelo.addColumn("Descripción");
+    modelo.addColumn("Estado");
+
+    for (entidades.Rutina r : rutinaData.listarRutinas()) {
+        modelo.addRow(new Object[]{
+            r.getIdRutina(),
+            r.getNombreEjercicio(),
+            r.getGrupoMuscular(),
+            r.getDescripcion(),
+            r.isEstado() ? "Activo" : "Inactivo"
+        });
+    }
+    // Nota: Asegúrate de reemplazar "jTableRutinas" por el nombre real de la JTable que crees en tu vista de rutinas
+    // jTableRutinas.setModel(modelo); 
+}
 
     private void limpiarCamposSocios() {
         txtDni.setText("");
@@ -181,6 +209,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         txtEdad.setText("");
         txtCorreo.setText("");
         txtTelefono.setText("");
+    }
+    private void mostrarAnimacionEjercicio(entidades.Rutina rutina) {
+        if (rutina != null && rutina.getRutaAnimacion() != null && !rutina.getRutaAnimacion().isBlank()) {
+            try {
+                javax.swing.ImageIcon gifAnimacion = new javax.swing.ImageIcon(getClass().getResource(rutina.getRutaAnimacion()));
+                lblAnimacionRutina.setIcon(gifAnimacion);
+            } catch (Exception e) {
+                javax.swing.ImageIcon gifAnimacion = new javax.swing.ImageIcon(rutina.getRutaAnimacion());
+                lblAnimacionRutina.setIcon(gifAnimacion);
+            }
+        } else {
+            // lblAnimacionRutina.setIcon(null);
+        }
     }
 
     private void mostrarVista(String vista) {
@@ -2518,7 +2559,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnVerMasClasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMasClasesActionPerformed
         btnClasesActionPerformed(null);
     }//GEN-LAST:event_btnVerMasClasesActionPerformed
+private void jTableRutinasMouseClicked(java.awt.event.MouseEvent evt) {                                          
+        int fila = jTableRutinas.getSelectedRow();
 
+        if (fila != -1) {
+            int idRutina = Integer.parseInt(jTableRutinas.getValueAt(fila, 0).toString());
+            
+            entidades.Rutina rutinaSeleccionada = rutinaData.buscarRutina(idRutina);
+            
+            if (rutinaSeleccionada != null) {
+                mostrarAnimacionEjercicio(rutinaSeleccionada);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
