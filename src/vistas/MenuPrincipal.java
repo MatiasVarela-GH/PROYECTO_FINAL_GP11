@@ -333,7 +333,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnEntrenadores = new javax.swing.JButton();
         btnClases = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+<<<<<<< Updated upstream
         btnRutinas = new javax.swing.JButton();
+=======
+        btnClases1 = new javax.swing.JButton();
+        btnClases2 = new javax.swing.JButton();
+>>>>>>> Stashed changes
         panelContenido = new javax.swing.JPanel();
         vistaSocios = new javax.swing.JPanel();
         tituloSocios = new javax.swing.JLabel();
@@ -417,14 +422,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panelPases = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        btnVerMasPases = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tablaResumenPases = new javax.swing.JTable();
         panelAsistencia = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        btnVerMasAsistencia = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tablaResumenAsistencias = new javax.swing.JTable();
         panelSocios3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        vistaInternas = new javax.swing.JPanel();
-        desktopPane = new javax.swing.JDesktopPane();
+        btnVerMasInformes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("\tAboriGym - Gestión del gimnasio");
@@ -442,7 +452,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnInicio.setBackground(new java.awt.Color(184, 243, 74));
         btnInicio.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(255, 255, 255));
-        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/casa.png"))); // NOI18N
+        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icono_inicio_25x25.png"))); // NOI18N
         btnInicio.setText("Inicio");
         btnInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnInicio.setBorderPainted(false);
@@ -459,7 +469,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnSocios.setBackground(new java.awt.Color(34, 39, 43));
         btnSocios.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         btnSocios.setForeground(new java.awt.Color(255, 255, 255));
-        btnSocios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/socios.png"))); // NOI18N
+        btnSocios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icono_equipo_25x25.png"))); // NOI18N
         btnSocios.setText("Socios");
         btnSocios.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnSocios.setBorderPainted(false);
@@ -473,7 +483,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnEntrenadores.setBackground(new java.awt.Color(34, 39, 43));
         btnEntrenadores.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         btnEntrenadores.setForeground(new java.awt.Color(255, 255, 255));
-        btnEntrenadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/entrenadores.png"))); // NOI18N
+        btnEntrenadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icono_mancuerna_25x25.png"))); // NOI18N
         btnEntrenadores.setText("Entrenadores");
         btnEntrenadores.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnEntrenadores.setBorderPainted(false);
@@ -487,7 +497,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnClases.setBackground(new java.awt.Color(34, 39, 43));
         btnClases.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         btnClases.setForeground(new java.awt.Color(255, 255, 255));
-        btnClases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/clases.png"))); // NOI18N
+        btnClases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icono_calendario_25x25.png"))); // NOI18N
         btnClases.setText("Clases");
         btnClases.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnClases.setBorderPainted(false);
@@ -507,6 +517,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnSalir.setPreferredSize(new java.awt.Dimension(140, 40));
         btnSalir.addActionListener(this::btnSalirActionPerformed);
 
+<<<<<<< Updated upstream
         btnRutinas.setBackground(new java.awt.Color(34, 39, 43));
         btnRutinas.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         btnRutinas.setForeground(new java.awt.Color(205, 255, 255));
@@ -523,6 +534,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnRutinas.setOpaque(true);
         btnRutinas.setPreferredSize(new java.awt.Dimension(145, 42));
         btnRutinas.addActionListener(this::btnRutinasActionPerformed);
+=======
+        btnClases1.setBackground(new java.awt.Color(34, 39, 43));
+        btnClases1.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        btnClases1.setForeground(new java.awt.Color(255, 255, 255));
+        btnClases1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pases.png"))); // NOI18N
+        btnClases1.setText("Pases");
+        btnClases1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnClases1.setBorderPainted(false);
+        btnClases1.setContentAreaFilled(false);
+        btnClases1.setFocusPainted(false);
+        btnClases1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnClases1.setOpaque(true);
+        btnClases1.setPreferredSize(new java.awt.Dimension(145, 42));
+        btnClases1.addActionListener(this::btnClases1ActionPerformed);
+
+        btnClases2.setBackground(new java.awt.Color(34, 39, 43));
+        btnClases2.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        btnClases2.setForeground(new java.awt.Color(255, 255, 255));
+        btnClases2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/asistencias.png"))); // NOI18N
+        btnClases2.setText("Asistencia");
+        btnClases2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnClases2.setBorderPainted(false);
+        btnClases2.setContentAreaFilled(false);
+        btnClases2.setFocusPainted(false);
+        btnClases2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnClases2.setOpaque(true);
+        btnClases2.setPreferredSize(new java.awt.Dimension(145, 42));
+        btnClases2.addActionListener(this::btnClases2ActionPerformed);
+>>>>>>> Stashed changes
 
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
@@ -536,11 +576,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSocios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelMenuLayout.createSequentialGroup()
+<<<<<<< Updated upstream
                         .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnRutinas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEntrenadores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1373, Short.MAX_VALUE)
                             .addComponent(btnClases, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
+=======
+                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(btnClases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnClases2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClases1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> Stashed changes
                 .addContainerGap())
         );
         panelMenuLayout.setVerticalGroup(
@@ -556,8 +605,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(btnEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+=======
+                .addGap(18, 18, 18)
+                .addComponent(btnClases1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnClases2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> Stashed changes
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1613,6 +1669,54 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Total de socios activos");
 
+        btnVerMasPases.setBackground(new java.awt.Color(168, 245, 42));
+        btnVerMasPases.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnVerMasPases.setForeground(new java.awt.Color(32, 32, 32));
+        btnVerMasPases.setBorderPainted(false);
+        btnVerMasPases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerMasPases.setFocusPainted(false);
+        btnVerMasPases.setLabel("Ver todos >");
+        btnVerMasPases.setMaximumSize(new java.awt.Dimension(99, 28));
+        btnVerMasPases.setMinimumSize(new java.awt.Dimension(99, 28));
+        btnVerMasPases.addActionListener(this::btnVerMasPasesActionPerformed);
+
+        jScrollPane9.setBackground(new java.awt.Color(41, 41, 41));
+        jScrollPane9.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tablaResumenPases.setBackground(new java.awt.Color(204, 204, 204));
+        tablaResumenPases.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        tablaResumenPases.setForeground(new java.awt.Color(51, 51, 51));
+        tablaResumenPases.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Socio", "Entradas", "Vencimientos"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaResumenPases.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaResumenPases.setGridColor(new java.awt.Color(51, 51, 51));
+        tablaResumenPases.setRowHeight(25);
+        tablaResumenPases.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        tablaResumenPases.setShowHorizontalLines(true);
+        jScrollPane9.setViewportView(tablaResumenPases);
+        if (tablaResumenPases.getColumnModel().getColumnCount() > 0) {
+            tablaResumenPases.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaResumenPases.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tablaResumenPases.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
+
         javax.swing.GroupLayout panelPasesLayout = new javax.swing.GroupLayout(panelPases);
         panelPases.setLayout(panelPasesLayout);
         panelPasesLayout.setHorizontalGroup(
@@ -1620,12 +1724,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(panelPasesLayout.createSequentialGroup()
                 .addGroup(panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPasesLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel10))
+                        .addGroup(panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPasesLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel10))
+                            .addGroup(panelPasesLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jLabel4))
+                            .addGroup(panelPasesLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(panelPasesLayout.createSequentialGroup()
+<<<<<<< Updated upstream
                         .addGap(72, 72, 72)
                         .addComponent(jLabel4)))
                 .addContainerGap(29, Short.MAX_VALUE))
+=======
+                        .addContainerGap()
+                        .addComponent(btnVerMasPases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+>>>>>>> Stashed changes
         );
         panelPasesLayout.setVerticalGroup(
             panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1634,7 +1753,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerMasPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelAsistencia.setBackground(new java.awt.Color(244, 245, 246));
@@ -1651,6 +1774,54 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Total de socios activos");
 
+        btnVerMasAsistencia.setBackground(new java.awt.Color(168, 245, 42));
+        btnVerMasAsistencia.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnVerMasAsistencia.setForeground(new java.awt.Color(32, 32, 32));
+        btnVerMasAsistencia.setBorderPainted(false);
+        btnVerMasAsistencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerMasAsistencia.setFocusPainted(false);
+        btnVerMasAsistencia.setLabel("Ver todos >");
+        btnVerMasAsistencia.setMaximumSize(new java.awt.Dimension(99, 28));
+        btnVerMasAsistencia.setMinimumSize(new java.awt.Dimension(99, 28));
+        btnVerMasAsistencia.addActionListener(this::btnVerMasAsistenciaActionPerformed);
+
+        jScrollPane8.setBackground(new java.awt.Color(41, 41, 41));
+        jScrollPane8.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tablaResumenAsistencias.setBackground(new java.awt.Color(204, 204, 204));
+        tablaResumenAsistencias.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        tablaResumenAsistencias.setForeground(new java.awt.Color(51, 51, 51));
+        tablaResumenAsistencias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Socio", "Clase", "Fecha"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaResumenAsistencias.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaResumenAsistencias.setGridColor(new java.awt.Color(51, 51, 51));
+        tablaResumenAsistencias.setRowHeight(25);
+        tablaResumenAsistencias.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        tablaResumenAsistencias.setShowHorizontalLines(true);
+        jScrollPane8.setViewportView(tablaResumenAsistencias);
+        if (tablaResumenAsistencias.getColumnModel().getColumnCount() > 0) {
+            tablaResumenAsistencias.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaResumenAsistencias.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tablaResumenAsistencias.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
+
         javax.swing.GroupLayout panelAsistenciaLayout = new javax.swing.GroupLayout(panelAsistencia);
         panelAsistencia.setLayout(panelAsistenciaLayout);
         panelAsistenciaLayout.setHorizontalGroup(
@@ -1658,12 +1829,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(panelAsistenciaLayout.createSequentialGroup()
                 .addGroup(panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAsistenciaLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel11))
+                        .addGroup(panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel11))
+                            .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel5)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelAsistenciaLayout.createSequentialGroup()
+<<<<<<< Updated upstream
                         .addGap(56, 56, 56)
                         .addComponent(jLabel5)))
                 .addContainerGap(29, Short.MAX_VALUE))
+=======
+                        .addContainerGap()
+                        .addGroup(panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVerMasAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 8, Short.MAX_VALUE)))))
+                .addContainerGap())
+>>>>>>> Stashed changes
         );
         panelAsistenciaLayout.setVerticalGroup(
             panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1672,7 +1859,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerMasAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelSocios3.setBackground(new java.awt.Color(244, 245, 246));
@@ -1689,6 +1880,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("Total de socios activos");
 
+        btnVerMasInformes.setBackground(new java.awt.Color(168, 245, 42));
+        btnVerMasInformes.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnVerMasInformes.setForeground(new java.awt.Color(32, 32, 32));
+        btnVerMasInformes.setBorderPainted(false);
+        btnVerMasInformes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerMasInformes.setFocusPainted(false);
+        btnVerMasInformes.setLabel("Ver todos >");
+        btnVerMasInformes.setMaximumSize(new java.awt.Dimension(99, 28));
+        btnVerMasInformes.setMinimumSize(new java.awt.Dimension(99, 28));
+        btnVerMasInformes.addActionListener(this::btnVerMasInformesActionPerformed);
+
         javax.swing.GroupLayout panelSocios3Layout = new javax.swing.GroupLayout(panelSocios3);
         panelSocios3.setLayout(panelSocios3Layout);
         panelSocios3Layout.setHorizontalGroup(
@@ -1696,12 +1898,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(panelSocios3Layout.createSequentialGroup()
                 .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSocios3Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel12))
+                        .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSocios3Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel12))
+                            .addGroup(panelSocios3Layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel6)))
+                        .addGap(0, 29, Short.MAX_VALUE))
                     .addGroup(panelSocios3Layout.createSequentialGroup()
+<<<<<<< Updated upstream
                         .addGap(56, 56, 56)
                         .addComponent(jLabel6)))
                 .addContainerGap(29, Short.MAX_VALUE))
+=======
+                        .addContainerGap()
+                        .addComponent(btnVerMasInformes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+>>>>>>> Stashed changes
         );
         panelSocios3Layout.setVerticalGroup(
             panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1710,23 +1924,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(261, 261, 261)
+                .addComponent(btnVerMasInformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
-
-        vistaInternas.setLayout(new java.awt.BorderLayout());
-
-        javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
-        desktopPane.setLayout(desktopPaneLayout);
-        desktopPaneLayout.setHorizontalGroup(
-            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 119, Short.MAX_VALUE)
-        );
-        desktopPaneLayout.setVerticalGroup(
-            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
-        );
-
-        vistaInternas.add(desktopPane, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout vistaInicioLayout = new javax.swing.GroupLayout(vistaInicio);
         vistaInicio.setLayout(vistaInicioLayout);
@@ -1755,10 +1956,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(panelSocios3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vistaInicioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(vistaInternas, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(374, 374, 374))
         );
         vistaInicioLayout.setVerticalGroup(
             vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1773,13 +1970,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(panelClases, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                     .addComponent(panelEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSocios3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(vistaInternas, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
+                .addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelSocios3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addComponent(panelPases, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addComponent(panelAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         panelContenido.add(vistaInicio, "card7");
@@ -2576,10 +2771,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnClasesActionPerformed(null);
     }//GEN-LAST:event_btnVerMasClasesActionPerformed
 
+<<<<<<< Updated upstream
     private void btnRutinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutinasActionPerformed
         mostrarVista("rutinas");
         cambiarColorBoton(btnRutinas);
     }//GEN-LAST:event_btnRutinasActionPerformed
+=======
+    private void btnVerMasInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMasInformesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerMasInformesActionPerformed
+
+    private void btnVerMasAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMasAsistenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerMasAsistenciaActionPerformed
+
+    private void btnVerMasPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMasPasesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerMasPasesActionPerformed
+
+    private void btnClases1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClases1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClases1ActionPerformed
+
+    private void btnClases2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClases2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClases2ActionPerformed
+>>>>>>> Stashed changes
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2593,6 +2810,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnBaja1;
     private javax.swing.JButton btnBaja2;
     private javax.swing.JButton btnClases;
+    private javax.swing.JButton btnClases1;
+    private javax.swing.JButton btnClases2;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarClase;
     private javax.swing.JButton btnEliminarEntrenador;
@@ -2607,12 +2826,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnRutinas;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSocios;
+    private javax.swing.JButton btnVerMasAsistencia;
     private javax.swing.JButton btnVerMasClases;
     private javax.swing.JButton btnVerMasEntrenadores;
+    private javax.swing.JButton btnVerMasInformes;
+    private javax.swing.JButton btnVerMasPases;
     private javax.swing.JButton btnVerMasSocios;
     private javax.swing.JComboBox<String> cmbEntrenador;
     private javax.swing.JComboBox<String> cmbEspecialidad;
-    private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2631,6 +2852,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
@@ -2658,8 +2881,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelSocios;
     private javax.swing.JPanel panelSocios3;
     private javax.swing.JLabel resumenGym;
+    private javax.swing.JTable tablaResumenAsistencias;
     private javax.swing.JTable tablaResumenClases;
     private javax.swing.JTable tablaResumenEntrenadores;
+    private javax.swing.JTable tablaResumenPases;
     private javax.swing.JTable tablaResumenSocios;
     private javax.swing.JLabel tituloClases;
     private javax.swing.JLabel tituloEntrenadores;
@@ -2680,7 +2905,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel vistaClases;
     private javax.swing.JPanel vistaEntrenadores;
     private javax.swing.JPanel vistaInicio;
-    private javax.swing.JPanel vistaInternas;
     private javax.swing.JPanel vistaSocios;
     // End of variables declaration//GEN-END:variables
 }
