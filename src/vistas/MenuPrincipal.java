@@ -1,4 +1,3 @@
-package Vistas;
 
 import entidades.Socios;
 import javax.swing.table.DefaultTableModel;
@@ -321,11 +320,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
         btnSocios = new javax.swing.JButton();
         btnEntrenadores = new javax.swing.JButton();
-        btnClases = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnRutinas = new javax.swing.JButton();
         btnClases1 = new javax.swing.JButton();
         btnClases2 = new javax.swing.JButton();
+        btnClases = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
         vistaSocios = new javax.swing.JPanel();
         tituloSocios = new javax.swing.JLabel();
@@ -481,20 +480,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnEntrenadores.setPreferredSize(new java.awt.Dimension(145, 42));
         btnEntrenadores.addActionListener(this::btnEntrenadoresActionPerformed);
 
-        btnClases.setBackground(new java.awt.Color(34, 39, 43));
-        btnClases.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
-        btnClases.setForeground(new java.awt.Color(255, 255, 255));
-        btnClases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icono_calendario_25x25.png"))); // NOI18N
-        btnClases.setText("Clases");
-        btnClases.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnClases.setBorderPainted(false);
-        btnClases.setContentAreaFilled(false);
-        btnClases.setFocusPainted(false);
-        btnClases.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnClases.setOpaque(true);
-        btnClases.setPreferredSize(new java.awt.Dimension(145, 42));
-        btnClases.addActionListener(this::btnClasesActionPerformed);
-
         btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(51, 51, 51));
@@ -549,47 +534,58 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnClases2.setPreferredSize(new java.awt.Dimension(145, 42));
         btnClases2.addActionListener(this::btnClases2ActionPerformed);
 
+        btnClases.setBackground(new java.awt.Color(34, 39, 43));
+        btnClases.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        btnClases.setForeground(new java.awt.Color(255, 255, 255));
+        btnClases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icono_calendario_25x25.png"))); // NOI18N
+        btnClases.setText("Clases");
+        btnClases.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnClases.setBorderPainted(false);
+        btnClases.setContentAreaFilled(false);
+        btnClases.setFocusPainted(false);
+        btnClases.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnClases.setOpaque(true);
+        btnClases.setPreferredSize(new java.awt.Dimension(145, 42));
+        btnClases.addActionListener(this::btnClasesActionPerformed);
+
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tituloMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelMenuLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSocios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnClases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRutinas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnClases1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnClases2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                     )
-                    .addContainerGap())
+            .addComponent(tituloMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClases2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClases1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tituloMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
+                .addComponent(tituloMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(btnSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addComponent(btnEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addComponent(btnClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnClases1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addComponent(btnClases2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(8, 8, 8)
+                .addComponent(btnClases1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(btnRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(228, 228, 228)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         panelContenido.setBackground(new java.awt.Color(244, 245, 246));
@@ -1376,270 +1372,571 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 false, false, false
             };
 
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit[columnIndex];
-    }});tablaResumenEntrenadores.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);tablaResumenEntrenadores.setGridColor(new java.awt.Color(51,51,51));tablaResumenEntrenadores.setRowHeight(25);tablaResumenEntrenadores.setSelectionBackground(new java.awt.Color(204,255,102));tablaResumenEntrenadores.setShowHorizontalLines(true);jScrollPane5.setViewportView(tablaResumenEntrenadores);if(tablaResumenEntrenadores.getColumnModel().getColumnCount()>0){tablaResumenEntrenadores.getColumnModel().getColumn(0).setPreferredWidth(5);tablaResumenEntrenadores.getColumnModel().getColumn(1).setPreferredWidth(5);tablaResumenEntrenadores.getColumnModel().getColumn(2).setPreferredWidth(5);}
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaResumenEntrenadores.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaResumenEntrenadores.setGridColor(new java.awt.Color(51, 51, 51));
+        tablaResumenEntrenadores.setRowHeight(25);
+        tablaResumenEntrenadores.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        tablaResumenEntrenadores.setShowHorizontalLines(true);
+        jScrollPane5.setViewportView(tablaResumenEntrenadores);
+        if (tablaResumenEntrenadores.getColumnModel().getColumnCount() > 0) {
+            tablaResumenEntrenadores.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaResumenEntrenadores.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tablaResumenEntrenadores.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
 
-    javax.swing.GroupLayout panelClasesLayout = new javax.swing.GroupLayout(
-            panelClases);panelClases.setLayout(panelClasesLayout);panelClasesLayout.setHorizontalGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(panelClasesLayout.createSequentialGroup().addGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(panelClasesLayout.createSequentialGroup().addContainerGap().addGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(btnVerMasEntrenadores,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE).addGroup(panelClasesLayout.createSequentialGroup().addComponent(jScrollPane5,javax.swing.GroupLayout.PREFERRED_SIZE,168,javax.swing.GroupLayout.PREFERRED_SIZE).addGap(0,8,Short.MAX_VALUE)))).addGroup(panelClasesLayout.createSequentialGroup().addGap(44,44,44).addComponent(jLabel3).addGap(0,0,Short.MAX_VALUE))).addContainerGap()).addGroup(panelClasesLayout.createSequentialGroup().addContainerGap().addComponent(jLabel8).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE)));panelClasesLayout.setVerticalGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(panelClasesLayout.createSequentialGroup().addContainerGap().addComponent(jLabel3).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jLabel8).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane5,javax.swing.GroupLayout.PREFERRED_SIZE,237,javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnVerMasEntrenadores,javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE)));
+        javax.swing.GroupLayout panelClasesLayout = new javax.swing.GroupLayout(panelClases);
+        panelClases.setLayout(panelClasesLayout);
+        panelClasesLayout.setHorizontalGroup(
+            panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelClasesLayout.createSequentialGroup()
+                .addGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelClasesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVerMasEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelClasesLayout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 8, Short.MAX_VALUE))))
+                    .addGroup(panelClasesLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(panelClasesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelClasesLayout.setVerticalGroup(
+            panelClasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelClasesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerMasEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-    panelEntrenadores.setBackground(new java.awt.Color(244,245,246));panelEntrenadores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213,220,227)));panelEntrenadores.setPreferredSize(new java.awt.Dimension(190,120));
+        panelEntrenadores.setBackground(new java.awt.Color(244, 245, 246));
+        panelEntrenadores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 220, 227)));
+        panelEntrenadores.setPreferredSize(new java.awt.Dimension(190, 120));
 
-    jLabel2.setFont(new java.awt.Font("Berlin Sans FB Demi",1,16)); // NOI18N
-    jLabel2.setForeground(new java.awt.Color(51,51,51));jLabel2.setText("Clases");
+        jLabel2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Clases");
 
-    jLabel9.setBackground(new java.awt.Color(255,255,255));jLabel9.setFont(new java.awt.Font("Century Gothic",0,11)); // NOI18N
-    jLabel9.setForeground(new java.awt.Color(119,119,119));jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);jLabel9.setText("Actividades del gimnasio");
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("Actividades del gimnasio");
 
-    btnVerMasClases.setBackground(new java.awt.Color(168,245,42));btnVerMasClases.setFont(new java.awt.Font("Century Gothic",1,12)); // NOI18N
-    btnVerMasClases.setForeground(new java.awt.Color(32,32,32));btnVerMasClases.setBorderPainted(false);btnVerMasClases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));btnVerMasClases.setFocusPainted(false);btnVerMasClases.setLabel("Ver todos >");btnVerMasClases.setMaximumSize(new java.awt.Dimension(99,28));btnVerMasClases.setMinimumSize(new java.awt.Dimension(99,28));btnVerMasClases.addActionListener(this::btnVerMasClasesActionPerformed);
+        btnVerMasClases.setBackground(new java.awt.Color(168, 245, 42));
+        btnVerMasClases.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnVerMasClases.setForeground(new java.awt.Color(32, 32, 32));
+        btnVerMasClases.setBorderPainted(false);
+        btnVerMasClases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerMasClases.setFocusPainted(false);
+        btnVerMasClases.setLabel("Ver todos >");
+        btnVerMasClases.setMaximumSize(new java.awt.Dimension(99, 28));
+        btnVerMasClases.setMinimumSize(new java.awt.Dimension(99, 28));
+        btnVerMasClases.addActionListener(this::btnVerMasClasesActionPerformed);
 
-    jScrollPane6.setBackground(new java.awt.Color(41,41,41));jScrollPane6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));jScrollPane6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane6.setBackground(new java.awt.Color(41, 41, 41));
+        jScrollPane6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jScrollPane6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-    tablaResumenClases.setBackground(new java.awt.Color(204,204,204));tablaResumenClases.setFont(new java.awt.Font("Century Gothic",0,10)); // NOI18N
-    tablaResumenClases.setForeground(new java.awt.Color(51,51,51));tablaResumenClases.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{
-    {null, null, null},
-    {null, null, null},
-    {null, null, null}},new String[]{"Disciplina","Horario","Entrenador"}){
-    boolean[] canEdit = new boolean[] {
-            false, false, false
-    };
+        tablaResumenClases.setBackground(new java.awt.Color(204, 204, 204));
+        tablaResumenClases.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        tablaResumenClases.setForeground(new java.awt.Color(51, 51, 51));
+        tablaResumenClases.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Disciplina", "Horario", "Entrenador"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit[columnIndex];
-    }});tablaResumenClases.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);tablaResumenClases.setGridColor(new java.awt.Color(51,51,51));tablaResumenClases.setRowHeight(25);tablaResumenClases.setSelectionBackground(new java.awt.Color(204,255,102));tablaResumenClases.setShowHorizontalLines(true);jScrollPane6.setViewportView(tablaResumenClases);if(tablaResumenClases.getColumnModel().getColumnCount()>0){tablaResumenClases.getColumnModel().getColumn(0).setPreferredWidth(5);tablaResumenClases.getColumnModel().getColumn(1).setPreferredWidth(5);tablaResumenClases.getColumnModel().getColumn(2).setPreferredWidth(5);}
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaResumenClases.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaResumenClases.setGridColor(new java.awt.Color(51, 51, 51));
+        tablaResumenClases.setRowHeight(25);
+        tablaResumenClases.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        tablaResumenClases.setShowHorizontalLines(true);
+        jScrollPane6.setViewportView(tablaResumenClases);
+        if (tablaResumenClases.getColumnModel().getColumnCount() > 0) {
+            tablaResumenClases.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaResumenClases.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tablaResumenClases.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
 
-    javax.swing.GroupLayout panelEntrenadoresLayout = new javax.swing.GroupLayout(
-            panelEntrenadores);panelEntrenadores.setLayout(panelEntrenadoresLayout);panelEntrenadoresLayout.setHorizontalGroup(panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(panelEntrenadoresLayout.createSequentialGroup().addGroup(panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(panelEntrenadoresLayout.createSequentialGroup().addGroup(panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(panelEntrenadoresLayout.createSequentialGroup().addGap(26,26,26).addComponent(jLabel9)).addGroup(panelEntrenadoresLayout.createSequentialGroup().addGap(72,72,72).addComponent(jLabel2))).addGap(0,21,Short.MAX_VALUE)).addGroup(panelEntrenadoresLayout.createSequentialGroup().addContainerGap().addGroup(panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(btnVerMasClases,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE).addGroup(panelEntrenadoresLayout.createSequentialGroup().addComponent(jScrollPane6,javax.swing.GroupLayout.PREFERRED_SIZE,168,javax.swing.GroupLayout.PREFERRED_SIZE).addGap(0,8,Short.MAX_VALUE))))).addContainerGap()));panelEntrenadoresLayout.setVerticalGroup(panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(panelEntrenadoresLayout.createSequentialGroup().addContainerGap().addComponent(jLabel2).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jLabel9).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane6,javax.swing.GroupLayout.PREFERRED_SIZE,237,javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnVerMasClases,javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE)));
+        javax.swing.GroupLayout panelEntrenadoresLayout = new javax.swing.GroupLayout(panelEntrenadores);
+        panelEntrenadores.setLayout(panelEntrenadoresLayout);
+        panelEntrenadoresLayout.setHorizontalGroup(
+            panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEntrenadoresLayout.createSequentialGroup()
+                .addGroup(panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEntrenadoresLayout.createSequentialGroup()
+                        .addGroup(panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelEntrenadoresLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel9))
+                            .addGroup(panelEntrenadoresLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jLabel2)))
+                        .addGap(0, 21, Short.MAX_VALUE))
+                    .addGroup(panelEntrenadoresLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVerMasClases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelEntrenadoresLayout.createSequentialGroup()
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 8, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        panelEntrenadoresLayout.setVerticalGroup(
+            panelEntrenadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEntrenadoresLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerMasClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-    panelSocios.setBackground(new java.awt.Color(244,245,246));panelSocios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213,220,227)));panelSocios.setPreferredSize(new java.awt.Dimension(190,120));
+        panelSocios.setBackground(new java.awt.Color(244, 245, 246));
+        panelSocios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 220, 227)));
+        panelSocios.setPreferredSize(new java.awt.Dimension(190, 120));
 
-    jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi",1,16)); // NOI18N
-    jLabel1.setForeground(new java.awt.Color(51,51,51));jLabel1.setText("Socios");
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Socios");
 
-    jLabel7.setBackground(new java.awt.Color(255,255,255));jLabel7.setFont(new java.awt.Font("Century Gothic",0,11)); // NOI18N
-    jLabel7.setForeground(new java.awt.Color(119,119,119));jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);jLabel7.setText("Total de socios activos");
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("Total de socios activos");
 
-    jScrollPane4.setBackground(new java.awt.Color(41,41,41));jScrollPane4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane4.setBackground(new java.awt.Color(41, 41, 41));
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-    tablaResumenSocios.setBackground(new java.awt.Color(204,204,204));tablaResumenSocios.setFont(new java.awt.Font("Century Gothic",0,10)); // NOI18N
-    tablaResumenSocios.setForeground(new java.awt.Color(51,51,51));tablaResumenSocios.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{
-    {null, null, null},
-    {null, null, null},
-    {null, null, null}},new String[]{"Nombre","Apellido","DNI"}){
-    boolean[] canEdit = new boolean[] {
-            false, false, false
-    };
+        tablaResumenSocios.setBackground(new java.awt.Color(204, 204, 204));
+        tablaResumenSocios.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        tablaResumenSocios.setForeground(new java.awt.Color(51, 51, 51));
+        tablaResumenSocios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "DNI"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit[columnIndex];
-    }});tablaResumenSocios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);tablaResumenSocios.setGridColor(new java.awt.Color(51,51,51));tablaResumenSocios.setRowHeight(25);tablaResumenSocios.setSelectionBackground(new java.awt.Color(204,255,102));tablaResumenSocios.setShowHorizontalLines(true);jScrollPane4.setViewportView(tablaResumenSocios);if(tablaResumenSocios.getColumnModel().getColumnCount()>0){tablaResumenSocios.getColumnModel().getColumn(0).setPreferredWidth(5);tablaResumenSocios.getColumnModel().getColumn(1).setPreferredWidth(5);tablaResumenSocios.getColumnModel().getColumn(2).setPreferredWidth(5);}
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaResumenSocios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaResumenSocios.setGridColor(new java.awt.Color(51, 51, 51));
+        tablaResumenSocios.setRowHeight(25);
+        tablaResumenSocios.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        tablaResumenSocios.setShowHorizontalLines(true);
+        jScrollPane4.setViewportView(tablaResumenSocios);
+        if (tablaResumenSocios.getColumnModel().getColumnCount() > 0) {
+            tablaResumenSocios.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaResumenSocios.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tablaResumenSocios.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
 
-    btnVerMasSocios.setBackground(new java.awt.Color(168,245,42));btnVerMasSocios.setFont(new java.awt.Font("Century Gothic",1,12)); // NOI18N
-    btnVerMasSocios.setForeground(new java.awt.Color(32,32,32));btnVerMasSocios.setBorderPainted(false);btnVerMasSocios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));btnVerMasSocios.setFocusPainted(false);btnVerMasSocios.setLabel("Ver todos >");btnVerMasSocios.setMaximumSize(new java.awt.Dimension(99,28));btnVerMasSocios.setMinimumSize(new java.awt.Dimension(99,28));btnVerMasSocios.addActionListener(this::btnVerMasSociosActionPerformed);
+        btnVerMasSocios.setBackground(new java.awt.Color(168, 245, 42));
+        btnVerMasSocios.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnVerMasSocios.setForeground(new java.awt.Color(32, 32, 32));
+        btnVerMasSocios.setBorderPainted(false);
+        btnVerMasSocios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerMasSocios.setFocusPainted(false);
+        btnVerMasSocios.setLabel("Ver todos >");
+        btnVerMasSocios.setMaximumSize(new java.awt.Dimension(99, 28));
+        btnVerMasSocios.setMinimumSize(new java.awt.Dimension(99, 28));
+        btnVerMasSocios.addActionListener(this::btnVerMasSociosActionPerformed);
 
-javax.swing.GroupLayout panelSociosLayout = new javax.swing.GroupLayout(panelSocios);
-panelSocios.setLayout(panelSociosLayout);
-
-panelSociosLayout.setHorizontalGroup(
-    panelSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelSociosLayout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(panelSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelSociosLayout = new javax.swing.GroupLayout(panelSocios);
+        panelSocios.setLayout(panelSociosLayout);
+        panelSociosLayout.setHorizontalGroup(
+            panelSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSociosLayout.createSequentialGroup()
+                .addGroup(panelSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSociosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVerMasSocios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelSociosLayout.createSequentialGroup()
+                        .addGroup(panelSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSociosLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jLabel1))
+                            .addGroup(panelSociosLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel7))
+                            .addGroup(panelSociosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 8, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelSociosLayout.setVerticalGroup(
+            panelSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSociosLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnVerMasSocios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            )
-            .addContainerGap()
-        )
-);
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerMasSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-panelSociosLayout.setVerticalGroup(
-    panelSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelSociosLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabel1)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jLabel7)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(btnVerMasSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        )
-);
-    panelPases.setBackground(new java.awt.Color(244,245,246));panelPases.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213,220,227)));panelPases.setPreferredSize(new java.awt.Dimension(190,120));
+        panelPases.setBackground(new java.awt.Color(244, 245, 246));
+        panelPases.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 220, 227)));
+        panelPases.setPreferredSize(new java.awt.Dimension(190, 120));
 
-    jLabel4.setFont(new java.awt.Font("Berlin Sans FB Demi",1,16)); // NOI18N
-    jLabel4.setForeground(new java.awt.Color(51,51,51));jLabel4.setText("Pases");
+        jLabel4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setText("Pases");
 
-    jLabel10.setBackground(new java.awt.Color(255,255,255));jLabel10.setFont(new java.awt.Font("Century Gothic",0,11)); // NOI18N
-    jLabel10.setForeground(new java.awt.Color(119,119,119));jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);jLabel10.setText("Total de socios activos");
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setText("Total de socios activos");
 
-    btnVerMasPases.setBackground(new java.awt.Color(168,245,42));btnVerMasPases.setFont(new java.awt.Font("Century Gothic",1,12)); // NOI18N
-    btnVerMasPases.setForeground(new java.awt.Color(32,32,32));btnVerMasPases.setBorderPainted(false);btnVerMasPases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));btnVerMasPases.setFocusPainted(false);btnVerMasPases.setLabel("Ver todos >");btnVerMasPases.setMaximumSize(new java.awt.Dimension(99,28));btnVerMasPases.setMinimumSize(new java.awt.Dimension(99,28));btnVerMasPases.addActionListener(this::btnVerMasPasesActionPerformed);
+        btnVerMasPases.setBackground(new java.awt.Color(168, 245, 42));
+        btnVerMasPases.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnVerMasPases.setForeground(new java.awt.Color(32, 32, 32));
+        btnVerMasPases.setBorderPainted(false);
+        btnVerMasPases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerMasPases.setFocusPainted(false);
+        btnVerMasPases.setLabel("Ver todos >");
+        btnVerMasPases.setMaximumSize(new java.awt.Dimension(99, 28));
+        btnVerMasPases.setMinimumSize(new java.awt.Dimension(99, 28));
+        btnVerMasPases.addActionListener(this::btnVerMasPasesActionPerformed);
 
-    jScrollPane9.setBackground(new java.awt.Color(41,41,41));jScrollPane9.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane9.setBackground(new java.awt.Color(41, 41, 41));
+        jScrollPane9.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-    tablaResumenPases.setBackground(new java.awt.Color(204,204,204));tablaResumenPases.setFont(new java.awt.Font("Century Gothic",0,10)); // NOI18N
-    tablaResumenPases.setForeground(new java.awt.Color(51,51,51));tablaResumenPases.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{
-    {null, null, null},
-    {null, null, null},
-    {null, null, null}},new String[]{"Socio","Entradas","Vencimientos"}){
-    boolean[] canEdit = new boolean[] {
-            false, false, false
-    };
+        tablaResumenPases.setBackground(new java.awt.Color(204, 204, 204));
+        tablaResumenPases.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        tablaResumenPases.setForeground(new java.awt.Color(51, 51, 51));
+        tablaResumenPases.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Socio", "Entradas", "Vencimientos"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit[columnIndex];
-    }});tablaResumenPases.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);tablaResumenPases.setGridColor(new java.awt.Color(51,51,51));tablaResumenPases.setRowHeight(25);tablaResumenPases.setSelectionBackground(new java.awt.Color(204,255,102));tablaResumenPases.setShowHorizontalLines(true);jScrollPane9.setViewportView(tablaResumenPases);if(tablaResumenPases.getColumnModel().getColumnCount()>0){tablaResumenPases.getColumnModel().getColumn(0).setPreferredWidth(5);tablaResumenPases.getColumnModel().getColumn(1).setPreferredWidth(5);tablaResumenPases.getColumnModel().getColumn(2).setPreferredWidth(5);}
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaResumenPases.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaResumenPases.setGridColor(new java.awt.Color(51, 51, 51));
+        tablaResumenPases.setRowHeight(25);
+        tablaResumenPases.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        tablaResumenPases.setShowHorizontalLines(true);
+        jScrollPane9.setViewportView(tablaResumenPases);
+        if (tablaResumenPases.getColumnModel().getColumnCount() > 0) {
+            tablaResumenPases.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaResumenPases.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tablaResumenPases.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
 
-    javax.swing.GroupLayout panelPasesLayout = new javax.swing.GroupLayout(panelPases);
-panelPases.setLayout(panelPasesLayout);
-
-panelPasesLayout.setHorizontalGroup(
-    panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelPasesLayout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+        javax.swing.GroupLayout panelPasesLayout = new javax.swing.GroupLayout(panelPases);
+        panelPases.setLayout(panelPasesLayout);
+        panelPasesLayout.setHorizontalGroup(
+            panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPasesLayout.createSequentialGroup()
+                .addGroup(panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPasesLayout.createSequentialGroup()
+                        .addGroup(panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPasesLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel10))
+                            .addGroup(panelPasesLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jLabel4))
+                            .addGroup(panelPasesLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelPasesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVerMasPases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        panelPasesLayout.setVerticalGroup(
+            panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPasesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-            )
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addComponent(btnVerMasPases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addContainerGap()
-        )
-);
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerMasPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-panelPasesLayout.setVerticalGroup(
-    panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelPasesLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabel4)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jLabel10)
-            .addGap(18, 18, 18)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(btnVerMasPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        )
-);
-    panelAsistencia.setBackground(new java.awt.Color(244,245,246));panelAsistencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213,220,227)));panelAsistencia.setPreferredSize(new java.awt.Dimension(190,120));
+        panelAsistencia.setBackground(new java.awt.Color(244, 245, 246));
+        panelAsistencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 220, 227)));
+        panelAsistencia.setPreferredSize(new java.awt.Dimension(190, 120));
 
-    jLabel5.setFont(new java.awt.Font("Berlin Sans FB Demi",1,16)); // NOI18N
-    jLabel5.setForeground(new java.awt.Color(51,51,51));jLabel5.setText("Asistencias");
+        jLabel5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel5.setText("Asistencias");
 
-    jLabel11.setBackground(new java.awt.Color(255,255,255));jLabel11.setFont(new java.awt.Font("Century Gothic",0,11)); // NOI18N
-    jLabel11.setForeground(new java.awt.Color(119,119,119));jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);jLabel11.setText("Total de socios activos");
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("Total de socios activos");
 
-    btnVerMasAsistencia.setBackground(new java.awt.Color(168,245,42));btnVerMasAsistencia.setFont(new java.awt.Font("Century Gothic",1,12)); // NOI18N
-    btnVerMasAsistencia.setForeground(new java.awt.Color(32,32,32));btnVerMasAsistencia.setBorderPainted(false);btnVerMasAsistencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));btnVerMasAsistencia.setFocusPainted(false);btnVerMasAsistencia.setLabel("Ver todos >");btnVerMasAsistencia.setMaximumSize(new java.awt.Dimension(99,28));btnVerMasAsistencia.setMinimumSize(new java.awt.Dimension(99,28));btnVerMasAsistencia.addActionListener(this::btnVerMasAsistenciaActionPerformed);
+        btnVerMasAsistencia.setBackground(new java.awt.Color(168, 245, 42));
+        btnVerMasAsistencia.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnVerMasAsistencia.setForeground(new java.awt.Color(32, 32, 32));
+        btnVerMasAsistencia.setBorderPainted(false);
+        btnVerMasAsistencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerMasAsistencia.setFocusPainted(false);
+        btnVerMasAsistencia.setLabel("Ver todos >");
+        btnVerMasAsistencia.setMaximumSize(new java.awt.Dimension(99, 28));
+        btnVerMasAsistencia.setMinimumSize(new java.awt.Dimension(99, 28));
+        btnVerMasAsistencia.addActionListener(this::btnVerMasAsistenciaActionPerformed);
 
-    jScrollPane8.setBackground(new java.awt.Color(41,41,41));jScrollPane8.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane8.setBackground(new java.awt.Color(41, 41, 41));
+        jScrollPane8.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-    tablaResumenAsistencias.setBackground(new java.awt.Color(204,204,204));tablaResumenAsistencias.setFont(new java.awt.Font("Century Gothic",0,10)); // NOI18N
-    tablaResumenAsistencias.setForeground(new java.awt.Color(51,51,51));tablaResumenAsistencias.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{
-    {null, null, null},
-    {null, null, null},
-    {null, null, null}},new String[]{"Socio","Clase","Fecha"}){
-    boolean[] canEdit = new boolean[] {
-            false, false, false
-    };
+        tablaResumenAsistencias.setBackground(new java.awt.Color(204, 204, 204));
+        tablaResumenAsistencias.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        tablaResumenAsistencias.setForeground(new java.awt.Color(51, 51, 51));
+        tablaResumenAsistencias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Socio", "Clase", "Fecha"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit[columnIndex];
-    }});tablaResumenAsistencias.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);tablaResumenAsistencias.setGridColor(new java.awt.Color(51,51,51));tablaResumenAsistencias.setRowHeight(25);tablaResumenAsistencias.setSelectionBackground(new java.awt.Color(204,255,102));tablaResumenAsistencias.setShowHorizontalLines(true);jScrollPane8.setViewportView(tablaResumenAsistencias);if(tablaResumenAsistencias.getColumnModel().getColumnCount()>0){tablaResumenAsistencias.getColumnModel().getColumn(0).setPreferredWidth(5);tablaResumenAsistencias.getColumnModel().getColumn(1).setPreferredWidth(5);tablaResumenAsistencias.getColumnModel().getColumn(2).setPreferredWidth(5);}
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaResumenAsistencias.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaResumenAsistencias.setGridColor(new java.awt.Color(51, 51, 51));
+        tablaResumenAsistencias.setRowHeight(25);
+        tablaResumenAsistencias.setSelectionBackground(new java.awt.Color(204, 255, 102));
+        tablaResumenAsistencias.setShowHorizontalLines(true);
+        jScrollPane8.setViewportView(tablaResumenAsistencias);
+        if (tablaResumenAsistencias.getColumnModel().getColumnCount() > 0) {
+            tablaResumenAsistencias.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaResumenAsistencias.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tablaResumenAsistencias.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
 
-    javax.swing.GroupLayout panelAsistenciaLayout = new javax.swing.GroupLayout(panelAsistencia);
-panelAsistencia.setLayout(panelAsistenciaLayout);
-
-panelAsistenciaLayout.setHorizontalGroup(
-    panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelAsistenciaLayout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+        javax.swing.GroupLayout panelAsistenciaLayout = new javax.swing.GroupLayout(panelAsistencia);
+        panelAsistencia.setLayout(panelAsistenciaLayout);
+        panelAsistenciaLayout.setHorizontalGroup(
+            panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                .addGroup(panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                        .addGroup(panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel11))
+                            .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel5)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVerMasAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        panelAsistenciaLayout.setVerticalGroup(
+            panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAsistenciaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-            )
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addComponent(btnVerMasAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addContainerGap()
-        )
-);
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVerMasAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-panelAsistenciaLayout.setVerticalGroup(
-    panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelAsistenciaLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabel5)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jLabel11)
-            .addGap(18, 18, 18)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(btnVerMasAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        )
-);
-    panelSocios3.setBackground(new java.awt.Color(244,245,246));panelSocios3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213,220,227)));panelSocios3.setPreferredSize(new java.awt.Dimension(190,120));
+        panelSocios3.setBackground(new java.awt.Color(244, 245, 246));
+        panelSocios3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 220, 227)));
+        panelSocios3.setPreferredSize(new java.awt.Dimension(190, 120));
 
-    jLabel6.setFont(new java.awt.Font("Berlin Sans FB Demi",1,16)); // NOI18N
-    jLabel6.setForeground(new java.awt.Color(51,51,51));jLabel6.setText("Informes");
+        jLabel6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("Informes");
 
-    jLabel12.setBackground(new java.awt.Color(255,255,255));jLabel12.setFont(new java.awt.Font("Century Gothic",0,11)); // NOI18N
-    jLabel12.setForeground(new java.awt.Color(119,119,119));jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);jLabel12.setText("Total de socios activos");
+        jLabel12.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("Total de socios activos");
 
-    btnVerMasInformes.setBackground(new java.awt.Color(168,245,42));btnVerMasInformes.setFont(new java.awt.Font("Century Gothic",1,12)); // NOI18N
-    btnVerMasInformes.setForeground(new java.awt.Color(32,32,32));btnVerMasInformes.setBorderPainted(false);btnVerMasInformes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));btnVerMasInformes.setFocusPainted(false);btnVerMasInformes.setLabel("Ver todos >");btnVerMasInformes.setMaximumSize(new java.awt.Dimension(99,28));btnVerMasInformes.setMinimumSize(new java.awt.Dimension(99,28));btnVerMasInformes.addActionListener(this::btnVerMasInformesActionPerformed);
-javax.swing.GroupLayout panelSocios3Layout = new javax.swing.GroupLayout(panelSocios3);
-panelSocios3.setLayout(panelSocios3Layout);
+        btnVerMasInformes.setBackground(new java.awt.Color(168, 245, 42));
+        btnVerMasInformes.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnVerMasInformes.setForeground(new java.awt.Color(32, 32, 32));
+        btnVerMasInformes.setBorderPainted(false);
+        btnVerMasInformes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerMasInformes.setFocusPainted(false);
+        btnVerMasInformes.setLabel("Ver todos >");
+        btnVerMasInformes.setMaximumSize(new java.awt.Dimension(99, 28));
+        btnVerMasInformes.setMinimumSize(new java.awt.Dimension(99, 28));
+        btnVerMasInformes.addActionListener(this::btnVerMasInformesActionPerformed);
 
-panelSocios3Layout.setHorizontalGroup(
-    panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelSocios3Layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+        javax.swing.GroupLayout panelSocios3Layout = new javax.swing.GroupLayout(panelSocios3);
+        panelSocios3.setLayout(panelSocios3Layout);
+        panelSocios3Layout.setHorizontalGroup(
+            panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSocios3Layout.createSequentialGroup()
+                .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSocios3Layout.createSequentialGroup()
+                        .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSocios3Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel12))
+                            .addGroup(panelSocios3Layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel6)))
+                        .addGap(0, 17, Short.MAX_VALUE))
+                    .addGroup(panelSocios3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVerMasInformes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        panelSocios3Layout.setVerticalGroup(
+            panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSocios3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
-            )
-            .addContainerGap()
-        )
-        .addGroup(panelSocios3Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(btnVerMasInformes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addContainerGap()
-        )
-);
+                .addGap(261, 261, 261)
+                .addComponent(btnVerMasInformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
 
-panelSocios3Layout.setVerticalGroup(
-    panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelSocios3Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabel6)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jLabel12)
-            .addGap(261, 261, 261)
-            .addComponent(btnVerMasInformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(8, Short.MAX_VALUE)
-        )
-);
-    javax.swing.GroupLayout vistaInicioLayout = new javax.swing.GroupLayout(
-            vistaInicio);vistaInicio.setLayout(vistaInicioLayout);vistaInicioLayout.setHorizontalGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(vistaInicioLayout.createSequentialGroup().addGap(16,16,16).addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING).addGroup(vistaInicioLayout.createSequentialGroup().addComponent(panelSocios,javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.PREFERRED_SIZE).addGap(12,12,12).addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING).addComponent(resumenGym).addComponent(panelDeControl)).addGroup(vistaInicioLayout.createSequentialGroup().addGap(6,6,6).addComponent(panelClases,javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.PREFERRED_SIZE).addGap(18,18,18).addComponent(panelEntrenadores,javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.PREFERRED_SIZE))).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE)).addGroup(vistaInicioLayout.createSequentialGroup().addComponent(panelPases,javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.PREFERRED_SIZE).addGap(18,18,18).addComponent(panelAsistencia,javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.PREFERRED_SIZE).addGap(18,18,18).addComponent(panelSocios3,javax.swing.GroupLayout.PREFERRED_SIZE,javax.swing.GroupLayout.DEFAULT_SIZE,javax.swing.GroupLayout.PREFERRED_SIZE).addGap(28,28,28)))));vistaInicioLayout.setVerticalGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(vistaInicioLayout.createSequentialGroup().addContainerGap().addComponent(resumenGym).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(panelDeControl).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,false).addComponent(panelSocios,javax.swing.GroupLayout.DEFAULT_SIZE,330,Short.MAX_VALUE).addComponent(panelClases,javax.swing.GroupLayout.DEFAULT_SIZE,330,Short.MAX_VALUE).addComponent(panelEntrenadores,javax.swing.GroupLayout.DEFAULT_SIZE,330,Short.MAX_VALUE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,javax.swing.GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE).addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,false).addComponent(panelSocios3,javax.swing.GroupLayout.DEFAULT_SIZE,344,Short.MAX_VALUE).addComponent(panelPases,javax.swing.GroupLayout.DEFAULT_SIZE,344,Short.MAX_VALUE).addComponent(panelAsistencia,javax.swing.GroupLayout.DEFAULT_SIZE,344,Short.MAX_VALUE)).addGap(15,15,15)));
+        javax.swing.GroupLayout vistaInicioLayout = new javax.swing.GroupLayout(vistaInicio);
+        vistaInicio.setLayout(vistaInicioLayout);
+        vistaInicioLayout.setHorizontalGroup(
+            vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vistaInicioLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(vistaInicioLayout.createSequentialGroup()
+                        .addComponent(panelSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(resumenGym)
+                                .addComponent(panelDeControl))
+                            .addGroup(vistaInicioLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(panelClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(panelEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(vistaInicioLayout.createSequentialGroup()
+                        .addComponent(panelPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelSocios3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
+        );
+        vistaInicioLayout.setVerticalGroup(
+            vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vistaInicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(resumenGym)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelDeControl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelSocios, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(panelClases, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(panelEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelSocios3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addComponent(panelPases, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addComponent(panelAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
+        );
 
-    panelContenido.add(vistaInicio,"card7");
+        panelContenido.add(vistaInicio, "card7");
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-
-    getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
