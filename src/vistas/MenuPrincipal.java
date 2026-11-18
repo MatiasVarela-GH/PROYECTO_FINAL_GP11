@@ -13,6 +13,7 @@ import java.util.List;
 import entidades.Clases;
 import java.time.LocalTime;
 import javax.swing.JOptionPane;
+import Vistas.VistaRutinas;
 
 public class MenuPrincipal extends javax.swing.JFrame {
     
@@ -26,6 +27,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private int idClaseSeleccionada = -1;
     private RutinaData rutinaData;
     private int idRutinaSeleccionada = -1;
+    private VistaRutinas vistaRutinas;
 
     public MenuPrincipal(MiConexion conexion) {
         initComponents();
@@ -42,6 +44,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarTablaClases();
         cargarResumenClases();
         rutinaData = new RutinaData(conexion);
+        vistaRutinas = new VistaRutinas(rutinaData);
         cargarTablaRutinas(); 
 
 
@@ -54,6 +57,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panelContenido.add(vistaSocios, "socios");
         panelContenido.add(vistaEntrenadores, "entrenadores");
         panelContenido.add(vistaClases, "clases");
+        panelContenido.add(vistaRutinas, "rutinas");
+       
 
         // Mostrar inicio al abrir el programa
         mostrarVista("inicio");
@@ -210,19 +215,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         txtCorreo.setText("");
         txtTelefono.setText("");
     }
-    private void mostrarAnimacionEjercicio(entidades.Rutina rutina) {
-        if (rutina != null && rutina.getRutaAnimacion() != null && !rutina.getRutaAnimacion().isBlank()) {
-            try {
-                javax.swing.ImageIcon gifAnimacion = new javax.swing.ImageIcon(getClass().getResource(rutina.getRutaAnimacion()));
-                lblAnimacionRutina.setIcon(gifAnimacion);
-            } catch (Exception e) {
-                javax.swing.ImageIcon gifAnimacion = new javax.swing.ImageIcon(rutina.getRutaAnimacion());
-                lblAnimacionRutina.setIcon(gifAnimacion);
-            }
-        } else {
-            // lblAnimacionRutina.setIcon(null);
-        }
-    }
+   
 
     private void mostrarVista(String vista) {
         java.awt.CardLayout card = (java.awt.CardLayout) panelContenido.getLayout();
@@ -246,6 +239,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         btnClases.setBackground(fondo);
         btnClases.setForeground(texto);
+        
+        btnRutinas.setBackground(fondo);
+        btnRutinas.setForeground(texto);
 
         // Resaltar el botón seleccionado
         seleccionado.setBackground(new java.awt.Color(184, 243, 74));
@@ -337,6 +333,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnEntrenadores = new javax.swing.JButton();
         btnClases = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnRutinas = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
         vistaSocios = new javax.swing.JPanel();
         tituloSocios = new javax.swing.JLabel();
@@ -431,7 +428,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("\tAboriGym - Gestión del gimnasio");
-        setResizable(false);
 
         panelMenu.setBackground(new java.awt.Color(34, 38, 43));
         panelMenu.setPreferredSize(new java.awt.Dimension(170, 450));
@@ -511,11 +507,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnSalir.setPreferredSize(new java.awt.Dimension(140, 40));
         btnSalir.addActionListener(this::btnSalirActionPerformed);
 
+        btnRutinas.setBackground(new java.awt.Color(34, 39, 43));
+        btnRutinas.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        btnRutinas.setForeground(new java.awt.Color(205, 255, 255));
+        btnRutinas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dumbbell (1).png"))); // NOI18N
+        btnRutinas.setText("Rutinas");
+        btnRutinas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnRutinas.setBorderPainted(false);
+        btnRutinas.setContentAreaFilled(false);
+        btnRutinas.setFocusPainted(false);
+        btnRutinas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnRutinas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnRutinas.setMaximumSize(new java.awt.Dimension(145, 42));
+        btnRutinas.setMinimumSize(new java.awt.Dimension(142, 42));
+        btnRutinas.setOpaque(true);
+        btnRutinas.setPreferredSize(new java.awt.Dimension(145, 42));
+        btnRutinas.addActionListener(this::btnRutinasActionPerformed);
+
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tituloMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+            .addComponent(tituloMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -523,9 +536,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSocios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(btnClases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnRutinas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEntrenadores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1373, Short.MAX_VALUE)
+                            .addComponent(btnClases, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -542,6 +556,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(btnEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1467,7 +1483,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                             .addComponent(btnVerMasClases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(panelEntrenadoresLayout.createSequentialGroup()
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 8, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         panelEntrenadoresLayout.setVerticalGroup(
@@ -1609,7 +1625,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(panelPasesLayout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(jLabel4)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         panelPasesLayout.setVerticalGroup(
             panelPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1647,7 +1663,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(panelAsistenciaLayout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jLabel5)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         panelAsistenciaLayout.setVerticalGroup(
             panelAsistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1685,7 +1701,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(panelSocios3Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jLabel6)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         panelSocios3Layout.setVerticalGroup(
             panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2559,19 +2575,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnVerMasClasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMasClasesActionPerformed
         btnClasesActionPerformed(null);
     }//GEN-LAST:event_btnVerMasClasesActionPerformed
-private void jTableRutinasMouseClicked(java.awt.event.MouseEvent evt) {                                          
-        int fila = jTableRutinas.getSelectedRow();
 
-        if (fila != -1) {
-            int idRutina = Integer.parseInt(jTableRutinas.getValueAt(fila, 0).toString());
-            
-            entidades.Rutina rutinaSeleccionada = rutinaData.buscarRutina(idRutina);
-            
-            if (rutinaSeleccionada != null) {
-                mostrarAnimacionEjercicio(rutinaSeleccionada);
-            }
-        }
-    }
+    private void btnRutinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutinasActionPerformed
+        mostrarVista("rutinas");
+        cambiarColorBoton(btnRutinas);
+    }//GEN-LAST:event_btnRutinasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -2595,6 +2604,7 @@ private void jTableRutinasMouseClicked(java.awt.event.MouseEvent evt) {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnLimpiar1;
     private javax.swing.JButton btnLimpiar2;
+    private javax.swing.JButton btnRutinas;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSocios;
     private javax.swing.JButton btnVerMasClases;
