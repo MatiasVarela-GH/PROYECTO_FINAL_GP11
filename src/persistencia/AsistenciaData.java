@@ -249,9 +249,17 @@ public class AsistenciaData {
     // LISTA DE TODAS LAS ASISTENCIAS
     public List<Asistencia> listarAsistencias() {
 
-        String sql = "SELECT * FROM asistencias ORDER BY Fecha_Asistencia DESC";
+        String sql = "SELECT a.*, "
+                + "s.Nombre AS SocioNombre, "
+                + "s.Apellido AS SocioApellido, "
+                + "s.DNI AS SocioDNI, "
+                + "c.Disciplina AS Disciplina "
+                + "FROM asistencias a "
+                + "INNER JOIN socios s ON a.ID_Socio = s.ID_Socio "
+                + "INNER JOIN clases c ON a.ID_Clase = c.ID_Clase "
+                + "ORDER BY a.Fecha_Asistencia DESC";
 
-        ArrayList<Asistencia> lista = new ArrayList<>();
+        List<Asistencia> lista = new ArrayList<>();
 
         try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
@@ -263,14 +271,21 @@ public class AsistenciaData {
 
                 Socios socio = new Socios();
                 socio.setIdSocio(rs.getInt("ID_Socio"));
+                socio.setNombre(rs.getString("SocioNombre"));
+                socio.setApellido(rs.getString("SocioApellido"));
+                socio.setDni(rs.getString("SocioDNI"));
+
                 asistencia.setSocio(socio);
 
                 Clases clase = new Clases();
                 clase.setIdClase(rs.getInt("ID_Clase"));
+                clase.setDisciplina(rs.getString("Disciplina"));
+
                 asistencia.setClase(clase);
 
                 asistencia.setFechaAsistencia(
-                        rs.getDate("Fecha_Asistencia").toLocalDate());
+                        rs.getDate("Fecha_Asistencia").toLocalDate()
+                );
 
                 lista.add(asistencia);
             }
