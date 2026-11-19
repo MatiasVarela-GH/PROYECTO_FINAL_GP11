@@ -287,9 +287,9 @@ public class VistaAsistencia extends javax.swing.JInternalFrame {
 
         lblEntradasDisponibles.setBackground(new java.awt.Color(244, 245, 246));
         lblEntradasDisponibles.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblEntradasDisponibles.setForeground(new java.awt.Color(255, 0, 0));
+        lblEntradasDisponibles.setForeground(new java.awt.Color(0, 0, 0));
         lblEntradasDisponibles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblEntradasDisponibles.setText("--");
+        lblEntradasDisponibles.setText("--/--/----");
 
         txtPase.setEditable(false);
         txtPase.setBackground(new java.awt.Color(255, 255, 255));
@@ -380,9 +380,9 @@ public class VistaAsistencia extends javax.swing.JInternalFrame {
 
         lblFechaVencimiento.setBackground(new java.awt.Color(244, 245, 246));
         lblFechaVencimiento.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblFechaVencimiento.setForeground(new java.awt.Color(51, 51, 51));
+        lblFechaVencimiento.setForeground(new java.awt.Color(255, 51, 51));
         lblFechaVencimiento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblFechaVencimiento.setText("--/--/----");
+        lblFechaVencimiento.setText("--");
 
         javax.swing.GroupLayout vistaPasesLayout = new javax.swing.GroupLayout(vistaPases);
         vistaPases.setLayout(vistaPasesLayout);
@@ -419,10 +419,10 @@ public class VistaAsistencia extends javax.swing.JInternalFrame {
                                 .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblCosto3)
                                     .addComponent(lblCosto2))
-                                .addGap(29, 29, 29)
+                                .addGap(18, 18, 18)
                                 .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEntradasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(lblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblEntradasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(vistaPasesLayout.createSequentialGroup()
                 .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -460,11 +460,11 @@ public class VistaAsistencia extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCosto2)
-                    .addComponent(lblEntradasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCosto3)
-                    .addComponent(lblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblEntradasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegistrarAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
