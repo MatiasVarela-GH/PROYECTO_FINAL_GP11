@@ -320,6 +320,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         panelMenu = new javax.swing.JPanel();
         tituloMenu = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
@@ -497,7 +498,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnRutinas.setBackground(new java.awt.Color(34, 39, 43));
         btnRutinas.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         btnRutinas.setForeground(new java.awt.Color(205, 255, 255));
-        btnRutinas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dumbbell (1).png"))); // NOI18N
+        btnRutinas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icono_rutinas_25x25.png"))); // NOI18N
         btnRutinas.setText("Rutinas");
         btnRutinas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnRutinas.setBorderPainted(false);
@@ -1870,11 +1871,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                             .addGroup(panelSocios3Layout.createSequentialGroup()
                                 .addGap(56, 56, 56)
                                 .addComponent(jLabel6)))
-                        .addGap(0, 17, Short.MAX_VALUE))
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addGroup(panelSocios3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnVerMasInformes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         panelSocios3Layout.setVerticalGroup(
             panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2793,6 +2794,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
