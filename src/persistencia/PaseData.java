@@ -302,6 +302,7 @@ public class PaseData {
                     pase.setFechaFin(rs.getDate("Fecha_Fin").toLocalDate());
                     pase.setCosto(rs.getDouble("Costo"));
                     pase.setEstado(rs.getBoolean("Estado"));
+                    
                 }
             }
 

@@ -24,7 +24,7 @@ public class AsistenciaData {
     }
 
     // REGISTRAR ASISTENCIA
-    public void guardarAsistencia(Asistencia asistencia) {
+    public boolean guardarAsistencia(Asistencia asistencia) {
 
         String sqlClase = "SELECT Capacidad, Estado FROM clases WHERE ID_Clase = ? FOR UPDATE";
 
@@ -50,12 +50,12 @@ public class AsistenciaData {
 
         if (con == null) {
             System.out.println("No hay conexión con la base de datos.");
-            return;
+            return false;
         }
 
         if (asistencia == null || asistencia.getSocio() == null || asistencia.getClase() == null) {
             System.out.println("Debe indicar un socio y una clase.");
-            return;
+            return false;
         }
 
         LocalDate fecha = asistencia.getFechaAsistencia();
@@ -81,7 +81,7 @@ public class AsistenciaData {
                     if (!rs.next()) {
                         System.out.println("La clase no existe.");
                         con.rollback();
-                        return;
+                        return false;
                     }
 
                     capacidad = rs.getInt("Capacidad");
@@ -89,7 +89,7 @@ public class AsistenciaData {
                     if (!rs.getBoolean("Estado")) {
                         System.out.println("La clase no está activa.");
                         con.rollback();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -104,7 +104,7 @@ public class AsistenciaData {
                     if (rs.next() && rs.getInt(1) > 0) {
                         System.out.println("El socio ya tiene registrada una asistencia a esta clase en esa fecha.");
                         con.rollback();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -118,7 +118,7 @@ public class AsistenciaData {
                     if (rs.next() && rs.getInt(1) >= capacidad) {
                         System.out.println("La clase está completa.");
                         con.rollback();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -137,7 +137,7 @@ public class AsistenciaData {
                     if (!rs.next()) {
                         System.out.println("El socio no tiene un pase activo con entradas disponibles.");
                         con.rollback();
-                        return;
+                        return false;
                     }
 
                     idPase = rs.getInt("ID_Pase");
@@ -176,9 +176,10 @@ public class AsistenciaData {
                     ps.executeUpdate();
                 }
             }
-            
+
             con.commit();
             System.out.println("Asistencia registrada correctamente.");
+            return true;
 
         } catch (SQLException ex) {
 
@@ -193,6 +194,7 @@ public class AsistenciaData {
                     .log(Level.SEVERE, null, ex);
 
             System.out.println("No se pudo registrar la asistencia.");
+            return false;
 
         } finally {
             try {
@@ -202,6 +204,7 @@ public class AsistenciaData {
                         .log(Level.SEVERE, null, ex);
             }
         }
+        
     }
 
     // BUSCAR ASISTENCIA POR ID
