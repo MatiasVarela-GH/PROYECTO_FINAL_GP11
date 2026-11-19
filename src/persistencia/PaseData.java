@@ -36,14 +36,27 @@ public class PaseData {
             return;
         }
 
-        // VALIDAMOS CANTIDAD DE ENTRADAS
-        if (pase.getCantidadEntradas() != 8
-                && pase.getCantidadEntradas() != 12
-                && pase.getCantidadEntradas() != 20) {
-            System.out.println("La cantidad de entradas debe ser 8, 12 o 20.");
-            return;
+        // VALIDAMOS EL TIPO DE PASE
+        if (pase.getTipoPase() == null || pase.getTipoPase().isEmpty()) {
+            pase.setTipoPase("LIMITADO");
         }
 
+        if (pase.getTipoPase().equals("LIMITADO")) {
+
+            if (pase.getCantidadEntradas() != 8
+                    && pase.getCantidadEntradas() != 12
+                    && pase.getCantidadEntradas() != 20) {
+                System.out.println("La cantidad de entradas debe ser 8, 12 o 20.");
+                return;
+            }
+
+        } else if (pase.getTipoPase().equals("LIBRE")) {
+            pase.setCantidadEntradas(0);
+        } else {
+            System.out.println("El tipo de pase no es valido.");
+            return;
+        }
+        
         // Calcular fecha de vencimiento (30 días)
         pase.setFechaFin(pase.getFechaInicio().plusDays(30));
 
@@ -73,8 +86,8 @@ public class PaseData {
         }
 
         String sql = "INSERT INTO pases "
-                + "(ID_Socio, CantidadEntradas, Fecha_Inicio, Fecha_Fin, Costo, Estado) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+                + "(ID_Socio, CantidadEntradas, Fecha_Inicio, Fecha_Fin, Costo, Estado, TipoPase) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = con.prepareStatement(
                 sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -85,6 +98,7 @@ public class PaseData {
             ps.setDate(4, Date.valueOf(pase.getFechaFin()));
             ps.setDouble(5, pase.getCosto());
             ps.setBoolean(6, pase.isEstado());
+            ps.setString(7, pase.getTipoPase());
 
             ps.executeUpdate();
 
@@ -138,6 +152,7 @@ public class PaseData {
                     pase.setSocio(socio);
 
                     pase.setCantidadEntradas(rs.getInt("CantidadEntradas"));
+                    pase.setTipoPase(rs.getString("TipoPase"));
                     pase.setFechaInicio(rs.getDate("Fecha_Inicio").toLocalDate());
                     pase.setFechaFin(rs.getDate("Fecha_Fin").toLocalDate());
                     pase.setCosto(rs.getDouble("Costo"));
@@ -184,6 +199,7 @@ public class PaseData {
                 pase.setSocio(socio);
 
                 pase.setCantidadEntradas(rs.getInt("CantidadEntradas"));
+                pase.setTipoPase(rs.getString("TipoPase"));
                 pase.setFechaInicio(rs.getDate("Fecha_Inicio").toLocalDate());
                 pase.setFechaFin(rs.getDate("Fecha_Fin").toLocalDate());
                 pase.setCosto(rs.getDouble("Costo"));
@@ -229,6 +245,7 @@ public class PaseData {
                     pase.setSocio(socio);
 
                     pase.setCantidadEntradas(rs.getInt("CantidadEntradas"));
+                    pase.setTipoPase(rs.getString("TipoPase"));
                     pase.setFechaInicio(rs.getDate("Fecha_Inicio").toLocalDate());
                     pase.setFechaFin(rs.getDate("Fecha_Fin").toLocalDate());
                     pase.setCosto(rs.getDouble("Costo"));
@@ -258,7 +275,7 @@ public class PaseData {
                 + "WHERE ID_Socio = ? AND Estado = 1 "
                 + "AND Fecha_Inicio <= CURDATE() "
                 + "AND Fecha_Fin >= CURDATE() "
-                + "AND CantidadEntradas > 0 "
+                + "AND (TipoPase = 'LIBRE' OR CantidadEntradas > 0) "
                 + "ORDER BY Fecha_Inicio DESC LIMIT 1";
 
         Pase pase = null;
@@ -280,6 +297,7 @@ public class PaseData {
                     pase.setSocio(socio);
 
                     pase.setCantidadEntradas(rs.getInt("CantidadEntradas"));
+                    pase.setTipoPase(rs.getString("TipoPase"));
                     pase.setFechaInicio(rs.getDate("Fecha_Inicio").toLocalDate());
                     pase.setFechaFin(rs.getDate("Fecha_Fin").toLocalDate());
                     pase.setCosto(rs.getDouble("Costo"));
@@ -295,28 +313,41 @@ public class PaseData {
         return pase;
     }
 
+    
     // ACTUALIZAR PASE
-    public void actualizarPase(Pase pase) {
+    public boolean actualizarPase(Pase pase) {
 
         if (con == null || pase == null || pase.getSocio() == null
                 || pase.getFechaInicio() == null || pase.getFechaFin() == null) {
             System.out.println("Debe proporcionar los datos del pase.");
-            return;
+            return false;
         }
 
-        if (pase.getCantidadEntradas() != 8
-                && pase.getCantidadEntradas() != 12
-                && pase.getCantidadEntradas() != 20) {
-            System.out.println("La cantidad de entradas debe ser 8, 12 o 20.");
-            return;
+        String tipoPase = pase.getTipoPase();
+
+        if ("LIBRE".equals(tipoPase)) {
+            if (pase.getCantidadEntradas() != 0) {
+                System.out.println("El Pase Libre debe tener 0 entradas.");
+                return false;
+            }
+        } else if ("LIMITADO".equals(tipoPase)) {
+            if (pase.getCantidadEntradas() != 8
+                    && pase.getCantidadEntradas() != 12
+                    && pase.getCantidadEntradas() != 20) {
+                System.out.println("La cantidad de entradas debe ser 8, 12 o 20.");
+                return false;
+            }
+        } else {
+            System.out.println("El tipo de pase no es válido.");
+            return false;
         }
 
         if (!pase.getFechaFin().equals(pase.getFechaInicio().plusDays(30))) {
             System.out.println("El pase debe tener una duración de 30 días.");
-            return;
+            return false;
         }
 
-        // Verificamos que no exista otro pase activo en el mismo período
+        // Verificar que no exista otro pase activo en el mismo período
         if (pase.isEstado()) {
 
             String sqlExiste = "SELECT COUNT(*) FROM pases "
@@ -335,55 +366,61 @@ public class PaseData {
 
                     if (rs.next() && rs.getInt(1) > 0) {
                         System.out.println("El socio ya tiene otro pase activo en ese período.");
-                        return;
+                        return false;
                     }
                 }
 
             } catch (SQLException ex) {
                 Logger.getLogger(PaseData.class.getName())
                         .log(Level.SEVERE, null, ex);
-                return;
+                return false;
             }
         }
 
         String sql = "UPDATE pases SET ID_Socio = ?, "
-                + "CantidadEntradas = ?, Fecha_Inicio = ?, "
-                + "Fecha_Fin = ?, Costo = ?, Estado = ? "
+                + "CantidadEntradas = ?, TipoPase = ?, "
+                + "Fecha_Inicio = ?, Fecha_Fin = ?, "
+                + "Costo = ?, Estado = ? "
                 + "WHERE ID_Pase = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, pase.getSocio().getIdSocio());
             ps.setInt(2, pase.getCantidadEntradas());
-            ps.setDate(3, Date.valueOf(pase.getFechaInicio()));
-            ps.setDate(4, Date.valueOf(pase.getFechaFin()));
-            ps.setDouble(5, pase.getCosto());
-            ps.setBoolean(6, pase.isEstado());
-            ps.setInt(7, pase.getIdPase());
+            ps.setString(3, tipoPase);
+            ps.setDate(4, Date.valueOf(pase.getFechaInicio()));
+            ps.setDate(5, Date.valueOf(pase.getFechaFin()));
+            ps.setDouble(6, pase.getCosto());
+            ps.setBoolean(7, pase.isEstado());
+            ps.setInt(8, pase.getIdPase());
 
             int filas = ps.executeUpdate();
 
             if (filas > 0) {
                 System.out.println("Pase actualizado correctamente.");
+                return true;
             } else {
                 System.out.println("No se encontró el pase indicado.");
+                return false;
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(PaseData.class.getName())
                     .log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 
     // BAJA LÓGICA DE PASE
-    public void borrarPase(int idPase) {
+    public boolean borrarPase(int idPase) {
 
         if (con == null) {
             System.out.println("No hay conexión con la base de datos.");
-            return;
+            return false;
         }
 
-        String sql = "UPDATE pases SET Estado = 0 WHERE ID_Pase = ?";
+        String sql = "UPDATE pases SET Estado = 0 "
+                + "WHERE ID_Pase = ? AND Estado = 1";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -393,13 +430,16 @@ public class PaseData {
 
             if (filas > 0) {
                 System.out.println("Pase dado de baja correctamente.");
+                return true;
             } else {
-                System.out.println("No se encontró el pase indicado.");
+                System.out.println("No se encontró el pase o ya está inactivo.");
+                return false;
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(PaseData.class.getName())
                     .log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 }

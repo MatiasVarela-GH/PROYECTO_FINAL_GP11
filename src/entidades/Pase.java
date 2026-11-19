@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author Pablo Carnota
- */
 public class Pase {
     private int idPase;
     private Socios socio;
@@ -18,6 +10,7 @@ public class Pase {
     private LocalDate fechaFin;
     private double costo;
     private boolean estado;
+    private String tipoPase;
 
     public Pase(int idPase, Socios socio, int cantidadEntradas, LocalDate fechaInicio, LocalDate fechaFin, double costo, boolean estado) {
         this.idPase = idPase;
@@ -96,7 +89,15 @@ public class Pase {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
+
+    public String getTipoPase() {
+        return tipoPase;
+    }
+
+    public void setTipoPase(String tipoPase) {
+        this.tipoPase = tipoPase;
+    }
+
     @Override
     public String toString() {
         return "Pase{" + "idPase=" + idPase 

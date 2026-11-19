@@ -31,10 +31,10 @@ public class AsistenciaData {
         String sqlCantidad = "SELECT COUNT(*) FROM asistencias "
                 + "WHERE ID_Clase = ? AND Fecha_Asistencia = ?";
 
-        String sqlPase = "SELECT ID_Pase, CantidadEntradas FROM pases "
+        String sqlPase = "SELECT ID_Pase, CantidadEntradas, TipoPase FROM pases "
                 + "WHERE ID_Socio = ? AND Estado = 1 "
                 + "AND Fecha_Inicio <= ? AND Fecha_Fin >= ? "
-                + "AND CantidadEntradas > 0 "
+                + "AND (TipoPase = 'LIBRE' OR CantidadEntradas > 0) "
                 + "ORDER BY Fecha_Inicio DESC LIMIT 1 FOR UPDATE";
 
         String sqlInsertar = "INSERT INTO asistencias "
@@ -126,6 +126,7 @@ public class AsistenciaData {
             // 4. Buscar un pase activo con entradas disponibles
             int idPase;
             int entradas;
+            String tipoPase;
 
             try (PreparedStatement ps = con.prepareStatement(sqlPase)) {
                 ps.setInt(1, idSocio);
@@ -141,6 +142,7 @@ public class AsistenciaData {
 
                     idPase = rs.getInt("ID_Pase");
                     entradas = rs.getInt("CantidadEntradas");
+                    tipoPase = rs.getString("TipoPase");
                 }
             }
 
@@ -161,17 +163,20 @@ public class AsistenciaData {
                 }
             }
 
-            // 6. Descontar una entrada del pase
-            entradas--;
+            // 6. Descontar una entrada si el pase es limitado
+            if ("LIMITADO".equals(tipoPase)) {
 
-            try (PreparedStatement ps = con.prepareStatement(sqlDescontar)) {
-                ps.setInt(1, entradas);
-                ps.setBoolean(2, entradas > 0);
-                ps.setInt(3, idPase);
+                entradas--;
 
-                ps.executeUpdate();
+                try (PreparedStatement ps = con.prepareStatement(sqlDescontar)) {
+                    ps.setInt(1, entradas);
+                    ps.setBoolean(2, entradas > 0);
+                    ps.setInt(3, idPase);
+
+                    ps.executeUpdate();
+                }
             }
-
+            
             con.commit();
             System.out.println("Asistencia registrada correctamente.");
 

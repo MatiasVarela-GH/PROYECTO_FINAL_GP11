@@ -57,19 +57,24 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="tituloMenu" min="-2" max="-2" attributes="0"/>
-              <Component id="btnSalir" min="-2" pref="180" max="-2" attributes="0"/>
               <Group type="102" attributes="0">
-                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnInicio" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnSocios" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnEntrenadores" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnClases" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnClases2" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnClases1" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnRutinas" min="-2" max="-2" attributes="0"/>
+                      <Component id="tituloMenu" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSalir" min="-2" pref="180" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnInicio" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSocios" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnEntrenadores" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnClases" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPases" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAsistencia" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnRutinas" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -82,17 +87,17 @@
                   <Component id="btnInicio" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                   <Component id="btnSocios" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnEntrenadores" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="btnClases" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                  <Component id="btnClases2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                  <Component id="btnClases1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnPases" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnAsistencia" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnRutinas" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="228" pref="228" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
                   <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -289,7 +294,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRutinasActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnClases1">
+        <Component class="javax.swing.JButton" name="btnPases">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2b" green="27" red="22" type="rgb"/>
@@ -319,10 +324,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClases1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPasesActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnClases2">
+        <Component class="javax.swing.JButton" name="btnAsistencia">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2b" green="27" red="22" type="rgb"/>
@@ -352,7 +357,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClases2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAsistenciaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnClases">

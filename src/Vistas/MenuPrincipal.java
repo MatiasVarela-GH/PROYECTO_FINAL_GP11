@@ -1,3 +1,4 @@
+package Vistas;
 
 import entidades.Socios;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +14,7 @@ import entidades.Clases;
 import java.time.LocalTime;
 import javax.swing.JOptionPane;
 import Vistas.VistaRutinas;
+import Vistas.VistaPases;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -28,6 +30,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private RutinaData rutinaData;
     private int idRutinaSeleccionada = -1;
     private VistaRutinas vistaRutinas;
+    private VistaPases vistaPases;
 
     public MenuPrincipal(MiConexion conexion) {
         initComponents();
@@ -46,6 +49,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         rutinaData = new RutinaData(conexion);
         vistaRutinas = new VistaRutinas(rutinaData);
         cargarTablaRutinas();
+        vistaPases = new VistaPases(conexion);
 
         // Reorganizar las vistas del panel principal
         panelContenido.removeAll();
@@ -56,6 +60,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panelContenido.add(vistaEntrenadores, "entrenadores");
         panelContenido.add(vistaClases, "clases");
         panelContenido.add(vistaRutinas, "rutinas");
+        panelContenido.add(vistaPases.getPanelPases(), "pases");
 
         // Mostrar inicio al abrir el programa
         mostrarVista("inicio");
@@ -195,9 +200,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     r.isEstado() ? "Activo" : "Inactivo"
             });
         }
-        // Nota: Asegúrate de reemplazar "jTableRutinas" por el nombre real de la JTable
-        // que crees en tu vista de rutinas
-        // jTableRutinas.setModel(modelo);
     }
 
     private void limpiarCamposSocios() {
@@ -234,6 +236,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         btnRutinas.setBackground(fondo);
         btnRutinas.setForeground(texto);
+        
+        btnPases.setBackground(fondo);
+        btnPases.setForeground(texto);
 
         // Resaltar el botón seleccionado
         seleccionado.setBackground(new java.awt.Color(184, 243, 74));
@@ -322,8 +327,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnEntrenadores = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnRutinas = new javax.swing.JButton();
-        btnClases1 = new javax.swing.JButton();
-        btnClases2 = new javax.swing.JButton();
+        btnPases = new javax.swing.JButton();
+        btnAsistencia = new javax.swing.JButton();
         btnClases = new javax.swing.JButton();
         panelContenido = new javax.swing.JPanel();
         vistaSocios = new javax.swing.JPanel();
@@ -506,33 +511,33 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnRutinas.setPreferredSize(new java.awt.Dimension(145, 42));
         btnRutinas.addActionListener(this::btnRutinasActionPerformed);
 
-        btnClases1.setBackground(new java.awt.Color(34, 39, 43));
-        btnClases1.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
-        btnClases1.setForeground(new java.awt.Color(255, 255, 255));
-        btnClases1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pases.png"))); // NOI18N
-        btnClases1.setText("Pases");
-        btnClases1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnClases1.setBorderPainted(false);
-        btnClases1.setContentAreaFilled(false);
-        btnClases1.setFocusPainted(false);
-        btnClases1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnClases1.setOpaque(true);
-        btnClases1.setPreferredSize(new java.awt.Dimension(145, 42));
-        btnClases1.addActionListener(this::btnClases1ActionPerformed);
+        btnPases.setBackground(new java.awt.Color(34, 39, 43));
+        btnPases.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        btnPases.setForeground(new java.awt.Color(255, 255, 255));
+        btnPases.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pases.png"))); // NOI18N
+        btnPases.setText("Pases");
+        btnPases.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnPases.setBorderPainted(false);
+        btnPases.setContentAreaFilled(false);
+        btnPases.setFocusPainted(false);
+        btnPases.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPases.setOpaque(true);
+        btnPases.setPreferredSize(new java.awt.Dimension(145, 42));
+        btnPases.addActionListener(this::btnPasesActionPerformed);
 
-        btnClases2.setBackground(new java.awt.Color(34, 39, 43));
-        btnClases2.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
-        btnClases2.setForeground(new java.awt.Color(255, 255, 255));
-        btnClases2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/asistencias.png"))); // NOI18N
-        btnClases2.setText("Asistencia");
-        btnClases2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnClases2.setBorderPainted(false);
-        btnClases2.setContentAreaFilled(false);
-        btnClases2.setFocusPainted(false);
-        btnClases2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnClases2.setOpaque(true);
-        btnClases2.setPreferredSize(new java.awt.Dimension(145, 42));
-        btnClases2.addActionListener(this::btnClases2ActionPerformed);
+        btnAsistencia.setBackground(new java.awt.Color(34, 39, 43));
+        btnAsistencia.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        btnAsistencia.setForeground(new java.awt.Color(255, 255, 255));
+        btnAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/asistencias.png"))); // NOI18N
+        btnAsistencia.setText("Asistencia");
+        btnAsistencia.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnAsistencia.setBorderPainted(false);
+        btnAsistencia.setContentAreaFilled(false);
+        btnAsistencia.setFocusPainted(false);
+        btnAsistencia.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAsistencia.setOpaque(true);
+        btnAsistencia.setPreferredSize(new java.awt.Dimension(145, 42));
+        btnAsistencia.addActionListener(this::btnAsistenciaActionPerformed);
 
         btnClases.setBackground(new java.awt.Color(34, 39, 43));
         btnClases.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
@@ -552,18 +557,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tituloMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClases2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClases1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tituloMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelMenuLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -574,17 +582,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(btnSocios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(btnClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(btnClases2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(btnClases1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(228, 228, 228)
+                .addGap(236, 236, 236)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1952,6 +1960,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasesActionPerformed
+        mostrarVista("pases");
+        cambiarColorBoton(btnPases);
+    }//GEN-LAST:event_btnPasesActionPerformed
+
+    private void btnAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsistenciaActionPerformed
+        mostrarVista("asistencia");
+        cambiarColorBoton(btnAsistencia);
+    }//GEN-LAST:event_btnAsistenciaActionPerformed
+
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInicioActionPerformed
         mostrarVista("inicio");
         cambiarColorBoton(btnInicio);
@@ -2727,13 +2745,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_btnVerMasPasesActionPerformed
 
-    private void btnClases1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnClases1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btnClases1ActionPerformed
-
-    private void btnClases2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnClases2ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btnClases2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -2742,12 +2753,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAlta;
     private javax.swing.JButton btnAlta1;
     private javax.swing.JButton btnAlta2;
+    private javax.swing.JButton btnAsistencia;
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnBaja1;
     private javax.swing.JButton btnBaja2;
     private javax.swing.JButton btnClases;
-    private javax.swing.JButton btnClases1;
-    private javax.swing.JButton btnClases2;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarClase;
     private javax.swing.JButton btnEliminarEntrenador;
@@ -2759,6 +2769,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnLimpiar1;
     private javax.swing.JButton btnLimpiar2;
+    private javax.swing.JButton btnPases;
     private javax.swing.JButton btnRutinas;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSocios;
