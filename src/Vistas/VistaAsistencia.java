@@ -137,8 +137,8 @@ import javax.swing.table.DefaultTableModel;
     private void limpiarInformacionPase() {
 
         txtPase.setText("");
-        lblFechaVencimiento.setText("--");
         lblEntradasDisponibles.setText("--");
+        lblFechaVencimiento.setText("--");
     }
 
     private void actualizarInformacionPase() {
@@ -161,19 +161,19 @@ import javax.swing.table.DefaultTableModel;
         if ("LIBRE".equals(pase.getTipoPase())) {
 
             txtPase.setText("Pase Libre");
-            lblEntradasDisponibles.setText("∞");
+            lblFechaVencimiento.setText("∞");
 
         } else {
 
             txtPase.setText("Pase Limitado");
-            lblEntradasDisponibles.setText(
+            lblFechaVencimiento.setText(
                     String.valueOf(pase.getCantidadEntradas())
             );
         }
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        lblFechaVencimiento.setText(
+        lblEntradasDisponibles.setText(
                 pase.getFechaFin().format(formato)
         );
     }
@@ -242,7 +242,7 @@ import javax.swing.table.DefaultTableModel;
         lblSocio = new javax.swing.JLabel();
         lblClase = new javax.swing.JLabel();
         lblFechaDeInicio = new javax.swing.JLabel();
-        lblFechaVencimiento = new javax.swing.JLabel();
+        lblEntradasDisponibles = new javax.swing.JLabel();
         txtPase = new javax.swing.JTextField();
         btnRegistrarAsistencia = new javax.swing.JButton();
         cmbSocio = new javax.swing.JComboBox<>();
@@ -254,44 +254,38 @@ import javax.swing.table.DefaultTableModel;
         tablaAsistencias = new javax.swing.JTable();
         lblCosto3 = new javax.swing.JLabel();
         tituloAsistencia1 = new javax.swing.JLabel();
-        lblEntradasDisponibles = new javax.swing.JLabel();
+        lblFechaVencimiento = new javax.swing.JLabel();
 
         vistaPases.setBackground(new java.awt.Color(244, 245, 246));
         vistaPases.setName("panelPases"); // NOI18N
-        vistaPases.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tituloAsistencia.setFont(new java.awt.Font("Century Gothic", 1, 17)); // NOI18N
         tituloAsistencia.setForeground(new java.awt.Color(51, 51, 51));
         tituloAsistencia.setText("Informacion del pase");
-        vistaPases.add(tituloAsistencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         lblSocio.setBackground(new java.awt.Color(244, 245, 246));
         lblSocio.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lblSocio.setForeground(new java.awt.Color(51, 51, 51));
         lblSocio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblSocio.setText("Socio");
-        vistaPases.add(lblSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 61, -1, -1));
 
         lblClase.setBackground(new java.awt.Color(244, 245, 246));
         lblClase.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lblClase.setForeground(new java.awt.Color(51, 51, 51));
         lblClase.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblClase.setText("Clase");
-        vistaPases.add(lblClase, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 61, -1, -1));
 
         lblFechaDeInicio.setBackground(new java.awt.Color(244, 245, 246));
         lblFechaDeInicio.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lblFechaDeInicio.setForeground(new java.awt.Color(51, 51, 51));
         lblFechaDeInicio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblFechaDeInicio.setText("Fecha de asistencia");
-        vistaPases.add(lblFechaDeInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 134, -1, -1));
 
-        lblFechaVencimiento.setBackground(new java.awt.Color(244, 245, 246));
-        lblFechaVencimiento.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblFechaVencimiento.setForeground(new java.awt.Color(51, 51, 51));
-        lblFechaVencimiento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblFechaVencimiento.setText("--");
-        vistaPases.add(lblFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 90, 20));
+        lblEntradasDisponibles.setBackground(new java.awt.Color(244, 245, 246));
+        lblEntradasDisponibles.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblEntradasDisponibles.setForeground(new java.awt.Color(255, 0, 0));
+        lblEntradasDisponibles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblEntradasDisponibles.setText("--");
 
         txtPase.setEditable(false);
         txtPase.setBackground(new java.awt.Color(255, 255, 255));
@@ -302,7 +296,6 @@ import javax.swing.table.DefaultTableModel;
         txtPase.setCaretColor(new java.awt.Color(132, 184, 42));
         txtPase.setPreferredSize(new java.awt.Dimension(220, 30));
         txtPase.addActionListener(this::txtPaseActionPerformed);
-        vistaPases.add(txtPase, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 156, 290, -1));
 
         btnRegistrarAsistencia.setBackground(new java.awt.Color(204, 255, 102));
         btnRegistrarAsistencia.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -312,7 +305,6 @@ import javax.swing.table.DefaultTableModel;
         btnRegistrarAsistencia.setFocusPainted(false);
         btnRegistrarAsistencia.setPreferredSize(new java.awt.Dimension(140, 40));
         btnRegistrarAsistencia.addActionListener(this::btnRegistrarAsistenciaActionPerformed);
-        vistaPases.add(btnRegistrarAsistencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 620, -1));
 
         cmbSocio.setBackground(new java.awt.Color(255, 255, 255));
         cmbSocio.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -320,7 +312,6 @@ import javax.swing.table.DefaultTableModel;
         cmbSocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar socio..." }));
         cmbSocio.setName("Seleccionar entrenador"); // NOI18N
         cmbSocio.addActionListener(this::cmbSocioActionPerformed);
-        vistaPases.add(cmbSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 83, 290, 36));
 
         cmbClase.setBackground(new java.awt.Color(255, 255, 255));
         cmbClase.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -329,24 +320,20 @@ import javax.swing.table.DefaultTableModel;
         cmbClase.setToolTipText("");
         cmbClase.setName("Seleccionar entrenador"); // NOI18N
         cmbClase.addActionListener(this::cmbClaseActionPerformed);
-        vistaPases.add(cmbClase, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 83, 290, 36));
 
         lblCosto1.setBackground(new java.awt.Color(244, 245, 246));
         lblCosto1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lblCosto1.setForeground(new java.awt.Color(51, 51, 51));
         lblCosto1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCosto1.setText("Pase");
-        vistaPases.add(lblCosto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 134, -1, -1));
 
         lblCosto2.setBackground(new java.awt.Color(244, 245, 246));
         lblCosto2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblCosto2.setForeground(new java.awt.Color(51, 51, 51));
         lblCosto2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCosto2.setText("Entradas disponibles");
-        vistaPases.add(lblCosto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
         dateChooserAsistencia.addPropertyChangeListener(this::dateChooserAsistencia);
-        vistaPases.add(dateChooserAsistencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 156, 290, 30));
 
         tablaAsistencias.setBackground(new java.awt.Color(204, 204, 204));
         tablaAsistencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -377,26 +364,109 @@ import javax.swing.table.DefaultTableModel;
         });
         jScrollPane3.setViewportView(tablaAsistencias);
 
-        vistaPases.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 617, 220));
-
         lblCosto3.setBackground(new java.awt.Color(244, 245, 246));
         lblCosto3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblCosto3.setForeground(new java.awt.Color(51, 51, 51));
         lblCosto3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCosto3.setText("Feha de vencimiento");
-        vistaPases.add(lblCosto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
+        lblCosto3.setText("Fecha de vencimiento");
 
         tituloAsistencia1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         tituloAsistencia1.setForeground(new java.awt.Color(51, 51, 51));
         tituloAsistencia1.setText("Gestion de asistencias");
-        vistaPases.add(tituloAsistencia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
-        lblEntradasDisponibles.setBackground(new java.awt.Color(244, 245, 246));
-        lblEntradasDisponibles.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblEntradasDisponibles.setForeground(new java.awt.Color(51, 51, 51));
-        lblEntradasDisponibles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblEntradasDisponibles.setText("--/--/----");
-        vistaPases.add(lblEntradasDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 450, 90, 20));
+        lblFechaVencimiento.setBackground(new java.awt.Color(244, 245, 246));
+        lblFechaVencimiento.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblFechaVencimiento.setForeground(new java.awt.Color(51, 51, 51));
+        lblFechaVencimiento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblFechaVencimiento.setText("--/--/----");
+
+        javax.swing.GroupLayout vistaPasesLayout = new javax.swing.GroupLayout(vistaPases);
+        vistaPases.setLayout(vistaPasesLayout);
+        vistaPasesLayout.setHorizontalGroup(
+            vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vistaPasesLayout.createSequentialGroup()
+                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(vistaPasesLayout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(tituloAsistencia1))
+                    .addGroup(vistaPasesLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(vistaPasesLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSocio)))
+                    .addGroup(vistaPasesLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblClase)
+                            .addComponent(cmbClase, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(vistaPasesLayout.createSequentialGroup()
+                                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dateChooserAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFechaDeInicio))
+                                .addGap(37, 37, 37)
+                                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCosto1)
+                                    .addComponent(txtPase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(vistaPasesLayout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCosto3)
+                                    .addComponent(lblCosto2))
+                                .addGap(29, 29, 29)
+                                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEntradasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(vistaPasesLayout.createSequentialGroup()
+                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(vistaPasesLayout.createSequentialGroup()
+                        .addGap(227, 227, 227)
+                        .addComponent(tituloAsistencia))
+                    .addGroup(vistaPasesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegistrarAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+        vistaPasesLayout.setVerticalGroup(
+            vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vistaPasesLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(tituloAsistencia1)
+                .addGap(20, 20, 20)
+                .addComponent(lblSocio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblClase)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbClase, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCosto1)
+                    .addComponent(lblFechaDeInicio))
+                .addGap(18, 18, 18)
+                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dateChooserAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(tituloAsistencia)
+                .addGap(25, 25, 25)
+                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCosto2)
+                    .addComponent(lblEntradasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(vistaPasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCosto3)
+                    .addComponent(lblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRegistrarAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -405,17 +475,17 @@ import javax.swing.table.DefaultTableModel;
             .addGap(0, 656, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(vistaPases, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(13, Short.MAX_VALUE)
+                    .addComponent(vistaPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGap(0, 787, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(vistaPases, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)))
+                    .addComponent(vistaPases, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();

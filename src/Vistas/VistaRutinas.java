@@ -207,7 +207,7 @@ private void cargarTablaRutinas() {
             .addGroup(panelDatosRutinaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatosRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRutaAnimacion, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtRutaAnimacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelDatosRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1)
@@ -215,7 +215,7 @@ private void cargarTablaRutinas() {
                                 .addGroup(panelDatosRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosRutinaLayout.createSequentialGroup()
                                         .addComponent(btnGuardarRutina)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGap(18, 18, 18)
                                         .addComponent(btnActualizarRutina)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnLimpiarRutina))
@@ -286,19 +286,19 @@ private void cargarTablaRutinas() {
         jScrollPane3.setViewportView(jTableRutinas);
 
         btnAltaRutina.setBackground(new java.awt.Color(204, 255, 102));
-        btnAltaRutina.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAltaRutina.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
         btnAltaRutina.setForeground(new java.awt.Color(51, 51, 51));
         btnAltaRutina.setText("DAR ALTA");
         btnAltaRutina.addActionListener(this::btnAltaRutinaActionPerformed);
 
         btnBajaRutina.setBackground(new java.awt.Color(51, 51, 51));
-        btnBajaRutina.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnBajaRutina.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
         btnBajaRutina.setForeground(new java.awt.Color(255, 255, 255));
         btnBajaRutina.setText("DAR BAJA");
         btnBajaRutina.addActionListener(this::btnBajaRutinaActionPerformed);
 
         btnEliminarRutina.setBackground(new java.awt.Color(168, 61, 61));
-        btnEliminarRutina.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnEliminarRutina.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
         btnEliminarRutina.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarRutina.setText("ELIMINAR");
         btnEliminarRutina.addActionListener(this::btnEliminarRutinaActionPerformed);
@@ -318,11 +318,11 @@ private void cargarTablaRutinas() {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoRutinaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAltaRutina)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(2, 2, 2)
                         .addComponent(btnBajaRutina)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminarRutina)
-                        .addGap(223, 223, 223))
+                        .addGap(299, 299, 299))
                     .addGroup(panelListadoRutinaLayout.createSequentialGroup()
                         .addGroup(panelListadoRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -331,8 +331,8 @@ private void cargarTablaRutinas() {
             .addGroup(panelListadoRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelListadoRutinaLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(250, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(302, Short.MAX_VALUE)))
         );
         panelListadoRutinaLayout.setVerticalGroup(
             panelListadoRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,7 +341,7 @@ private void cargarTablaRutinas() {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbFiltroGrupoMuscular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
                 .addGroup(panelListadoRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAltaRutina)
                     .addComponent(btnBajaRutina)
@@ -372,7 +372,7 @@ private void cargarTablaRutinas() {
         panelAnimacionRutinaLayout.setVerticalGroup(
             panelAnimacionRutinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAnimacionRutinaLayout.createSequentialGroup()
-                .addComponent(lblAnimacionRutina, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addComponent(lblAnimacionRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -382,24 +382,24 @@ private void cargarTablaRutinas() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelDatosRutina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelListadoRutina, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelListadoRutina, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelAnimacionRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addComponent(panelAnimacionRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelDatosRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(panelDatosRutina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelListadoRutina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelAnimacionRutina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelListadoRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAnimacionRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

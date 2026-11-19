@@ -16,6 +16,11 @@ import javax.swing.JOptionPane;
 import Vistas.VistaRutinas;
 import Vistas.VistaPases;
 import Vistas.VistaAsistencia;
+import entidades.Pase;
+import entidades.Asistencia;
+import persistencia.PaseData;
+import persistencia.AsistenciaData;
+import java.time.format.DateTimeFormatter;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -33,6 +38,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private VistaRutinas vistaRutinas;
     private VistaPases vistaPases;
     private VistaAsistencia vistaAsistencia;
+    private PaseData paseData;
+    private AsistenciaData asistenciaData;
 
     public MenuPrincipal(MiConexion conexion) {
         initComponents();
@@ -53,6 +60,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarTablaRutinas();
         vistaPases = new VistaPases(conexion);
         vistaAsistencia = new VistaAsistencia(conexion);
+        paseData = new PaseData(conexion);
+        asistenciaData = new AsistenciaData(conexion);
+        cargarResumenPases();
+        cargarResumenAsistencias();
 
         // Reorganizar las vistas del panel principal
         panelContenido.removeAll();
@@ -322,6 +333,94 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel9.setText("Total de clases activas: " + totalActivas);
     }
+    
+    private void cargarResumenPases() {
+
+        DefaultTableModel modelo
+                = (DefaultTableModel) tablaResumenPases.getModel();
+
+        modelo.setRowCount(0);
+
+        List<Pase> pases = paseData.listarPases();
+
+        pases.sort((a, b)
+                -> Integer.compare(b.getIdPase(), a.getIdPase()));
+
+        int totalActivos = 0;
+        int mostrados = 0;
+
+        DateTimeFormatter formato
+                = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Pase pase : pases) {
+
+            if (pase.isEstado()) {
+
+                totalActivos++;
+
+                if (mostrados < 5) {
+
+                    String socio = pase.getSocio().getApellido()
+                            + ", " + pase.getSocio().getNombre();
+
+                    String entradas = "LIBRE".equals(pase.getTipoPase())
+                            ? "∞"
+                            : String.valueOf(pase.getCantidadEntradas());
+
+                    modelo.addRow(new Object[]{
+                        socio,
+                        entradas,
+                        pase.getFechaFin().format(formato)
+                    });
+
+                    mostrados++;
+                }
+            }
+        }
+
+        jLabel10.setText("Total de pases activos: " + totalActivos);
+    }
+
+    private void cargarResumenAsistencias() {
+
+        DefaultTableModel modelo
+                = (DefaultTableModel) tablaResumenAsistencias.getModel();
+
+        modelo.setRowCount(0);
+
+        List<Asistencia> asistencias
+                = asistenciaData.listarAsistencias();
+
+        asistencias.sort((a, b)
+                -> b.getFechaAsistencia().compareTo(a.getFechaAsistencia()));
+
+        int total = asistencias.size();
+        int mostrados = 0;
+
+        DateTimeFormatter formato
+                = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Asistencia asistencia : asistencias) {
+
+            if (mostrados < 5) {
+
+                String socio = asistencia.getSocio().getApellido()
+                        + ", " + asistencia.getSocio().getNombre();
+
+                String clase = asistencia.getClase().getDisciplina();
+
+                modelo.addRow(new Object[]{
+                    socio,
+                    clase,
+                    asistencia.getFechaAsistencia().format(formato)
+                });
+
+                mostrados++;
+            }
+        }
+
+        jLabel11.setText("Total de asistencias: " + total);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -433,7 +532,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panelSocios3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        btnVerMasInformes = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("\tAboriGym - Gestión del gimnasio");
@@ -1736,7 +1842,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerMasPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         panelAsistencia.setBackground(new java.awt.Color(244, 245, 246));
@@ -1841,6 +1947,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         panelSocios3.setBackground(new java.awt.Color(244, 245, 246));
         panelSocios3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 220, 227)));
+        panelSocios3.setForeground(new java.awt.Color(51, 51, 51));
         panelSocios3.setPreferredSize(new java.awt.Dimension(190, 120));
 
         jLabel6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 16)); // NOI18N
@@ -1851,38 +1958,75 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(119, 119, 119));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("Total de socios activos");
+        jLabel12.setText("Indicadores del gimnasio");
 
-        btnVerMasInformes.setBackground(new java.awt.Color(168, 245, 42));
-        btnVerMasInformes.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        btnVerMasInformes.setForeground(new java.awt.Color(32, 32, 32));
-        btnVerMasInformes.setBorderPainted(false);
-        btnVerMasInformes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVerMasInformes.setFocusPainted(false);
-        btnVerMasInformes.setLabel("Ver todos >");
-        btnVerMasInformes.setMaximumSize(new java.awt.Dimension(99, 28));
-        btnVerMasInformes.setMinimumSize(new java.awt.Dimension(99, 28));
-        btnVerMasInformes.addActionListener(this::btnVerMasInformesActionPerformed);
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel13.setText("Asistencias del mes");
+
+        jLabel14.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel14.setText("Pases por vencer");
+
+        jLabel15.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel15.setText("Clases activas");
+
+        jLabel16.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel16.setText("Socios activos");
+
+        jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel17.setText("0");
+
+        jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel18.setText("0");
+
+        jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel19.setText("0");
+
+        jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel20.setText("0");
 
         javax.swing.GroupLayout panelSocios3Layout = new javax.swing.GroupLayout(panelSocios3);
         panelSocios3.setLayout(panelSocios3Layout);
         panelSocios3Layout.setHorizontalGroup(
             panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSocios3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSocios3Layout.createSequentialGroup()
                 .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSocios3Layout.createSequentialGroup()
                         .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSocios3Layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel12))
-                            .addGroup(panelSocios3Layout.createSequentialGroup()
                                 .addGap(56, 56, 56)
-                                .addComponent(jLabel6)))
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(panelSocios3Layout.createSequentialGroup()
+                                .addComponent(jLabel6))
+                            .addGroup(panelSocios3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel15))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSocios3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnVerMasInformes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelSocios3Layout.createSequentialGroup()
+                                .addGap(0, 16, Short.MAX_VALUE)
+                                .addComponent(jLabel12))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSocios3Layout.createSequentialGroup()
+                                .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20))
+                .addGap(16, 16, 16))
         );
         panelSocios3Layout.setVerticalGroup(
             panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1891,9 +2035,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
-                .addGap(261, 261, 261)
-                .addComponent(btnVerMasInformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel18))
+                .addGap(12, 12, 12)
+                .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout vistaInicioLayout = new javax.swing.GroupLayout(vistaInicio);
@@ -1936,7 +2094,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(panelSocios, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                     .addComponent(panelClases, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                     .addComponent(panelEntrenadores, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(vistaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelSocios3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                     .addComponent(panelPases, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
@@ -1979,6 +2137,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAsistenciaActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInicioActionPerformed
+        cargarResumenPases();
+        cargarResumenAsistencias();
+
         mostrarVista("inicio");
         cambiarColorBoton(btnInicio);
     }// GEN-LAST:event_btnInicioActionPerformed
@@ -2041,6 +2202,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarTablaSocios();
         limpiarCamposSocios();
         socioSeleccionadoId = -1;
+        cargarResumenSocios();
 
         javax.swing.JOptionPane.showMessageDialog(this,
                 "Socio dado de alta correctamente");
@@ -2084,6 +2246,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         entrenadorData.actualizarEntrenador(entrenador);
 
         cargarTablaEntrenadores();
+        cargarResumenEntrenadores();
 
         JOptionPane.showMessageDialog(this,
                 "Entrenador dado de alta correctamente");
@@ -2127,6 +2290,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         clasesData.actualizarClase(clase);
 
         cargarTablaClases();
+        cargarResumenClases();
 
         JOptionPane.showMessageDialog(this,
                 "Clase dada de alta correctamente");
@@ -2190,6 +2354,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             socioData.guardarSocio(socio);
 
             cargarTablaSocios();
+            cargarResumenSocios();
 
             limpiarCamposSocios();
 
@@ -2298,6 +2463,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             cargarTablaSocios();
             limpiarCamposSocios();
+            cargarResumenSocios();
 
             socioSeleccionadoId = -1;
 
@@ -2327,6 +2493,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             cargarTablaSocios();
             limpiarCamposSocios();
             socioSeleccionadoId = -1;
+            cargarResumenSocios();
 
             javax.swing.JOptionPane.showMessageDialog(this,
                     "Socio eliminado correctamente");
@@ -2394,6 +2561,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         entrenadorData.actualizarEntrenador(entrenador);
 
         cargarTablaEntrenadores();
+        cargarResumenEntrenadores();
 
         JOptionPane.showMessageDialog(this,
                 "Entrenador actualizado");
@@ -2420,7 +2588,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
             entrenadorData.borrarEntrenador(idEntrenadorSeleccionado);
 
             cargarTablaEntrenadores();
-
+            cargarResumenEntrenadores();
+            
             txtDni1.setText("");
             txtNombre1.setText("");
             txtApellido1.setText("");
@@ -2457,6 +2626,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             if (eliminado) {
                 cargarTablaEntrenadores();
+                cargarResumenEntrenadores();
 
                 txtDni1.setText("");
                 txtNombre1.setText("");
@@ -2512,6 +2682,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         cargarTablaEntrenadores();
         cargarEntrenadoresCombo();
+        cargarResumenEntrenadores();
 
         JOptionPane.showMessageDialog(this,
                 "Entrenador guardado correctamente");
@@ -2571,6 +2742,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             clasesData.guardarClase(clase);
             cargarTablaClases();
+            cargarResumenClases();
 
             JOptionPane.showMessageDialog(this,
                     "Clase guardada correctamente");
@@ -2669,6 +2841,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             clasesData.actualizarClase(clase);
 
             cargarTablaClases();
+            cargarResumenClases();
 
             JOptionPane.showMessageDialog(this,
                     "Clase actualizada correctamente");
@@ -2700,6 +2873,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             clasesData.borrarClase(idClaseSeleccionada);
 
             cargarTablaClases();
+            cargarResumenClases();
 
             txtDisciplina.setText("");
             txtHorario.setText("");
@@ -2746,11 +2920,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_btnVerMasInformesActionPerformed
 
     private void btnVerMasAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnVerMasAsistenciaActionPerformed
-        // TODO add your handling code here:
+        cargarResumenAsistencias();
+        mostrarVista("asistencia");
+        cambiarColorBoton(btnAsistencia);
     }// GEN-LAST:event_btnVerMasAsistenciaActionPerformed
 
     private void btnVerMasPasesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnVerMasPasesActionPerformed
-        // TODO add your handling code here:
+        cargarResumenPases();
+        mostrarVista("pases");
+        cambiarColorBoton(btnPases);
     }// GEN-LAST:event_btnVerMasPasesActionPerformed
 
 
@@ -2784,7 +2962,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnVerMasAsistencia;
     private javax.swing.JButton btnVerMasClases;
     private javax.swing.JButton btnVerMasEntrenadores;
-    private javax.swing.JButton btnVerMasInformes;
     private javax.swing.JButton btnVerMasPases;
     private javax.swing.JButton btnVerMasSocios;
     private javax.swing.JComboBox<String> cmbEntrenador;
@@ -2793,7 +2970,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
