@@ -641,15 +641,19 @@ public class VistaPases extends javax.swing.JInternalFrame {
 
     private void btnAlta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlta2ActionPerformed
 
+     System.out.println("Se ejecuto el boton Dar de alta.");
+
         if (idPaseSeleccionado == -1) {
             JOptionPane.showMessageDialog(this,
-                    "Seleccioná un pase de la tabla.");
+                    "Selecciona un pase de la tabla.");
             return;
         }
 
         int fila = jTable3.getSelectedRow();
 
         if (fila == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona un pase de la tabla.");
             return;
         }
 
@@ -660,6 +664,36 @@ public class VistaPases extends javax.swing.JInternalFrame {
                     "El pase ya se encuentra activo.");
             return;
         }
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "Deseas dar de alta nuevamente este pase?",
+                "Confirmar alta",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            boolean resultado
+                    = paseData.darDeAltaPase(idPaseSeleccionado);
+
+            if (resultado) {
+                JOptionPane.showMessageDialog(this,
+                        "Pase dado de alta correctamente.");
+
+                cargarTablaPases();
+                idPaseSeleccionado = -1;
+                jTable3.clearSelection();
+
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo dar de alta el pase.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    
+
     }//GEN-LAST:event_btnAlta2ActionPerformed
 
 
