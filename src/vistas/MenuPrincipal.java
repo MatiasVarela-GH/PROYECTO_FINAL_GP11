@@ -21,6 +21,7 @@ import entidades.Asistencia;
 import persistencia.PaseData;
 import persistencia.AsistenciaData;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -40,6 +41,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private VistaAsistencia vistaAsistencia;
     private PaseData paseData;
     private AsistenciaData asistenciaData;
+    private GraficoAsistencias graficoAsistencias;
 
     public MenuPrincipal(MiConexion conexion) {
         initComponents();
@@ -64,6 +66,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         asistenciaData = new AsistenciaData(conexion);
         cargarResumenPases();
         cargarResumenAsistencias();
+        cargarIndicadoresInformes();
+        cargarGraficoAsistencias();
+        
+        graficoAsistencias = new GraficoAsistencias();
+
+        panelGraficoAsistencias.setLayout(
+                new java.awt.BorderLayout()
+        );
+
+        panelGraficoAsistencias.removeAll();
+
+        panelGraficoAsistencias.add(
+                graficoAsistencias,
+                java.awt.BorderLayout.CENTER
+        );
 
         // Reorganizar las vistas del panel principal
         panelContenido.removeAll();
@@ -422,6 +439,77 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel11.setText("Total de asistencias: " + total);
     }
 
+    private void cargarIndicadoresInformes() {
+
+        LocalDate hoy = LocalDate.now();
+        LocalDate limite = hoy.plusDays(7);
+
+        // Asistencias registradas durante el mes actual
+        long asistenciasMes = asistenciaData.listarAsistencias()
+                .stream()
+                .filter(a -> a.getFechaAsistencia() != null
+                && a.getFechaAsistencia().getMonth() == hoy.getMonth()
+                && a.getFechaAsistencia().getYear() == hoy.getYear())
+                .count();
+
+        // Pases activos que vencen dentro de los próximos 7 días
+        long pasesPorVencer = paseData.listarPases()
+                .stream()
+                .filter(p -> p.isEstado()
+                && p.getFechaFin() != null
+                && !p.getFechaFin().isBefore(hoy)
+                && !p.getFechaFin().isAfter(limite))
+                .count();
+
+        // Socios activos
+        long sociosActivos = socioData.listarSocios()
+                .stream()
+                .filter(Socios::isEstado)
+                .count();
+
+        // Clases activas
+        long clasesActivas = clasesData.listarClasesActivas().size();
+
+        jLabel17.setText(String.valueOf(asistenciasMes));
+        jLabel18.setText(String.valueOf(pasesPorVencer));
+        jLabel19.setText(String.valueOf(sociosActivos));
+        jLabel20.setText(String.valueOf(clasesActivas));
+    }
+
+    private void cargarGraficoAsistencias() {
+
+        int[] cantidades = new int[7];
+
+        java.time.LocalDate hoy = java.time.LocalDate.now();
+
+        // La semana comienza el lunes
+        java.time.LocalDate lunes = hoy.with(
+                java.time.DayOfWeek.MONDAY
+        );
+
+        java.time.LocalDate domingo = lunes.plusDays(6);
+
+        List<Asistencia> asistencias
+                = asistenciaData.listarAsistencias();
+
+        for (Asistencia asistencia : asistencias) {
+
+            java.time.LocalDate fecha
+                    = asistencia.getFechaAsistencia();
+
+            if (fecha != null
+                    && !fecha.isBefore(lunes)
+                    && !fecha.isAfter(domingo)) {
+
+                int dia = fecha.getDayOfWeek().getValue() - 1;
+
+                cantidades[dia]++;
+            }
+        }
+
+        graficoAsistencias.actualizarDatos(cantidades);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -540,6 +628,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        panelGraficoAsistencias = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("\tAboriGym - Gestión del gimnasio");
@@ -1992,6 +2081,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel20.setForeground(new java.awt.Color(51, 51, 51));
         jLabel20.setText("0");
 
+        panelGraficoAsistencias.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout panelGraficoAsistenciasLayout = new javax.swing.GroupLayout(panelGraficoAsistencias);
+        panelGraficoAsistencias.setLayout(panelGraficoAsistenciasLayout);
+        panelGraficoAsistenciasLayout.setHorizontalGroup(
+            panelGraficoAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelGraficoAsistenciasLayout.setVerticalGroup(
+            panelGraficoAsistenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelSocios3Layout = new javax.swing.GroupLayout(panelSocios3);
         panelSocios3.setLayout(panelSocios3Layout);
         panelSocios3Layout.setHorizontalGroup(
@@ -2008,7 +2110,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                 .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel16)
                                     .addComponent(jLabel15))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSocios3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2019,14 +2121,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                 .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel17)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
                 .addGap(16, 16, 16))
+            .addGroup(panelSocios3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficoAsistencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelSocios3Layout.setVerticalGroup(
             panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2051,7 +2157,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(panelSocios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel20))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelGraficoAsistencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout vistaInicioLayout = new javax.swing.GroupLayout(vistaInicio);
@@ -2139,6 +2247,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInicioActionPerformed
         cargarResumenPases();
         cargarResumenAsistencias();
+        cargarIndicadoresInformes();
+        cargarGraficoAsistencias();
 
         mostrarVista("inicio");
         cambiarColorBoton(btnInicio);
@@ -3017,6 +3127,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelContenido;
     private javax.swing.JLabel panelDeControl;
     private javax.swing.JPanel panelEntrenadores;
+    private javax.swing.JPanel panelGraficoAsistencias;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelPases;
     private javax.swing.JPanel panelSocios;
