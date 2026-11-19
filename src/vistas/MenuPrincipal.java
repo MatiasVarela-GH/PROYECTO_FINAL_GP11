@@ -1442,6 +1442,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnEliminarClase.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarClase.setFocusPainted(false);
         btnEliminarClase.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnEliminarClase.addActionListener(this::btnEliminarClaseActionPerformed);
 
         cmbEntrenador.setBackground(new java.awt.Color(255, 255, 255));
         cmbEntrenador.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -2244,6 +2245,62 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cambiarColorBoton(btnAsistencia);
     }//GEN-LAST:event_btnAsistenciaActionPerformed
 
+    private void btnEliminarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClaseActionPerformed
+
+        int fila = jTable3.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccioná una clase de la tabla.");
+            return;
+        }
+
+        // Obtener el ID directamente de la fila seleccionada
+        int filaModelo = jTable3.convertRowIndexToModel(fila);
+        int idClase = Integer.parseInt(
+                jTable3.getModel().getValueAt(filaModelo, 0).toString()
+        );
+
+        int opcion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Estás seguro de eliminar definitivamente esta clase?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (opcion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean eliminado = clasesData.eliminarClaseDefinitiva(idClase);
+
+        if (eliminado) {
+
+            cargarTablaClases();
+            cargarResumenClases();
+
+            txtDisciplina.setText("");
+            txtHorario.setText("");
+            txtCapacidad.setText("");
+            cmbEntrenador.setSelectedIndex(0);
+
+            idClaseSeleccionada = -1;
+            jTable3.clearSelection();
+
+            JOptionPane.showMessageDialog(this,
+                    "Clase eliminada correctamente.");
+
+        } else {
+
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo eliminar la clase. "
+                    + "Puede tener asistencias registradas.",
+                    "No se puede eliminar",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarClaseActionPerformed
+
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInicioActionPerformed
         cargarResumenPases();
         cargarResumenAsistencias();
@@ -2673,6 +2730,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarTablaEntrenadores();
         cargarResumenEntrenadores();
 
+        // Actualizar los datos del entrenador en Gestion de Clases
+        cargarEntrenadoresCombo();
+        cargarTablaClases();
+        cargarResumenClases();
+
         JOptionPane.showMessageDialog(this,
                 "Entrenador actualizado");
     }// GEN-LAST:event_btnActualizar1ActionPerformed
@@ -2948,13 +3010,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
             clase.setCapacidad(capacidad);
             clase.setEstado(true);
 
-            clasesData.actualizarClase(clase);
+            boolean actualizado = clasesData.actualizarClase(clase);
 
-            cargarTablaClases();
-            cargarResumenClases();
+            if (actualizado) {
 
-            JOptionPane.showMessageDialog(this,
-                    "Clase actualizada correctamente");
+                cargarTablaClases();
+                cargarResumenClases();
+
+                idClaseSeleccionada = -1;
+                jTable3.clearSelection();
+
+                JOptionPane.showMessageDialog(this,
+                        "Clase actualizada correctamente");
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo actualizar la clase. "
+                        + "Verificá la especialidad del entrenador, "
+                        + "el horario y los datos ingresados.",
+                        "Error al actualizar",
+                        JOptionPane.WARNING_MESSAGE);
+            }
 
         } catch (java.time.format.DateTimeParseException e) {
             JOptionPane.showMessageDialog(this,

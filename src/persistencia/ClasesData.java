@@ -101,9 +101,16 @@ public class ClasesData {
         // =========================
         Entrenadores entrenador = clase.getEntrenador();
 
-        if (!entrenador.getEspecialidad().equalsIgnoreCase(clase.getDisciplina())) {
-            System.out.println("Error: La especialidad del entrenador (" + entrenador.getEspecialidad()
-                    + ") no coincide con la disciplina de la clase (" + clase.getDisciplina() + ").");
+        String disciplina = clase.getDisciplina().trim().toLowerCase();
+        String especialidad = entrenador.getEspecialidad().trim().toLowerCase();
+
+        if (!disciplina.equals(especialidad)
+                && !disciplina.startsWith(especialidad + " ")) {
+
+            System.out.println(
+                    "Error: La disciplina no es compatible con la especialidad del entrenador."
+            );
+
             return;
         }
 
@@ -417,14 +424,14 @@ public class ClasesData {
 //---------------------------------------------------------------
 //           ACTUALIZAR CLASE (UPDATE)
 //---------------------------------------------------------------
-    public void actualizarClase(Clases c) {
+    public boolean actualizarClase(Clases c) {
 
         // =========================
         // CHEQUEO QUE LA CLASE NO SEA NULA
         // =========================
         if (c == null) {
             System.out.println("La clase no puede ser nula, debe asignarse una.");
-            return;
+            return false;
         }
 
         // =========================
@@ -432,7 +439,7 @@ public class ClasesData {
         // =========================
         if (c.getIdClase() <= 0) {
             System.out.println("Error: el ID de la clase no es válido.");
-            return;
+            return false;
         }
 
         // =========================
@@ -440,7 +447,7 @@ public class ClasesData {
         // =========================
         if (c.getEntrenador() == null || !c.getEntrenador().isEstado()) {
             System.out.println("Error: el entrenador debe estar asignado y activo.");
-            return;
+            return false;
         }
 
         // =========================
@@ -448,7 +455,7 @@ public class ClasesData {
         // =========================
         if (c.getDisciplina() == null || c.getDisciplina().isBlank()) {
             System.out.println("Error: la disciplina no puede estar vacía.");
-            return;
+            return false;
         }
 
         // =========================
@@ -457,15 +464,24 @@ public class ClasesData {
         if (c.getEntrenador().getEspecialidad() == null
                 || c.getEntrenador().getEspecialidad().isBlank()) {
             System.out.println("Error: el entrenador debe tener una especialidad asignada.");
-            return;
+            return false;
         }
 
         // =========================
         // CHEQUEO QUE LA ESPECIALIDAD DEL ENTRENADOR COINCIDA CON LA DISCIPLINA
         // =========================
-        if (!c.getDisciplina().equalsIgnoreCase(c.getEntrenador().getEspecialidad())) {
-            System.out.println("La disciplina del entrenador no cumple con la disciplina requerida por la clase.");
-            return;
+        String disciplina = c.getDisciplina().trim().toLowerCase();
+        String especialidad = c.getEntrenador()
+                .getEspecialidad().trim().toLowerCase();
+
+        if (!disciplina.equals(especialidad)
+                && !disciplina.startsWith(especialidad + " ")) {
+
+            System.out.println(
+                    "La disciplina debe ser compatible con la especialidad del entrenador."
+            );
+
+            return false;
         }
 
         // =========================
@@ -473,7 +489,7 @@ public class ClasesData {
         // =========================
         if (c.getHorario() == null) {
             System.out.println("Error: la clase debe tener un horario asignado.");
-            return;
+            return false;
         }
 
         // =========================
@@ -481,7 +497,7 @@ public class ClasesData {
         // =========================
         if (c.getCapacidad() <= 0) {
             System.out.println("Error: la capacidad debe ser mayor a cero.");
-            return;
+            return false;
         }
 
         // =========================
@@ -493,11 +509,12 @@ public class ClasesData {
                 c.getIdClase())) {
 
             System.out.println("Error: el entrenador ya tiene otra clase asignada en ese horario.");
-            return;
+            return false;
         }
 
-        String sql = "UPDATE clases SET Disciplina = ?, ID_Entrenador = ?, Horario = ?, Capacidad = ?, Estado = ?"
-                + " WHERE ID_Clase = ?";
+        String sql = "UPDATE clases SET Disciplina = ?, ID_Entrenador = ?, "
+                + "Horario = ?, Capacidad = ?, Estado = ? "
+                + "WHERE ID_Clase = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -512,13 +529,17 @@ public class ClasesData {
 
             if (filas > 0) {
                 System.out.println("Clase actualizada correctamente");
-            } else {
-                System.out.println("No se encontró la clase");
+                return true;
             }
 
+            System.out.println("No se encontró la clase.");
+            return false;
+
         } catch (SQLException ex) {
-            System.out.println("No se pudo actualizar la clase.");
-            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClasesData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+
+            return false;
         }
     }
 
@@ -615,6 +636,48 @@ public class ClasesData {
         }
 
         return clases;
+    }
+
+    public boolean eliminarClaseDefinitiva(int idClase) {
+
+        // Verificar si la clase tiene asistencias
+        String sqlVerificar
+                = "SELECT COUNT(*) FROM asistencias WHERE ID_Clase = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sqlVerificar)) {
+
+            ps.setInt(1, idClase);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next() && rs.getInt(1) > 0) {
+                    System.out.println(
+                            "No se puede eliminar: la clase tiene asistencias registradas."
+                    );
+                    return false;
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClasesData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+        // Eliminar definitivamente si no tiene asistencias
+        String sqlEliminar = "DELETE FROM clases WHERE ID_Clase = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sqlEliminar)) {
+
+            ps.setInt(1, idClase);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClasesData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
 }
