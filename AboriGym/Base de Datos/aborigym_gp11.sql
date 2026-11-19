@@ -53,6 +53,16 @@ CREATE TABLE `clases` (
   `Estado` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+--Volcado de datos para la tabla clases
+INSERT INTO clases
+(Disciplina, ID_Entrenador, Horario, Capacidad, Estado)
+VALUES
+('Musculacion', 1, '08:00:00', 15, 1),
+('Entrenamiento funcional', 2, '09:00:00', 12, 1),
+('Yoga', 3, '10:00:00', 10, 1),
+('Preparacion fisica', 4, '18:00:00', 15, 1),
+('Pilates', 5, '19:00:00', 10, 1);
 -- --------------------------------------------------------
 
 --
@@ -72,9 +82,14 @@ CREATE TABLE `entrenadores` (
 -- Volcado de datos para la tabla `entrenadores`
 --
 
-INSERT INTO `entrenadores` (`ID_Entrenador`, `DNI`, `Nombre`, `Apellido`, `Especialidad`, `Estado`) VALUES
-(1, '34567890', 'Francisco', 'Sanchez', 'Musculacion', 1);
-
+INSERT INTO entrenadores
+(DNI, Nombre, Apellido, Especialidad, Estado)
+VALUES
+('34567890', 'Francisco', 'Sanchez', 'Musculacion', 1),
+('40111222', 'Marcos', 'Gimenez', 'Entrenamiento funcional', 1),
+('38999111', 'Luciana', 'Torres', 'Yoga', 1),
+('42123456', 'Matias', 'Romero', 'Preparacion fisica', 1),
+('37654321', 'Carolina', 'Mendez', 'Pilates', 1);
 -- --------------------------------------------------------
 
 --
@@ -133,6 +148,17 @@ CREATE TABLE `socios` (
   `Telefono` varchar(30) NOT NULL,
   `Estado` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- Volcado de datos para la tabla socios
+INSERT INTO socios
+(DNI, Nombre, Apellido, Edad, Correo, Telefono, Estado)
+VALUES
+('40123456', 'Lucas', 'Fernandez', 25, 'lucas.fernandez@gmail.com', '2664123456', 1),
+('38987654', 'Martina', 'Gonzalez', 28, 'martina.gonzalez@gmail.com', '2664234567', 1),
+('42111222', 'Santiago', 'Rodriguez', 22, 'santiago.rodriguez@gmail.com', '2664345678', 1),
+('36777888', 'Camila', 'Lopez', 31, 'camila.lopez@gmail.com', '2664456789', 1),
+('43555666', 'Mateo', 'Martinez', 20, 'mateo.martinez@gmail.com', '2664567890', 1);
 
 --
 -- Índices para tablas volcadas
