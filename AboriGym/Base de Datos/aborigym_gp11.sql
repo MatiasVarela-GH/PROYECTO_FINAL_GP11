@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 27-10-2026 a las 21:04:39
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 19-11-2026 a las 16:10:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,9 +20,11 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `aborigym_gp11`
 --
-CREATE DATABASE IF NOT EXISTS `aborigym_gp11` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `aborigym_gp11`;
+CREATE DATABASE IF NOT EXISTS `aborigym_gp11`
+DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_general_ci;
 
+USE `aborigym_gp11`;
 -- --------------------------------------------------------
 
 --
@@ -71,8 +73,7 @@ CREATE TABLE `entrenadores` (
 --
 
 INSERT INTO `entrenadores` (`ID_Entrenador`, `DNI`, `Nombre`, `Apellido`, `Especialidad`, `Estado`) VALUES
-(1, '34567890', 'Francisco', 'Sanchez', 'Musculacion', 1),
-(2, '40485556', 'Javier', 'Sanchez', 'Musculacion', 0);
+(1, '34567890', 'Francisco', 'Sanchez', 'Musculacion', 1);
 
 -- --------------------------------------------------------
 
@@ -84,11 +85,37 @@ CREATE TABLE `pases` (
   `ID_Pase` int(11) NOT NULL,
   `ID_Socio` int(11) NOT NULL,
   `CantidadEntradas` int(11) NOT NULL,
+  `TipoPase` varchar(20) NOT NULL DEFAULT 'LIMITADO',
   `Fecha_Inicio` date NOT NULL,
   `Fecha_Fin` date NOT NULL,
   `Costo` decimal(10,2) NOT NULL,
   `Estado` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rutinas`
+--
+
+CREATE TABLE `rutinas` (
+  `ID_Rutina` int(11) NOT NULL,
+  `NombreEjercicio` varchar(100) NOT NULL,
+  `GrupoMuscular` varchar(50) NOT NULL,
+  `Descripcion` text NOT NULL,
+  `RutaAnimacion` varchar(255) DEFAULT NULL,
+  `Estado` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rutinas`
+--
+
+INSERT INTO `rutinas` (`ID_Rutina`, `NombreEjercicio`, `GrupoMuscular`, `Descripcion`, `RutaAnimacion`, `Estado`) VALUES
+(1, 'Press de banca', 'Pecho', 'Acostado en el banco, bajar la barra hasta el pecho y empujarla hacia arriba.', '/imagenes/press_banca.gif', 1),
+(2, 'Sentadilla', 'Piernas', 'Flexionar las rodillas y caderas manteniendo la espalda recta y regresar a la posición inicial.', '/imagenes/sentadilla.gif', 1),
+(3, 'Curl de biceps', 'Hombros', 'Flexionar los codos elevando las mancuernas hacia los hombros y bajar lentamente.', '/imagenes/curl_biceps.gif', 1),
+(4, 'Press militar con mancuernas', 'Hombros', 'Sentado o de pie, elevar las mancuernas desde la altura de los hombros hasta extender los brazos por encima de la cabeza.', '/imagenes/press_militar.gif', 1);
 
 -- --------------------------------------------------------
 
@@ -141,6 +168,12 @@ ALTER TABLE `pases`
   ADD KEY `ID_Socio` (`ID_Socio`);
 
 --
+-- Indices de la tabla `rutinas`
+--
+ALTER TABLE `rutinas`
+  ADD PRIMARY KEY (`ID_Rutina`);
+
+--
 -- Indices de la tabla `socios`
 --
 ALTER TABLE `socios`
@@ -168,13 +201,19 @@ ALTER TABLE `clases`
 -- AUTO_INCREMENT de la tabla `entrenadores`
 --
 ALTER TABLE `entrenadores`
-  MODIFY `ID_Entrenador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Entrenador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pases`
 --
 ALTER TABLE `pases`
   MODIFY `ID_Pase` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rutinas`
+--
+ALTER TABLE `rutinas`
+  MODIFY `ID_Rutina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `socios`
