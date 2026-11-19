@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import javax.swing.JOptionPane;
 import Vistas.VistaRutinas;
 import Vistas.VistaPases;
+import Vistas.VistaAsistencia;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -31,6 +32,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private int idRutinaSeleccionada = -1;
     private VistaRutinas vistaRutinas;
     private VistaPases vistaPases;
+    private VistaAsistencia vistaAsistencia;
 
     public MenuPrincipal(MiConexion conexion) {
         initComponents();
@@ -50,6 +52,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         vistaRutinas = new VistaRutinas(rutinaData);
         cargarTablaRutinas();
         vistaPases = new VistaPases(conexion);
+        vistaAsistencia = new VistaAsistencia(conexion);
 
         // Reorganizar las vistas del panel principal
         panelContenido.removeAll();
@@ -61,6 +64,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panelContenido.add(vistaClases, "clases");
         panelContenido.add(vistaRutinas, "rutinas");
         panelContenido.add(vistaPases.getPanelPases(), "pases");
+        panelContenido.add(vistaAsistencia.getPanelAsistencia(), "asistencia");
 
         // Mostrar inicio al abrir el programa
         mostrarVista("inicio");
@@ -240,6 +244,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnPases.setBackground(fondo);
         btnPases.setForeground(texto);
 
+        btnAsistencia.setBackground(fondo);
+        btnAsistencia.setForeground(texto);
+        
         // Resaltar el botón seleccionado
         seleccionado.setBackground(new java.awt.Color(184, 243, 74));
         seleccionado.setForeground(new java.awt.Color(34, 39, 43));
