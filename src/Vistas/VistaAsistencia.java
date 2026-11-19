@@ -19,50 +19,47 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-  
+public class VistaAsistencia extends javax.swing.JInternalFrame {
 
-    public class VistaAsistencia extends javax.swing.JInternalFrame {
+    private MiConexion conexion;
 
-        private MiConexion conexion;
+    private SocioData socioData;
+    private ClasesData clasesData;
+    private AsistenciaData asistenciaData;
+    private PaseData paseData;
 
-        private SocioData socioData;
-        private ClasesData clasesData;
-        private AsistenciaData asistenciaData;
-        private PaseData paseData;
+    private List<Socios> sociosDisponibles = new ArrayList<>();
+    private List<Clases> clasesDisponibles = new ArrayList<>();
 
-        private List<Socios> sociosDisponibles = new ArrayList<>();
-        private List<Clases> clasesDisponibles = new ArrayList<>();
-       
-        
-        public VistaAsistencia(MiConexion conexion) {
-            initComponents();
+    public VistaAsistencia(MiConexion conexion) {
+        initComponents();
 
-            this.conexion = conexion;
+        this.conexion = conexion;
 
-            socioData = new SocioData(conexion);
-            clasesData = new ClasesData(conexion);
-            asistenciaData = new AsistenciaData(conexion);
-            paseData = new PaseData(conexion);
+        socioData = new SocioData(conexion);
+        clasesData = new ClasesData(conexion);
+        asistenciaData = new AsistenciaData(conexion);
+        paseData = new PaseData(conexion);
 
-            txtPase.setEditable(false);
+        txtPase.setEditable(false);
 
-            dateChooserAsistencia.setDate(
-                    java.sql.Date.valueOf(LocalDate.now())
-            );
+        dateChooserAsistencia.setDate(
+                java.sql.Date.valueOf(LocalDate.now())
+        );
 
-            cargarSocios();
-            cargarClases();
-            limpiarInformacionPase();
-            cargarTablaAsistencias();
-        }
+        cargarSocios();
+        cargarClases();
+        limpiarInformacionPase();
+        cargarTablaAsistencias();
+    }
 
-        public javax.swing.JPanel getPanelAsistencia() {
-            return vistaPases;
-        }
+    public javax.swing.JPanel getPanelAsistencia() {
+        return vistaPases;
+    }
 
-        private void cargarSocios() {
+    private void cargarSocios() {
 
-            sociosDisponibles = socioData.listarSocios();
+        sociosDisponibles = socioData.listarSocios();
 
         cmbSocio.removeAllItems();
         cmbSocio.addItem("Seleccionar socio...");
@@ -90,6 +87,13 @@ import javax.swing.table.DefaultTableModel;
         for (Clases clase : clasesDisponibles) {
             cmbClase.addItem(clase.toString());
         }
+    }
+
+    public void actualizarListas() {
+        cargarSocios();
+        cargarClases();
+        limpiarInformacionPase();
+        cargarTablaAsistencias();
     }
 
     private Socios obtenerSocioSeleccionado() {
@@ -553,7 +557,7 @@ import javax.swing.table.DefaultTableModel;
     }//GEN-LAST:event_cmbSocioActionPerformed
 
     private void cmbClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClaseActionPerformed
- 
+
     }//GEN-LAST:event_cmbClaseActionPerformed
 
     private void dateChooserAsistencia(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateChooserAsistencia
@@ -564,7 +568,7 @@ import javax.swing.table.DefaultTableModel;
 
     private void tablaAsistenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAsistenciasMouseClicked
 
-        
+
     }//GEN-LAST:event_tablaAsistenciasMouseClicked
 
 

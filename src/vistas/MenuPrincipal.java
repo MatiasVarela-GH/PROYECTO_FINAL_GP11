@@ -2243,6 +2243,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPasesActionPerformed
 
     private void btnAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsistenciaActionPerformed
+        vistaAsistencia.actualizarListas();
+
         mostrarVista("asistencia");
         cambiarColorBoton(btnAsistencia);
     }//GEN-LAST:event_btnAsistenciaActionPerformed
