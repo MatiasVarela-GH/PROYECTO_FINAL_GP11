@@ -67,9 +67,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarResumenPases();
         cargarResumenAsistencias();
         cargarIndicadoresInformes();
-        cargarGraficoAsistencias();
+
         
         graficoAsistencias = new GraficoAsistencias();
+        
+        cargarGraficoAsistencias();
 
         panelGraficoAsistencias.setLayout(
                 new java.awt.BorderLayout()
@@ -2912,12 +2914,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
             clase.setCapacidad(capacidad);
             clase.setEstado(true);
 
-            clasesData.guardarClase(clase);
-            cargarTablaClases();
-            cargarResumenClases();
+            boolean guardada = clasesData.guardarClase(clase);
 
-            JOptionPane.showMessageDialog(this,
-                    "Clase guardada correctamente");
+            if (guardada) {
+                cargarTablaClases();
+                cargarResumenClases();
+
+                JOptionPane.showMessageDialog(this,
+                        "Clase guardada correctamente");
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo guardar la clase. Verifica los datos.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         } catch (java.time.format.DateTimeParseException e) {
             JOptionPane.showMessageDialog(this,

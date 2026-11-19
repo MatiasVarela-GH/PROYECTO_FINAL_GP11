@@ -492,18 +492,19 @@ public class VistaPases extends javax.swing.JInternalFrame {
         boolean actualizado = paseData.actualizarPase(pase);
 
         if (actualizado) {
-            JOptionPane.showMessageDialog(this, "Pase actualizado correctamente.");
+            JOptionPane.showMessageDialog(this,
+                    "Pase actualizado correctamente.");
+
             cargarTablaPases();
             idPaseSeleccionado = -1;
+            jTable3.clearSelection();
+
         } else {
             JOptionPane.showMessageDialog(this,
-                    "No se pudo actualizar el pase. Revisa la consola.");
+                    "No se pudo actualizar el pase. Revisa la consola.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-
-        JOptionPane.showMessageDialog(this,
-                "Se solicito la actualización. Verifica el resultado en la tabla.");
-
-        cargarTablaPases();
 
     }//GEN-LAST:event_btnActualizar2ActionPerformed
 

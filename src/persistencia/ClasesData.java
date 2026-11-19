@@ -29,117 +29,98 @@ public class ClasesData {
     //          VALIDAR LA ESPECIALIDAD DEL ENTRENADOR Y HORARIOS ANTES
     //          DE GUARDAR.
     //---------------------------------------------------------------
-    public void guardarClase(Clases clase) {
+    public boolean guardarClase(Clases clase) {
 
-        // =========================
-        // CHEQUEO QUE LA CLASE NO SEA NULA
-        // =========================
-        if (clase == null) {
-            System.out.println("Error: La clase no puede ser nula.");
-            return;
+        if (con == null || clase == null) {
+            System.out.println("No hay conexion o la clase es nula.");
+            return false;
         }
 
-        // =========================
-        // CHEQUEO QUE EL ENTRENADOR NO SEA NULO
-        // =========================
-        if (clase.getEntrenador() == null) {
-            System.out.println("El entrenador no puede ser nulo, debe ser asignado uno.");
-            return;
+        if (clase.getEntrenador() == null
+                || !clase.getEntrenador().isEstado()) {
+            System.out.println("Debe asignar un entrenador activo.");
+            return false;
         }
 
-        // =========================
-        // CHEQUEO QUE EL ENTRENADOR NO ESTÉ DADO DE BAJA
-        // =========================
-        if (!clase.getEntrenador().isEstado()) {
-            System.out.println("El entrenador debe estar activo.");
-            return;
-        }
-
-        // =========================
-        // CHEQUEO QUE EL HORARIO NO SEA NULL
-        // =========================
         if (clase.getHorario() == null) {
-            System.out.println("Error: La clase debe tener un horario asignado.");
-            return;
+            System.out.println("La clase debe tener un horario.");
+            return false;
         }
 
-        // =========================
-        // CHEQUEO QUE LA DISCIPLINA NO SEA NULA
-        // =========================
-        if (clase.getDisciplina() == null || clase.getDisciplina().isBlank()) {
-            System.out.println("Error: La disciplina no puede estar vacía.");
-            return;
+        if (clase.getDisciplina() == null
+                || clase.getDisciplina().isBlank()) {
+            System.out.println("La disciplina no puede estar vacia.");
+            return false;
         }
 
-        // =========================
-        // CHEQUEO QUE LA CAPACIDAD SEA > 0
-        // =========================
         if (clase.getCapacidad() <= 0) {
-            System.out.println("Error: La capacidad debe ser mayor a cero.");
-            return;
+            System.out.println("La capacidad debe ser mayor a cero.");
+            return false;
         }
 
-        // =========================
-        // CHEQUEO QUE EL ENTRENADOR NO TENGA SU ESPECIALIDAD NULA / VACÍA
-        // =========================
-        if (clase.getEntrenador().getEspecialidad() == null || clase.getEntrenador().getEspecialidad().isBlank()) {
-            System.out.println("Error: El entrenador debe tener una especialidad asignada.");
-            return;
-        }
-
-        // =========================
-        // CHEQUEO QUE EL ENTRENADOR NO TENGA OTRA CLASE EN EL MISMO HORARIO
-        // =========================
-        if (existeHorarioEntrenador(clase.getEntrenador().getIdEntrenador(), clase.getHorario())) {
-            System.out.println("Error: El entrenador ya tiene una clase asignada en ese horario.");
-            return;
-        }
-
-        // =========================
-        // Validación: la especialidad del entrenador debe
-        // coincidir con la disciplina de la clase
-        // =========================
         Entrenadores entrenador = clase.getEntrenador();
 
+        if (entrenador.getEspecialidad() == null
+                || entrenador.getEspecialidad().isBlank()) {
+            System.out.println("El entrenador debe tener especialidad.");
+            return false;
+        }
+
         String disciplina = clase.getDisciplina().trim().toLowerCase();
-        String especialidad = entrenador.getEspecialidad().trim().toLowerCase();
+        String especialidad = entrenador.getEspecialidad()
+                .trim().toLowerCase();
 
         if (!disciplina.equals(especialidad)
                 && !disciplina.startsWith(especialidad + " ")) {
-
             System.out.println(
-                    "Error: La disciplina no es compatible con la especialidad del entrenador."
+                    "La disciplina no es compatible con la especialidad."
             );
-
-            return;
+            return false;
         }
 
-        String sql = "INSERT INTO clases(Disciplina, ID_Entrenador, Horario, Capacidad, Estado)"
-                + " VALUES (?,?,?,?,?)";
+        if (existeHorarioEntrenador(
+                entrenador.getIdEntrenador(),
+                clase.getHorario())) {
+            System.out.println(
+                    "El entrenador ya tiene una clase en ese horario."
+            );
+            return false;
+        }
 
-        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String sql = "INSERT INTO clases "
+                + "(Disciplina, ID_Entrenador, Horario, Capacidad, Estado) "
+                + "VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = con.prepareStatement(
+                sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, clase.getDisciplina());
-            ps.setInt(2, clase.getEntrenador().getIdEntrenador());
+            ps.setInt(2, entrenador.getIdEntrenador());
             ps.setTime(3, Time.valueOf(clase.getHorario()));
             ps.setInt(4, clase.getCapacidad());
             ps.setBoolean(5, clase.isEstado());
 
-            ps.executeUpdate();
+            int filas = ps.executeUpdate();
+
+            if (filas == 0) {
+                return false;
+            }
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
                     clase.setIdClase(rs.getInt(1));
                 } else {
-                    System.out.println("No se pudo obtener el ID de la clase");
+                    return false;
                 }
             }
 
-            System.out.println("Clase guardada correctamente");
+            System.out.println("Clase guardada correctamente.");
+            return true;
 
         } catch (SQLException ex) {
-            System.out.println("No se pudo insertar la clase");
-            Logger.getLogger(ClasesData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClasesData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 
