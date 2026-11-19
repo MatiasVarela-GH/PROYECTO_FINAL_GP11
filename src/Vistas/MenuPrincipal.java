@@ -68,9 +68,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cargarResumenAsistencias();
         cargarIndicadoresInformes();
 
-        
         graficoAsistencias = new GraficoAsistencias();
-        
+
         cargarGraficoAsistencias();
 
         panelGraficoAsistencias.setLayout(
@@ -109,15 +108,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         for (Socios socio : socioData.listarSocios()) {
 
-            modelo.addRow(new Object[] {
-                    socio.getIdSocio(),
-                    socio.getDni(),
-                    socio.getNombre(),
-                    socio.getApellido(),
-                    socio.getEdad(),
-                    socio.getCorreo(),
-                    socio.getTelefono(),
-                    socio.isEstado() ? "Activo" : "Inactivo"
+            modelo.addRow(new Object[]{
+                socio.getIdSocio(),
+                socio.getDni(),
+                socio.getNombre(),
+                socio.getApellido(),
+                socio.getEdad(),
+                socio.getCorreo(),
+                socio.getTelefono(),
+                socio.isEstado() ? "Activo" : "Inactivo"
             });
         }
     }
@@ -143,10 +142,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 totalActivos++;
 
                 if (mostrados < 5) {
-                    modelo.addRow(new Object[] {
-                            socio.getNombre(),
-                            socio.getApellido(),
-                            socio.getDni()
+                    modelo.addRow(new Object[]{
+                        socio.getNombre(),
+                        socio.getApellido(),
+                        socio.getDni()
                     });
 
                     mostrados++;
@@ -168,13 +167,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         modelo.addColumn("Estado");
 
         for (Entrenadores e : entrenadorData.listarEntrenadores()) {
-            modelo.addRow(new Object[] {
-                    e.getIdEntrenador(),
-                    e.getDni(),
-                    e.getNombre(),
-                    e.getApellido(),
-                    e.getEspecialidad(),
-                    e.isEstado() ? "Activo" : "Inactivo"
+            modelo.addRow(new Object[]{
+                e.getIdEntrenador(),
+                e.getDni(),
+                e.getNombre(),
+                e.getApellido(),
+                e.getEspecialidad(),
+                e.isEstado() ? "Activo" : "Inactivo"
             });
         }
 
@@ -203,10 +202,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 totalActivos++;
 
                 if (mostrados < 5) {
-                    modelo.addRow(new Object[] {
-                            e.getNombre(),
-                            e.getApellido(),
-                            e.getEspecialidad()
+                    modelo.addRow(new Object[]{
+                        e.getNombre(),
+                        e.getApellido(),
+                        e.getEspecialidad()
                     });
 
                     mostrados++;
@@ -226,12 +225,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         modelo.addColumn("Estado");
 
         for (entidades.Rutina r : rutinaData.listarRutinas()) {
-            modelo.addRow(new Object[] {
-                    r.getIdRutina(),
-                    r.getNombreEjercicio(),
-                    r.getGrupoMuscular(),
-                    r.getDescripcion(),
-                    r.isEstado() ? "Activo" : "Inactivo"
+            modelo.addRow(new Object[]{
+                r.getIdRutina(),
+                r.getNombreEjercicio(),
+                r.getGrupoMuscular(),
+                r.getDescripcion(),
+                r.isEstado() ? "Activo" : "Inactivo"
             });
         }
     }
@@ -270,13 +269,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         btnRutinas.setBackground(fondo);
         btnRutinas.setForeground(texto);
-        
+
         btnPases.setBackground(fondo);
         btnPases.setForeground(texto);
 
         btnAsistencia.setBackground(fondo);
         btnAsistencia.setForeground(texto);
-        
+
         // Resaltar el botón seleccionado
         seleccionado.setBackground(new java.awt.Color(184, 243, 74));
         seleccionado.setForeground(new java.awt.Color(34, 39, 43));
@@ -309,14 +308,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         for (Clases c : clasesData.listarClases()) {
 
-            modelo.addRow(new Object[] {
-                    c.getIdClase(),
-                    c.getDisciplina(),
-                    c.getEntrenador().getApellido() + ", "
-                            + c.getEntrenador().getNombre(),
-                    c.getHorario(),
-                    c.getCapacidad(),
-                    c.isEstado() ? "Activo" : "Inactivo"
+            modelo.addRow(new Object[]{
+                c.getIdClase(),
+                c.getDisciplina(),
+                c.getEntrenador().getApellido() + ", "
+                + c.getEntrenador().getNombre(),
+                c.getHorario(),
+                c.getCapacidad(),
+                c.isEstado() ? "Activo" : "Inactivo"
             });
         }
 
@@ -340,10 +339,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             if (mostrados < 5) {
 
-                modelo.addRow(new Object[] {
-                        c.getDisciplina(),
-                        c.getHorario(),
-                        c.getEntrenador().getApellido()
+                modelo.addRow(new Object[]{
+                    c.getDisciplina(),
+                    c.getHorario(),
+                    c.getEntrenador().getApellido()
                 });
 
                 mostrados++;
@@ -352,7 +351,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel9.setText("Total de clases activas: " + totalActivas);
     }
-    
+
     private void cargarResumenPases() {
 
         DefaultTableModel modelo
@@ -510,6 +509,75 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
 
         graficoAsistencias.actualizarDatos(cantidades);
+    }
+
+    // VALIDAR NOMBRE Y APELLIDO
+    private boolean validarTexto(String texto) {
+        return texto.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]+");
+    }
+
+    // VALIDACIONES DE SOCIOS
+    private String validarDatosSocio(String dni, String nombre,
+            String apellido, String correo, String telefono) {
+
+        if (!dni.matches("\\d{7,8}")) {
+            return "El DNI debe contener entre 7 y 8 números.";
+        }
+
+        if (!validarTexto(nombre)) {
+            return "El nombre solo puede contener letras.";
+        }
+
+        if (!validarTexto(apellido)) {
+            return "El apellido solo puede contener letras.";
+        }
+
+        if (!correo.matches("^[\\w.+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            return "Ingresá un correo electrónico válido.";
+        }
+
+        if (!telefono.matches("\\d{8,15}")) {
+            return "El teléfono debe contener entre 8 y 15 números.";
+        }
+
+        return null;
+    }
+
+    // VALIDACIONES DE ENTRENADORES
+    private String validarDatosEntrenador(String dni, String nombre,
+            String apellido, String especialidad) {
+
+        if (!dni.matches("\\d{7,8}")) {
+            return "El DNI debe contener entre 7 y 8 números.";
+        }
+
+        if (!validarTexto(nombre)) {
+            return "El nombre solo puede contener letras.";
+        }
+
+        if (!validarTexto(apellido)) {
+            return "El apellido solo puede contener letras.";
+        }
+
+        if (especialidad == null || especialidad.trim().isEmpty()) {
+            return "Seleccioná una especialidad.";
+        }
+
+        return null;
+    }
+
+    // VALIDACIONES DE CLASES
+    private String validarDatosClase(String disciplina) {
+
+        if (disciplina == null || disciplina.trim().isEmpty()) {
+            return "Ingresá una disciplina.";
+        }
+
+        if (!validarTexto(disciplina)) {
+            return "La disciplina solo puede contener letras y espacios.";
+        }
+
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -2499,17 +2567,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 return;
             }
 
+            String error = validarDatosSocio(
+                    dni, nombre, apellido, correo, telefono
+            );
+
+            if (error != null) {
+                JOptionPane.showMessageDialog(this, error);
+                return;
+            }
+
             int edad = Integer.parseInt(edadTexto);
 
             if (edad <= 0) {
                 javax.swing.JOptionPane.showMessageDialog(this,
                         "Ingresa una edad valida");
-                return;
-            }
-
-            if (socioData.buscarSocioPorDni(dni) != null) {
-                javax.swing.JOptionPane.showMessageDialog(this,
-                        "Ya existe un socio con ese DNI");
                 return;
             }
 
@@ -2579,6 +2650,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     || edadTexto.isEmpty() || correo.isEmpty() || telefono.isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(this,
                         "Completa todos los campos");
+                return;
+            }
+
+            String error = validarDatosSocio(
+                    dni, nombre, apellido, correo, telefono
+            );
+
+            if (error != null) {
+                JOptionPane.showMessageDialog(this, error);
                 return;
             }
 
@@ -2705,18 +2785,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         String dni = txtDni1.getText().trim();
         String nombre = txtNombre1.getText().trim();
         String apellido = txtApellido1.getText().trim();
-        String especialidad = cmbEspecialidad.getSelectedItem().toString();
 
-        if (dni.isEmpty() || nombre.isEmpty()
-                || apellido.isEmpty()) {
+        if (cmbEspecialidad.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this,
-                    "Completa todos los campos");
+                    "Seleccioná una especialidad.");
             return;
         }
 
-        if (!dni.matches("\\d{7,8}")) {
-            JOptionPane.showMessageDialog(this,
-                    "Ingresa un DNI valido");
+        String especialidad = cmbEspecialidad.getSelectedItem().toString();
+
+        String error = validarDatosEntrenador(
+                dni, nombre, apellido, especialidad
+        );
+
+        if (error != null) {
+            JOptionPane.showMessageDialog(this, error);
             return;
         }
 
@@ -2765,7 +2848,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             cargarTablaEntrenadores();
             cargarResumenEntrenadores();
-            
+
             txtDni1.setText("");
             txtNombre1.setText("");
             txtApellido1.setText("");
@@ -2834,15 +2917,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
             return;
         }
 
-        if (!dni.matches("\\d{7,8}")) {
-            JOptionPane.showMessageDialog(this,
-                    "Ingresa un DNI valido");
-            return;
-        }
+        String error = validarDatosEntrenador(
+                dni, nombre, apellido, especialidad
+        );
 
-        if (entrenadorData.buscarEntrenadorPorDni(dni) != null) {
-            JOptionPane.showMessageDialog(this,
-                    "Ya existe un entrenador con ese DNI");
+        if (error != null) {
+            JOptionPane.showMessageDialog(this, error);
             return;
         }
 
@@ -2875,6 +2955,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this,
                     "Completa todos los campos");
+            return;
+        }
+
+        String error = validarDatosClase(disciplina);
+
+        if (error != null) {
+            JOptionPane.showMessageDialog(this, error);
             return;
         }
 
@@ -2980,6 +3067,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this,
                     "Completa todos los campos");
+            return;
+        }
+
+        String error = validarDatosClase(disciplina);
+
+        if (error != null) {
+            JOptionPane.showMessageDialog(this, error);
             return;
         }
 
