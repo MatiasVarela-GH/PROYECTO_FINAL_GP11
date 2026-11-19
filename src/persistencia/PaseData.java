@@ -443,4 +443,36 @@ public class PaseData {
             return false;
         }
     }
+
+    // ALTA LOGICA DE PASE
+    public boolean darDeAltaPase(int idPase) {
+
+        if (con == null) {
+            System.out.println("No hay conexion con la base de datos.");
+            return false;
+        }
+
+        String sql = "UPDATE pases SET Estado = 1 "
+                + "WHERE ID_Pase = ? AND Estado = 0";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idPase);
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("Pase dado de alta correctamente.");
+                return true;
+            } else {
+                System.out.println("No se encontro el pase o ya esta activo.");
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PaseData.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }

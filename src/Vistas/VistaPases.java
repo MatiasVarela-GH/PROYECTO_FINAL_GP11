@@ -112,6 +112,7 @@ public class VistaPases extends javax.swing.JInternalFrame {
         lblCosto1 = new javax.swing.JLabel();
         lblCosto2 = new javax.swing.JLabel();
         dateChooserInicio = new com.toedter.calendar.JDateChooser();
+        btnAlta2 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(650, 450));
 
@@ -231,7 +232,7 @@ public class VistaPases extends javax.swing.JInternalFrame {
         btnBaja2.setFocusPainted(false);
         btnBaja2.setPreferredSize(new java.awt.Dimension(140, 40));
         btnBaja2.addActionListener(this::btnBaja2ActionPerformed);
-        vistaPases.add(btnBaja2, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 723, -1, -1));
+        vistaPases.add(btnBaja2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 720, -1, -1));
 
         cmbSocio.setBackground(new java.awt.Color(255, 255, 255));
         cmbSocio.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -267,6 +268,16 @@ public class VistaPases extends javax.swing.JInternalFrame {
         dateChooserInicio.addPropertyChangeListener(this::dateChooserInicio);
         vistaPases.add(dateChooserInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 156, 290, 30));
 
+        btnAlta2.setBackground(new java.awt.Color(204, 255, 102));
+        btnAlta2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAlta2.setForeground(new java.awt.Color(51, 51, 51));
+        btnAlta2.setText("Dar de alta");
+        btnAlta2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlta2.setFocusPainted(false);
+        btnAlta2.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnAlta2.addActionListener(this::btnAlta2ActionPerformed);
+        vistaPases.add(btnAlta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 720, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -279,7 +290,7 @@ public class VistaPases extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGap(0, 782, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -628,9 +639,33 @@ public class VistaPases extends javax.swing.JInternalFrame {
         calcularVencimiento();
     }//GEN-LAST:event_dateChooserInicio
 
+    private void btnAlta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlta2ActionPerformed
+
+        if (idPaseSeleccionado == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccioná un pase de la tabla.");
+            return;
+        }
+
+        int fila = jTable3.getSelectedRow();
+
+        if (fila == -1) {
+            return;
+        }
+
+        String estado = jTable3.getValueAt(fila, 7).toString();
+
+        if (estado.equals("Activo")) {
+            JOptionPane.showMessageDialog(this,
+                    "El pase ya se encuentra activo.");
+            return;
+        }
+    }//GEN-LAST:event_btnAlta2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar2;
+    private javax.swing.JButton btnAlta2;
     private javax.swing.JButton btnBaja2;
     private javax.swing.JButton btnGuardarPase;
     private javax.swing.JButton btnLimpiar2;
